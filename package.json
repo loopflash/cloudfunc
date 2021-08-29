@@ -1,0 +1,28 @@
+{
+  "name": "cloudfunc",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Loopflash"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loopflash/cloudfunc"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "dependency-graph": "^0.11.0",
+    "inversify": "^5.1.1",
+    "tslib": "^2.3.1"
+  }
+}
