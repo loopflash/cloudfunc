@@ -1,7 +1,9 @@
 import { 
     Container as InversifyContainer,
-    interfaces as InversifyInterfaces
+    inject,
+    injectable
 } from "inversify";
+import { nanoid } from 'nanoid';
 import { DepGraph } from 'dependency-graph';
 
 export type BindType = string | symbol | {new (...args : any[]) : any}
@@ -20,7 +22,7 @@ export class DependencyContainer{
 
     private _container : InversifyContainer;
     private _mapBind : {
-        [key in string]: DependencyElementObject
+        [key in string]: DependencyElement
     } = {} as any;
     private _onlyKeysDependencies : string[] = [];
     private _graph : DepGraph<any> = new DepGraph();
@@ -28,7 +30,9 @@ export class DependencyContainer{
     constructor(
         private _dependencyList : DependencyElement[]
     ){
-        this._container = new InversifyContainer();
+        this._container = new InversifyContainer({
+            defaultScope: 'Singleton'
+        });
     }
 
     static makeContainer(
@@ -40,6 +44,7 @@ export class DependencyContainer{
     async execute(){
         this.createNodes();
         this.createDependencies();
+        this.insertDependenciesFactory();
     }
 
     private getKeyForMap(element : BindType){
@@ -55,7 +60,7 @@ export class DependencyContainer{
                 /***
                  * TODO: get metadata id from @injectable
                  */
-                key = 'a';
+                key = Reflect.getMetadata('proto:id', element);
                 break;
             default:
                 throw new Error();
@@ -82,49 +87,72 @@ export class DependencyContainer{
                 }
                 this._graph.addNode(key);
             }
+            if(
+                typeof element === 'function' &&
+                    element.constructor
+            ){
+                const key = this.getKeyForMap(element);
+                this._mapBind[
+                    key
+                ] = element;
+                this._graph.addNode(key);
+            }
         });
     }
 
     private createDependencies(){
         this._onlyKeysDependencies.forEach((element) => {
             const ref = this._mapBind[element];
-            (ref.factoryDeps ?? []).forEach((item) => {
-                const keyTo = this.getKeyForMap(item);
-                this._graph.addDependency(element, keyTo);
-            });
+            if(!(typeof ref === 'function')){
+                (ref.factoryDeps ?? []).forEach((item) => {
+                    const keyTo = this.getKeyForMap(item);
+                    this._graph.addDependency(element, keyTo);
+                });
+            }
         });
     }
 
-    private sendToContainer(){
-        this._dependencyList.forEach((element) => {
+    private insertDependenciesFactory(){
+        const nodes = this.graph.overallOrder();
+        nodes.forEach((element) => {
+            const ref = this._mapBind[element];
             if(
-                typeof element === 'object' && 
-                    element !== null &&
-                    ('bind' in element)
+                typeof ref === 'object' && 
+                    ref !== null &&
+                    ('bind' in ref) &&
+                    ('to' in ref)
             ){
-                this._container.bind<any>(
-                    element.bind
-                ).to(element.to);
-                return;
-            }
-            if(
-                typeof element === 'object' && 
-                    element !== null &&
-                    ('constant' in element)
+                this._container.bind(
+                    ref.bind
+                ).to(ref.to);
+            }else if(
+                typeof ref === 'object' && 
+                    ref !== null &&
+                    ('bind' in ref) &&
+                    ('factory' in ref)
             ){
-                this._container.bind<any>(
-                    element.bind
-                ).toConstantValue(element.constant);
-                return;
-            }
-            if(
-                typeof element === 'function' &&
-                    element.constructor
+                const hasDeps = ref.factoryDeps instanceof Array &&
+                                    ref.factoryDeps.length > 0;
+                const deps = (hasDeps ? ref.factoryDeps : []).map((_element) => {
+                    return this._container.get(
+                        this.getKeyForMap(_element)
+                    );
+                });
+                const fnFactory = ref.factory.bind.apply(
+                    ref.factory, 
+                    [null].concat(deps)
+                );
+                this._container.bind(
+                    ref.bind
+                ).to(fnFactory);
+            }else if(
+                typeof ref === 'function'
             ){
-                this._container.bind<any>(
-                    element
+                this._container.bind(
+                    ref
                 ).toSelf();
-                return;
+            }else{
+                throw new Error();
             }
         });
     }
@@ -133,4 +161,22 @@ export class DependencyContainer{
         return this._graph;
     }
 
+}
+
+/***
+ * Decorator for Injectable
+ */
+
+export function Injectable(){
+    return (target : any) => {
+        Reflect.defineMetadata('proto:id', nanoid(8), target);
+        injectable()(target);
+    }
+}
+
+/***
+ * Decorator for Inject
+ */
+ export function Inject(key : string | symbol){
+    return inject(key);
 }

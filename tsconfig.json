@@ -16,6 +16,10 @@
     "allowJs": true,
     "baseUrl": "./src",
     "outDir": "./dist",
+    "types": [
+      "reflect-metadata",
+      "@types/jest"
+    ]
   },
   "include": [
     "./src/**/*",
