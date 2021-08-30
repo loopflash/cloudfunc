@@ -3,7 +3,7 @@ import {DependencyContainer, Injectable} from '../../src/lib/internal';
 
 describe('Test DI', () => {
 
-    test('Should return dependencies in order', () => {
+    test('Should return dependencies in order', async () => {
         const instance = DependencyContainer.makeContainer(
             [
                 {
@@ -12,29 +12,28 @@ describe('Test DI', () => {
                 },
                 {
                     bind: 'd',
-                    factoryDeps: [
-                        'c'
-                    ]
+                    factory: async () => {},
+                    factoryDeps: ['c']
                 },
                 {
                     bind: 'b',
-                    to: 2
+                    to: 1
                 },
                 {
                     bind: 'c',
-                    factoryDeps: [
-                        'a'
-                    ]
+                    factory: async () => {},
+                    factoryDeps: ['a']
                 },
                 {
                     bind: 'e',
-                    factoryDeps: [
-                        'd'
-                    ]
+                    factory: async () => {
+                        return () => {}
+                    },
+                    factoryDeps: ['d']
                 },
             ]
         );
-        instance.execute();
+        await instance.execute();
         const nodes = instance.graph.overallOrder();
         expect(nodes).toStrictEqual([ 'b', 'a', 'c', 'd', 'e' ])
     });
@@ -45,9 +44,6 @@ describe('Test DI', () => {
         expect(
             Reflect.hasMetadata('proto:id', anonClass)
         ).toBe(true);
-        expect(
-            Reflect.hasMetadata('proto:scope', anonClass)
-        ).toBe(true)
     });
 
 });

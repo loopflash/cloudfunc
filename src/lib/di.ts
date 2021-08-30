@@ -93,7 +93,10 @@ export class DependencyContainer{
                 const key = this.getKeyForMap(element);
                 this._mapBind[
                     key
-                ] = element;
+                ] = {
+                    bind: element,
+                    to: element
+                };
                 this._graph.addNode(key);
             }
         });
@@ -121,9 +124,17 @@ export class DependencyContainer{
                     ('bind' in ref) &&
                     ('to' in ref)
             ){
-                this._container.bind(
-                    ref.bind
-                ).to(ref.to);
+                if(
+                    typeof ref.to === 'function'
+                ){
+                    this._container.bind(
+                        ref.bind
+                    ).to(ref.to);
+                }else{
+                    this._container.bind(
+                        ref.bind
+                    ).toConstantValue(ref.to);
+                }
             }else if(
                 typeof ref === 'object' && 
                     ref !== null &&
@@ -133,20 +144,15 @@ export class DependencyContainer{
                 const hasDeps = ref.factoryDeps instanceof Array &&
                                     ref.factoryDeps.length > 0;
                 const deps = (hasDeps ? ref.factoryDeps : []).map((_element) => {
+                    const getBind = this._mapBind[this.getKeyForMap(_element)];
                     return this._container.get(
-                        this.getKeyForMap(_element)
+                        getBind.bind
                     );
                 });
                 const resolve = await ref.factory.apply(null, deps);
                 this._container.bind(
                     ref.bind
-                ).to(resolve);
-            }else if(
-                typeof ref === 'function'
-            ){
-                this._container.bind(
-                    ref
-                ).toSelf();
+                ).toConstantValue(resolve);
             }else{
                 throw new Error();
             }
