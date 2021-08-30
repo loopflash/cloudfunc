@@ -11,7 +11,6 @@ export type BindType = string | symbol | {new (...args : any[]) : any}
 export type DependencyElementObject = {
     bind: BindType,
     to?: any,
-    constant?: any
     factory?: (...args : any[]) => any,
     factoryDeps?: BindType[],
 }
@@ -44,7 +43,7 @@ export class DependencyContainer{
     async execute(){
         this.createNodes();
         this.createDependencies();
-        this.insertDependenciesFactory();
+        await this.resolveDependencies();
     }
 
     private getKeyForMap(element : BindType){
@@ -112,9 +111,9 @@ export class DependencyContainer{
         });
     }
 
-    private insertDependenciesFactory(){
+    private async resolveDependencies(){
         const nodes = this.graph.overallOrder();
-        nodes.forEach((element) => {
+        for(const element of nodes){        
             const ref = this._mapBind[element];
             if(
                 typeof ref === 'object' && 
@@ -138,13 +137,10 @@ export class DependencyContainer{
                         this.getKeyForMap(_element)
                     );
                 });
-                const fnFactory = ref.factory.bind.apply(
-                    ref.factory, 
-                    [null].concat(deps)
-                );
+                const resolve = await ref.factory.apply(null, deps);
                 this._container.bind(
                     ref.bind
-                ).to(fnFactory);
+                ).to(resolve);
             }else if(
                 typeof ref === 'function'
             ){
@@ -154,11 +150,15 @@ export class DependencyContainer{
             }else{
                 throw new Error();
             }
-        });
+        }
     }
 
     public get graph(){
         return this._graph;
+    }
+
+    public get container(){
+        return this._container;
     }
 
 }
