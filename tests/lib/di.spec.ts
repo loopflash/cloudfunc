@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import {DependencyContainer, Injectable} from '../../src/lib/internal';
+import {DependencyContainer, Inject, Injectable} from '../../src/lib/internal';
 
 describe('Test DI', () => {
 
@@ -71,6 +71,43 @@ describe('Test DI', () => {
         expect(typeof value).toBe('function');
         const result = value();
         expect(result).toBe(2);
+    });
+
+    test('Should resolve nested dependencies', async () => {
+        @Injectable()
+        class ServiceA{
+            far(){
+                return 5;
+            }
+        }
+
+        @Injectable()
+        class ServiceB{
+            constructor(
+                private _service : ServiceA
+            ){}
+
+            bar(){
+                return this._service.far();
+            }
+        }
+        const instance = DependencyContainer.makeContainer(
+            [
+                ServiceB,
+                ServiceA,
+                {
+                    bind: 'c',
+                    factory: async (arg1 : ServiceB) => {
+                        return arg1.bar();
+                    },
+                    factoryDeps: [ServiceB]
+                }
+            ]
+        );
+        await instance.execute();
+        const container = instance.container;
+        const value = container.get('c')
+        expect(value).toBe(5);
     });
 
     test('Should insert metadata in decorator of @Injectable', () => {
