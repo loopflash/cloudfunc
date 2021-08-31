@@ -14,6 +14,10 @@ export interface IEntryPoint{
     entry() : Promise<any>;
 }
 
+export interface IInterceptor{
+    intercept(error : any) : Promise<any>;
+}
+
 // export abstract class ContainerExecutor{
 //     public _event : any;
 //     public _aditionalEvent : any;
@@ -34,12 +38,15 @@ export interface IEntryPoint{
 //     };
 // }
 
+export type Interceptor = ({new (...args : any[]) : IInterceptor}) | ((error : any) => Promise<any>);
+
 export abstract class ContainerProcess{
 
+    private _containerDI : DependencyContainer;
     protected _dependencyList : DependencyElement[];
     protected _provider : Provider;
     protected _entryPoint : {new (...args : any[]) : IEntryPoint};
-    private _containerDI : DependencyContainer;
+    protected _interceptor : Interceptor;
 
     private async process() : Promise<any>{
         try{
@@ -47,11 +54,28 @@ export abstract class ContainerProcess{
             const instance = this._containerDI.container.get<IEntryPoint>(
                 this._entryPoint
             );
-            const eventObject = await instance.entry.apply(instance, beforeEventObject);
+            const eventObject = await instance.entry.apply(
+                instance, 
+                beforeEventObject
+            );
             const afterEventObject = await this._provider.afterEntry(eventObject);
             return afterEventObject;
         }catch(e : any){
-
+            if(
+                typeof this._interceptor === 'function' &&
+                this._interceptor.constructor
+            ){
+                return await this._containerDI.container
+                            .get<IInterceptor>(this._interceptor)
+                            .intercept(e);
+            }else if(
+                typeof this._interceptor === 'function' &&
+                !this._interceptor.constructor
+            ){
+                return await (this._interceptor as (error : any) => Promise<any>)(e);
+            }else{
+                throw e;
+            }
         }
     }
 
@@ -61,6 +85,12 @@ export abstract class ContainerProcess{
         );
         await this._containerDI.execute();
         this._containerDI.container.bind(this._entryPoint).toSelf();
+        if(
+            typeof this._interceptor === 'function' &&
+            this._interceptor.constructor
+        ){
+            this._containerDI.container.bind(this._interceptor).toSelf();
+        }
     }
 
     async execute(){
@@ -77,6 +107,10 @@ export class Container extends ContainerProcess{
     // ){
     //     this._validatorSchema.push(validatorSchema);
     // }
+
+    addInterceptor(interceptor : Interceptor){
+        this._interceptor = interceptor;
+    }
 
     addProvider(provider : Provider){
         this._provider = provider;
@@ -98,14 +132,6 @@ export class Container extends ContainerProcess{
 
 export interface IValidatorSchema{
     validate(event : any) : Promise<void>;
-}
-
-/***********
- * Interceptor Code
- */
-
-export interface IInterceptor<T>{
-    intercept(error : any) : Promise<T>;
 }
 
 export type Guard<T> = {
