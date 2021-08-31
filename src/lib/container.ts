@@ -1,92 +1,92 @@
 import { 
     AwsProvider, 
     ValidatorException, 
-    DependencyElement 
+    DependencyElement, 
+    DependencyContainer
 } from "./internal";
 
-export enum Provider{
-    AWS,
-    GOOGLE,
+export abstract class Provider{
+    abstract beforeEntry() : Promise<any[]>;
+    abstract afterEntry(...args : any[]) : Promise<any>;
 }
 
-export namespace ProviderCompany{
-    export type Aws = Provider.AWS;
-    export type Google = Provider.GOOGLE;
+export interface IEntryPoint{
+    entry() : Promise<any>;
 }
 
-export type ProviderSelector<T> = T extends ProviderCompany.Aws
-    ? AwsProvider
-    : AwsProvider;
-export type Providers = ProviderCompany.Aws | ProviderCompany.Google;
+// export abstract class ContainerExecutor{
+//     public _event : any;
+//     public _aditionalEvent : any;
+//     public _validatorSchema : IValidatorSchema[];
+//     public _dependencyList : DependencyElement[];
+//     public _entryPoint : any;
+//     public _interceptor : IInterceptor<any>;
 
-export function Container<T extends Provider = Provider.AWS>(
-    provider? : T
-) : ProviderSelector<T>{
-    if(provider === Provider.AWS){
-        return new AwsProvider();
-    }
-    if(provider === Provider.GOOGLE){
-        return new AwsProvider();
-    }
-    throw new Error();
-}
+//     transform(event : any) : any{
+//         return event;
+//     };
 
-export abstract class ContainerExecutor{
-    public _event : any;
-    public _aditionalEvent : any;
-    public _validatorSchema : IValidatorSchema[];
-    public _dependencyList : DependencyElement[];
-    public _entryPoint : any;
-    public _interceptor : IInterceptor<any>;
+//     protected async executeValidator(event : any) : Promise<void>{
+//         const listValidators = this._validatorSchema.map((value) => {
+//             return value.validate(event);
+//         });
+//         await Promise.all(listValidators);
+//     };
+// }
 
-    transform(event : any) : any{
-        return event;
-    };
+export abstract class ContainerProcess{
 
-    protected async executeValidator(event : any) : Promise<void>{
-        const listValidators = this._validatorSchema.map((value) => {
-            return value.validate(event);
-        });
-        await Promise.all(listValidators);
-    };
-}
-
-export abstract class ContainerProcess extends ContainerExecutor{
+    protected _dependencyList : DependencyElement[];
+    protected _provider : Provider;
+    protected _entryPoint : {new (...args : any[]) : IEntryPoint};
+    private _containerDI : DependencyContainer;
 
     private async process() : Promise<any>{
         try{
-            const event = this.transform(this._event);
-            await this.executeValidator(
-                event
+            const beforeEventObject = await this._provider.beforeEntry();
+            const instance = this._containerDI.container.get<IEntryPoint>(
+                this._entryPoint
             );
+            const eventObject = await instance.entry.apply(instance, beforeEventObject);
+            const afterEventObject = await this._provider.afterEntry(eventObject);
+            return afterEventObject;
         }catch(e : any){
 
         }
     }
 
+    private async loadDependencies() : Promise<void>{
+        this._containerDI = DependencyContainer.makeContainer(
+            this._dependencyList
+        );
+        await this._containerDI.execute();
+        this._containerDI.container.bind(this._entryPoint).toSelf();
+    }
+
     async execute(){
+        await this.loadDependencies();
         return await this.process();
     }
 
 }
 
-export abstract class ContainerBase extends ContainerProcess{
+export class Container extends ContainerProcess{
 
-    addValidator(
-        validatorSchema : IValidatorSchema,
-    ){
-        this._validatorSchema.push(validatorSchema);
+    // addValidator(
+    //     validatorSchema : IValidatorSchema,
+    // ){
+    //     this._validatorSchema.push(validatorSchema);
+    // }
+
+    addProvider(provider : Provider){
+        this._provider = provider;
     }
 
-    addContext(
-        event : any,
-        aditional : any[]
-    ){
-        this._event = event;
-        this._aditionalEvent = aditional;
+    addDependencies(dependencies : DependencyElement[]){
+        this._dependencyList = dependencies;
     }
 
-    addEntryPoint(entry : any){
+    addEntryPoint(entry : {new (...args : any[]) : IEntryPoint}){
         this._entryPoint = entry;
     }
 
