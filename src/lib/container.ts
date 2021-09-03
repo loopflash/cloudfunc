@@ -1,6 +1,4 @@
 import { 
-    AwsProvider, 
-    ValidatorException, 
     DependencyElement, 
     DependencyContainer
 } from "./internal";
@@ -132,9 +130,4 @@ export class Container extends ContainerProcess{
 
 export interface IValidatorSchema{
     validate(event : any) : Promise<void>;
-}
-
-export type Guard<T> = {
-    pass: boolean,
-    data: T
 }
