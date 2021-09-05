@@ -1,12 +1,8 @@
 import { 
     DependencyElement, 
-    DependencyContainer
+    DependencyContainer,
+    Provider
 } from "./internal";
-
-export abstract class Provider{
-    abstract beforeEntry() : Promise<any[]>;
-    abstract afterEntry(...args : any[]) : Promise<any>;
-}
 
 export interface IEntryPoint{
     entry() : Promise<any>;

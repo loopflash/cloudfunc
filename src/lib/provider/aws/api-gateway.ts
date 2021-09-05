@@ -17,7 +17,7 @@ export class ApiGateway extends AwsProvider{
             this._event,
             this._context
         );
-        await executeValidator(format, this._validator);
+        await executeValidator(format, this.validator);
         return [format, this._apiGatewaycontext];
     }
     
