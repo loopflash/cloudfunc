@@ -16,26 +16,6 @@ export interface IInterceptor{
     intercept(error : any) : Promise<any>;
 }
 
-// export abstract class ContainerExecutor{
-//     public _event : any;
-//     public _aditionalEvent : any;
-//     public _validatorSchema : IValidatorSchema[];
-//     public _dependencyList : DependencyElement[];
-//     public _entryPoint : any;
-//     public _interceptor : IInterceptor<any>;
-
-//     transform(event : any) : any{
-//         return event;
-//     };
-
-//     protected async executeValidator(event : any) : Promise<void>{
-//         const listValidators = this._validatorSchema.map((value) => {
-//             return value.validate(event);
-//         });
-//         await Promise.all(listValidators);
-//     };
-// }
-
 export type Interceptor = ({new (...args : any[]) : IInterceptor}) | ((error : any) => Promise<any>);
 
 export abstract class ContainerProcess{
@@ -100,12 +80,6 @@ export abstract class ContainerProcess{
 
 export class Container extends ContainerProcess{
 
-    // addValidator(
-    //     validatorSchema : IValidatorSchema,
-    // ){
-    //     this._validatorSchema.push(validatorSchema);
-    // }
-
     addInterceptor(interceptor : Interceptor){
         this._interceptor = interceptor;
     }
@@ -122,12 +96,4 @@ export class Container extends ContainerProcess{
         this._entryPoint = entry;
     }
 
-}
-
-/***********
- * Validator Schema Code
- */
-
-export interface IValidatorSchema{
-    validate(event : any) : Promise<void>;
 }

@@ -1,4 +1,5 @@
 import { AwsProvider } from './lib/core';
+import { IValidator, executeValidator } from '../../internal';
 
 export class ApiGateway extends AwsProvider{
 
@@ -16,6 +17,7 @@ export class ApiGateway extends AwsProvider{
             this._event,
             this._context
         );
+        await executeValidator(format, this._validator);
         return [format, this._apiGatewaycontext];
     }
     
@@ -25,6 +27,10 @@ export class ApiGateway extends AwsProvider{
             body: payload,
             headers: this._apiGatewaycontext.headers,
         });
+    }
+
+    addValidator(validator : IValidator, reference : ApiGatewayTypeValidator | string){
+        super.addValidator(validator, reference);
     }
 
 }
@@ -113,4 +119,14 @@ function formatInputApiGateway(event : any, context : any){
         body: JSON.stringify(output.body),
         headers: output.headers
     }
+}
+
+export enum ApiGatewayTypeValidator{
+    PARAMS = 'params',
+    HEADERS = 'headers',
+    METHOD = 'method',
+    PATH = 'path',
+    BODY = 'body',
+    EVENT = 'event',
+    CONTEXT = 'context'
 }
