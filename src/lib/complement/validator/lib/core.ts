@@ -1,7 +1,7 @@
 import { pick } from 'dot-object';
 
 export interface IValidator{
-    validate(event : any) : Promise<void>;
+    onCall(event : any) : Promise<void>;
 }
 
 export type ValidatorObject = {
@@ -15,6 +15,6 @@ export async function executeValidator(
 ) : Promise<void>{
     for(const item of validators){
         const select = pick(item.reference, event);
-        await item.validator.validate(select);
+        await item.validator.onCall(select);
     }
 };

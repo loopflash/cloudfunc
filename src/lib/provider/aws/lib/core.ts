@@ -2,6 +2,7 @@ import { Provider } from '../../../internal';
 
 export abstract class AwsProvider extends Provider{
 
+    private _providerName : string = 'aws';
     protected _event : any = {};
     protected _context : any = {};
 
@@ -12,5 +13,9 @@ export abstract class AwsProvider extends Provider{
     setContext(context : any){
         this._context = context;
     };
+
+    get providerName(){
+        return this._providerName;
+    }
 
 }

@@ -1,5 +1,6 @@
 import { AwsProvider } from './lib/core';
 import { IValidator, executeValidator } from '../../internal';
+import { executeMiddleware } from 'lib/complement/middleware';
 
 export class ApiGateway extends AwsProvider{
 
@@ -17,6 +18,7 @@ export class ApiGateway extends AwsProvider{
             this._event,
             this._context
         );
+        await executeMiddleware(format, this.middlewares);
         await executeValidator(format, this.validator);
         return [format, this._apiGatewaycontext];
     }
