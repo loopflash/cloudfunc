@@ -1,7 +1,16 @@
-import { pick } from 'dot-object';
-
 export interface IMiddleware{
-    onCall(event : any) : Promise<void>;
+    onCall(event : MiddlewareEvent) : Promise<void>;
+}
+
+export type MiddlewareEvent = {
+    aws?: {
+        event: any,
+        context: any
+    },
+    google?: {
+        request: any,
+        response: any
+    }
 }
 
 export type MiddlewareObject = {
@@ -9,7 +18,7 @@ export type MiddlewareObject = {
 }
 
 export async function executeMiddleware(
-    event : any,
+    event : MiddlewareEvent,
     validators : MiddlewareObject[]
 ) : Promise<void>{
     for(const item of validators){

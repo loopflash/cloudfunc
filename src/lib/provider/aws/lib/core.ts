@@ -19,3 +19,15 @@ export abstract class AwsProvider extends Provider{
     }
 
 }
+
+export function awsFormatMiddleware(
+    event : any,
+    context : any
+){
+    return {
+        aws: {
+            event,
+            context
+        }
+    }
+}
