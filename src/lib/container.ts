@@ -14,9 +14,10 @@ export interface IInterceptor{
 
 export type Interceptor = ({new (...args : any[]) : IInterceptor}) | ((error : any) => Promise<any>);
 
+let dependencyContainer : DependencyContainer = null;
+
 export abstract class ContainerProcess{
 
-    private _containerDI : DependencyContainer;
     protected _dependencyList : DependencyElement[];
     protected _provider : Provider;
     protected _entryPoint : {new (...args : any[]) : IEntryPoint};
@@ -24,9 +25,9 @@ export abstract class ContainerProcess{
 
     private async process() : Promise<any>{
         try{
-            this._provider.setContainer(this._containerDI);
+            this._provider.setContainer(dependencyContainer);
             const beforeEventObject = await this._provider.beforeEntry();
-            const instance = this._containerDI.container.get<IEntryPoint>(
+            const instance = dependencyContainer.container.get<IEntryPoint>(
                 this._entryPoint
             );
             const eventObject = await instance.entry.apply(
@@ -40,7 +41,7 @@ export abstract class ContainerProcess{
                 typeof this._interceptor === 'function' &&
                 this._interceptor.constructor
             ){
-                return await this._containerDI.container
+                return await dependencyContainer.container
                             .get<IInterceptor>(this._interceptor)
                             .intercept(e);
             }else if(
@@ -55,16 +56,17 @@ export abstract class ContainerProcess{
     }
 
     private async loadDependencies() : Promise<void>{
-        this._containerDI = DependencyContainer.makeContainer(
+        if(dependencyContainer) return;
+        dependencyContainer = DependencyContainer.makeContainer(
             this._dependencyList
         );
-        await this._containerDI.execute();
-        this._containerDI.container.bind(this._entryPoint).toSelf();
+        await dependencyContainer.execute();
+        dependencyContainer.container.bind(this._entryPoint).toSelf();
         if(
             typeof this._interceptor === 'function' &&
             this._interceptor.constructor
         ){
-            this._containerDI.container.bind(this._interceptor).toSelf();
+            dependencyContainer.container.bind(this._interceptor).toSelf();
         }
     }
 
