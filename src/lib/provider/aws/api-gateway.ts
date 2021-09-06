@@ -37,7 +37,7 @@ export class ApiGateway extends AwsProvider{
         });
     }
 
-    addValidator(validator : IValidator, reference : ApiGatewayTypeValidator | string){
+    addValidator(validator : {new (...args: any) : IValidator}, reference : ApiGatewayTypeValidator | string){
         super.addValidator(validator, reference);
     }
 

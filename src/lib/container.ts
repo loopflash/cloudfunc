@@ -24,6 +24,7 @@ export abstract class ContainerProcess{
 
     private async process() : Promise<any>{
         try{
+            this._provider.setContainer(this._containerDI);
             const beforeEventObject = await this._provider.beforeEntry();
             const instance = this._containerDI.container.get<IEntryPoint>(
                 this._entryPoint
