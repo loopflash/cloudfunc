@@ -7,7 +7,7 @@ export type MiddlewareEvent = {
         event: any,
         context: any
     },
-    google?: {
+    gcp?: {
         request: any,
         response: any
     }
