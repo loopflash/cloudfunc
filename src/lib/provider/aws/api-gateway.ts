@@ -170,7 +170,9 @@ function formatInputApiGateway(event : any, context : any){
     return {
         statusCode: output.code,
         body: JSON.stringify(output.body),
-        headers: output.headers
+        headers: output.headers,
+        multiValueHeaders: output.multiValueHeaders,
+        isBase64Encoded: output.isBase64Encoded
     }
 }
 
