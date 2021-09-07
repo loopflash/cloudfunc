@@ -1,6 +1,5 @@
 import { awsFormatMiddleware, AwsProvider } from './lib/core';
-import { IValidator, executeValidator } from '../../internal';
-import { executeMiddleware } from 'lib/complement/middleware';
+import { IValidator, executeValidator, executeMiddleware } from '../../internal';
 
 export class ApiGateway extends AwsProvider{
 
