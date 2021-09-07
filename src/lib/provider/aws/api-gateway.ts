@@ -1,3 +1,4 @@
+import * as cookie from 'cookie';
 import { awsFormatMiddleware, AwsProvider } from './lib/core';
 import { IValidator, executeValidator, executeMiddleware } from '../../internal';
 
@@ -35,6 +36,8 @@ export class ApiGateway extends AwsProvider{
             code: this._apiGatewaycontext.code,
             body: payload,
             headers: this._apiGatewaycontext.headers,
+            multiValueHeaders: this._apiGatewaycontext.multiHeaders,
+            isBase64Encoded: this._apiGatewaycontext.isBase64Encoded,
         });
     }
 
@@ -50,7 +53,11 @@ export type ApiGatewayOptions = {
 
 export type ApiGatewayContextOptions = {
     code?: number,
-    headers?: any
+    headers?: any,
+    multiValueHeaders?: {
+        [key : string]: string[]
+    },
+    isBase64Encoded?: boolean
 }
 
 export class ApiGatewayContext{
@@ -65,7 +72,9 @@ export class ApiGatewayContext{
                 code: 200,
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                multiValueHeaders: {},
+                isBase64Encoded: false
             },
             ...options,
         });
@@ -82,12 +91,37 @@ export class ApiGatewayContext{
         };
     }
 
+    setMultiHeaders(headers : any){
+        this._options.multiValueHeaders = {
+            ...this._options.multiValueHeaders,
+            ...headers
+        };
+    }
+
+    setBase64(isBase64: boolean){
+        this._options.isBase64Encoded = isBase64;
+    }
+
+    setCookie(key : string, value : string, options : any){
+        this._options.multiValueHeaders['Set-Cookie'].push(
+            cookie.serialize(key, value, options)
+        );
+    }
+
     public get code(){
         return this._options.code;
     }
 
     public get headers(){
         return this._options.headers;
+    }
+
+    public get multiHeaders(){
+        return this._options.multiValueHeaders;
+    }
+
+    public get isBase64Encoded(){
+        return this._options.isBase64Encoded;
     }
 
 }
