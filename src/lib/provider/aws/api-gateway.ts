@@ -23,7 +23,8 @@ export class ApiGateway extends AwsProvider{
         await executeMiddleware(
             awsFormatMiddleware(
                 this._event,
-                this._context
+                this._context,
+                format.state
             ),
             this.middlewares
         );
@@ -159,7 +160,8 @@ function formatInputApiGateway(event : any, context : any){
         body: typeof event.body === 'string' ? 
                 JSON.parse(event.body) : event.body,
         event,
-        context
+        context,
+        state: {}
     }
 }
 

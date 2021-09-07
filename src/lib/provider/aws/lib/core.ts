@@ -22,12 +22,14 @@ export abstract class AwsProvider extends Provider{
 
 export function awsFormatMiddleware(
     event : any,
-    context : any
+    context : any,
+    state : any
 ){
     return {
         aws: {
             event,
-            context
+            context,
+            state
         }
     }
 }

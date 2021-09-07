@@ -15,7 +15,8 @@ export class RawLambda extends AwsProvider{
         await executeMiddleware(
             awsFormatMiddleware(
                 this._event,
-                this._context
+                this._context,
+                format.state
             ),
             this.middlewares
         );
@@ -39,10 +40,12 @@ export class RawLambda extends AwsProvider{
 
 export type EventRawLambda<
     Event = any,
-    Context = any
+    Context = any,
+    State = any
 > = {
     event: Event,
-    context: Context
+    context: Context,
+    state: State
 }
 
 /*******
@@ -52,7 +55,8 @@ export type EventRawLambda<
 function formatInputRawLambda(event : any, context : any){
     return {
         event,
-        context
+        context,
+        state: {}
     }
 }
 
