@@ -7,10 +7,12 @@ export class ApiGateway extends AwsProvider{
     private _apiGatewaycontext : ApiGatewayContext;
 
     constructor(
-        private _options : ApiGatewayContextOptions
+        private _options : ApiGatewayOptions
     ){
         super();
-        this._apiGatewaycontext = ApiGatewayContext.makeInstance(_options);
+        this._apiGatewaycontext = ApiGatewayContext.makeInstance(
+            _options.default
+        );
     }
 
     async beforeEntry(): Promise<any[]> {
@@ -43,24 +45,31 @@ export class ApiGateway extends AwsProvider{
 
 }
 
+export type ApiGatewayOptions = {
+    default?: ApiGatewayContextOptions
+}
+
 export type ApiGatewayContextOptions = {
-    code: number,
-    headers: any
+    code?: number,
+    headers?: any
 }
 
 export class ApiGatewayContext{
 
     constructor(
-        private _options : ApiGatewayContextOptions = {
-            code: 200,
-            headers: {
-                'content-type': 'application/json'
-            }
-        }
+        private _options : ApiGatewayContextOptions
     ){}
 
-    static makeInstance(options : any){
-        return new ApiGatewayContext(options);
+    static makeInstance(options : ApiGatewayContextOptions){
+        return new ApiGatewayContext({
+            ...{
+                code: 200,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            },
+            ...options,
+        });
     }
 
     setCode(code : number){
@@ -68,7 +77,10 @@ export class ApiGatewayContext{
     }
 
     setHeaders(headers : any){
-        this._options.headers = headers;
+        this._options.headers = {
+            ...this._options.headers,
+            ...headers
+        };
     }
 
     public get code(){
