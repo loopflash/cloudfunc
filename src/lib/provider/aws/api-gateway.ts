@@ -18,13 +18,14 @@ export class ApiGateway extends AwsProvider{
     async beforeEntry(): Promise<any[]> {
         const format = formatInputApiGateway(
             this._event,
-            this._context
+            this._context,
+            this.state
         );
         await executeMiddleware(
             awsFormatMiddleware(
                 this._event,
                 this._context,
-                format.state
+                this.state
             ),
             this.middlewares
         );
@@ -144,14 +145,15 @@ export type EventApiGateway<
     path: string,
     body: BodyRequest,
     event: Event,
-    context: Context
+    context: Context,
+    state: any
 }
 
 /*******
  * Create format for input API GATEWAY
  */
 
-function formatInputApiGateway(event : any, context : any){
+function formatInputApiGateway(event : any, context : any, state : any){
     return {
         params: event.pathParameters,
         headers: event.headers,
@@ -161,7 +163,7 @@ function formatInputApiGateway(event : any, context : any){
                 JSON.parse(event.body) : event.body,
         event,
         context,
-        state: {}
+        state,
     }
 }
 

@@ -10,13 +10,14 @@ export class RawLambda extends AwsProvider{
     async beforeEntry(): Promise<any[]> {
         const format = formatInputRawLambda(
             this._event,
-            this._context
+            this._context,
+            this.state
         );
         await executeMiddleware(
             awsFormatMiddleware(
                 this._event,
                 this._context,
-                format.state
+                this.state
             ),
             this.middlewares
         );
@@ -52,11 +53,11 @@ export type EventRawLambda<
  * Create format for input API GATEWAY
  */
 
-function formatInputRawLambda(event : any, context : any){
+function formatInputRawLambda(event : any, context : any, state : any){
     return {
         event,
         context,
-        state: {}
+        state
     }
 }
 

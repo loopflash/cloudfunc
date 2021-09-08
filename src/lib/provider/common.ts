@@ -3,6 +3,7 @@ import { IValidator, IMiddleware, DependencyContainer, ValidatorObject, Middlewa
 export abstract class ProviderBase{
     private _container : DependencyContainer;
     private _middleware : MiddlewareObject[] = [];
+    private _state : any = {};
     private _validator : ValidatorObject[] = [];
 
     setContainer(container : DependencyContainer){
@@ -38,6 +39,10 @@ export abstract class ProviderBase{
 
     get container(){
         return this._container;
+    }
+
+    get state(){
+        return this._state;
     }
 }
 
