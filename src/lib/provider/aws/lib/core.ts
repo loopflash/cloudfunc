@@ -6,6 +6,10 @@ export abstract class AwsProvider extends Provider{
     protected _event : any = {};
     protected _context : any = {};
 
+    constructor(){
+        super();
+    }
+
     setEvent(event : any){
         this._event = event;
     };
