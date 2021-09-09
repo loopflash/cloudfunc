@@ -81,9 +81,7 @@ export class DependencyContainer{
                     ('bind' in element)
             ){
                 const key = this.getKeyForMap(element.bind);
-                this._mapBind[
-                    key
-                ] = element;
+                this._mapBind[key] = element;
                 if(
                     element.factoryDeps instanceof Array &&
                     element.factoryDeps.length > 0
@@ -97,9 +95,7 @@ export class DependencyContainer{
                     element.constructor
             ){
                 const key = this.getKeyForMap(element);
-                this._mapBind[
-                    key
-                ] = {
+                this._mapBind[key] = {
                     bind: element,
                     to: element
                 };
@@ -155,9 +151,7 @@ export class DependencyContainer{
                                     ref.factoryDeps.length > 0;
                 const deps = (hasDeps ? ref.factoryDeps : []).map((_element) => {
                     const getBind = this._mapBind[this.getKeyForMap(_element)];
-                    return this._container.get(
-                        getBind.bind
-                    );
+                    return this._container.get(getBind.bind);
                 });
                 const resolve = await ref.factory.apply(null, deps);
                 this._container.bind(ref.bind).toConstantValue(resolve);

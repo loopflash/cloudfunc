@@ -163,7 +163,7 @@ describe('Test DI', () => {
                 await new Promise((resolve) => {
                     setTimeout(() => {
                         console.log("timeout 1000-1")
-                        this._service._service.initial++;
+                        this._service._service.initial = 0;
                         resolve(null);
                     }, 1000);
                 });
@@ -186,7 +186,7 @@ describe('Test DI', () => {
         const value = container.get(ServiceC);
         await instance.resolver.resolve();
 
-        expect(value.far()).toBe(3);
+        expect(value.far()).toBe(0);
     });
 
     test('Should insert metadata in decorator of @Injectable', () => {
