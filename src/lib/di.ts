@@ -30,7 +30,7 @@ export class DependencyContainer{
     } = {} as any;
     private _onlyKeysDependencies : string[] = [];
     private _graph : DepGraph<any> = new DepGraph();
-    private _resolver : ResolverDependency;
+    private _resolver : ResolverDependency = new ResolverDependency();
 
     constructor(
         private _dependencyList : DependencyElement[]
@@ -198,7 +198,7 @@ export class ResolverDependency{
 
     private async resolveActivation(){
         for(const element of this._activations){
-            await element.handler();
+            await element.handler.call(element.ctx);
         }
     }
 
