@@ -1,7 +1,8 @@
 import { 
     Container as InversifyContainer,
     inject,
-    injectable
+    injectable,
+    optional
 } from "inversify";
 import { nanoid } from 'nanoid';
 import { DepGraph } from 'dependency-graph';
@@ -183,6 +184,10 @@ export function Injectable(){
 /***
  * Decorator for Inject
  */
- export function Inject(key : string | symbol){
+export function Inject(key : string | symbol){
     return inject(key);
+}
+
+export function Optional(){
+    return optional();
 }
