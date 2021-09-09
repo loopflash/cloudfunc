@@ -1,1 +1,1 @@
-export function a(){}
+export * from './lib/internal';
