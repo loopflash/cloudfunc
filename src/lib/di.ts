@@ -7,6 +7,10 @@ import {
 import { nanoid } from 'nanoid';
 import { DepGraph } from 'dependency-graph';
 
+export interface IActivation{
+    onActivation() : Promise<void> | void;
+}
+
 export type BindType = string | symbol | {new (...args : any[]) : any}
 
 export type DependencyElementObject = {
@@ -26,6 +30,7 @@ export class DependencyContainer{
     } = {} as any;
     private _onlyKeysDependencies : string[] = [];
     private _graph : DepGraph<any> = new DepGraph();
+    private _resolver : ResolverDependency;
 
     constructor(
         private _dependencyList : DependencyElement[]
@@ -125,16 +130,20 @@ export class DependencyContainer{
                     ('bind' in ref) &&
                     ('to' in ref)
             ){
-                if(
-                    typeof ref.to === 'function'
-                ){
-                    this._container.bind(
-                        ref.bind
-                    ).to(ref.to);
+                if(typeof ref.to === 'function'){
+                    const binding = this._container.bind(ref.bind).to(ref.to);
+                    const hasActivation = hasActivationHandler(ref.to);
+                    if(hasActivation){
+                        binding.onActivation((_ : any, self : IActivation) => {
+                            this._resolver.addActivation({
+                                handler: self.onActivation,
+                                ctx: self as any as ActivationClassHandler,
+                            });
+                            return self;
+                        });
+                    }
                 }else{
-                    this._container.bind(
-                        ref.bind
-                    ).toConstantValue(ref.to);
+                    this._container.bind(ref.bind).toConstantValue(ref.to);
                 }
             }else if(
                 typeof ref === 'object' && 
@@ -151,9 +160,7 @@ export class DependencyContainer{
                     );
                 });
                 const resolve = await ref.factory.apply(null, deps);
-                this._container.bind(
-                    ref.bind
-                ).toConstantValue(resolve);
+                this._container.bind(ref.bind).toConstantValue(resolve);
             }else{
                 throw new Error();
             }
@@ -168,6 +175,44 @@ export class DependencyContainer{
         return this._container;
     }
 
+    public get resolver(){
+        return this._resolver;
+    }
+
+}
+
+export class ResolverDependency{
+
+    private _activations : ResolverDependencyActivation[] = [];
+    private _resolved = false;
+
+    async resolve(){
+        if(this._resolved) return;
+        await this.resolveActivation();
+        this._resolved = true;
+    }
+
+    addActivation(activation : ResolverDependencyActivation){
+        this._activations.push(activation);
+    }
+
+    private async resolveActivation(){
+        for(const element of this._activations){
+            await element.handler();
+        }
+    }
+
+    public get activations(){
+        return this._activations;
+    }
+
+}
+
+export type ActivationClassHandler = {new (...args : any[]) : IActivation};
+
+export type ResolverDependencyActivation = {
+    handler: () => void | Promise<void>,
+    ctx: ActivationClassHandler
 }
 
 /***
@@ -181,13 +226,18 @@ export function Injectable(){
     }
 }
 
-/***
- * Decorator for Inject
- */
 export function Inject(key : string | symbol){
     return inject(key);
 }
 
 export function Optional(){
     return optional();
+}
+
+/**********
+ * Helper
+ */
+
+function hasActivationHandler(target : any){
+    return target.prototype && target.prototype.onActivation;
 }
