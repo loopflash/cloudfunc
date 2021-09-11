@@ -1,8 +1,9 @@
 import { 
-    Container as InversifyContainer,
+    Container,
     inject,
     injectable,
-    optional
+    optional,
+    interfaces
 } from "inversify";
 import { nanoid } from 'nanoid';
 
@@ -17,19 +18,17 @@ export type DependencyElementObject = {
     to?: any,
 }
 
-export type DependencyElement = DependencyElementObject | {new (...args : any[]) : any}
+export type DependencyElement = DependencyElementObject | 
+                                {new (...args : any[]) : any} |
+                                any[]
 
 export class DependencyContainer{
 
-    private _container : InversifyContainer;
+    private _container : interfaces.Container;
     private _resolver : ResolverDependency = new ResolverDependency();
     constructor(
         private _dependencyList : DependencyElement[]
-    ){
-        this._container = new InversifyContainer({
-            defaultScope: 'Singleton'
-        });
-    }
+    ){}
 
     static makeContainer(
         dependencyList : DependencyElement[]
@@ -38,30 +37,44 @@ export class DependencyContainer{
     }
 
     async execute(){
-        await this.resolveDependencies();
+        this.resolveDependencies();
     }
 
-    private async resolveDependencies(){
-        const nodes = this._dependencyList;
-        for(const element of nodes){
-            const ref = normalizeBind(element);
-            if(typeof ref.to === 'function'){
-                const binding = this._container.bind(ref.bind).to(ref.to);
-                const hasActivation = hasActivationHandler(ref.to);
-                binding.onActivation((_ : any, self : IActivation) => {
-                    const ctx = self;
-                    if(hasActivation){
-                        this._resolver.addActivation({
-                            handler: ctx.onActivation,
-                            ctx: ctx as any as ActivationClassHandler,
-                        });
-                    }
-                    return ctx;
-                }); 
-            }else{
-                this._container.bind(ref.bind).toConstantValue(ref.to);
+    private resolveDependencies(){
+        const principalServices = this._dependencyList;
+        const modules = [];
+        const iterator = (services : DependencyElement[]) => {
+            const scopeModule = new Container({
+                defaultScope: 'Singleton'
+            });
+            for(const element of services){
+                if(element instanceof Array){
+                    iterator(element);
+                    continue;
+                };
+                const ref = normalizeBind(element);
+                if(typeof ref.to === 'function'){
+                    const binding = scopeModule.bind(ref.bind).to(ref.to);
+                    const hasActivation = hasActivationHandler(ref.to);
+                    binding.onActivation((_ : any, self : IActivation) => {
+                        const ctx = self;
+                        if(hasActivation){
+                            this._resolver.addActivation({
+                                handler: ctx.onActivation,
+                                ctx: ctx as any as ActivationClassHandler,
+                            });
+                        }
+                        return ctx;
+                    });
+                }else{
+                    scopeModule.bind(ref.bind).toConstantValue(ref.to);
+                }
             }
+            modules.push(scopeModule);
         }
+        iterator(principalServices);
+        const rootContainer = Container.merge.apply(null, modules);
+        this._container = rootContainer;
     }
 
     public get container(){
