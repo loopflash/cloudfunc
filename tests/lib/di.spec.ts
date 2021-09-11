@@ -154,7 +154,7 @@ describe('Test DI', () => {
                     ],
                     [
                         ServiceA
-                    ],
+                    ]
                 ]
             ]
         );

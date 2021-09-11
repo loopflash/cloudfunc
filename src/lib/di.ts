@@ -19,7 +19,7 @@ export type DependencyElementObject = {
 
 export type DependencyElement = DependencyElementObject | 
                                 {new (...args : any[]) : any} |
-                                any[]
+                                DependencyElement[]
 
 export class DependencyContainer{
 
