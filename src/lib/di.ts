@@ -5,7 +5,6 @@ import {
     optional,
     interfaces
 } from "inversify";
-import { nanoid } from 'nanoid';
 
 export interface IActivation{
     onActivation() : Promise<void>;
@@ -127,7 +126,6 @@ export type ResolverDependencyActivation = {
 
 export function Injectable(){
     return (target : any) => {
-        Reflect.defineMetadata('proto:id', nanoid(8), target);
         injectable()(target);
     }
 }

@@ -1,11 +1,24 @@
 {
   "name": "cloudfunc",
   "version": "1.0.0",
-  "main": "./dist/index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "author": {
     "name": "Loopflash"
   },
+  "files": [
+    "dist/"
+  ],
+  "keywords": [
+    "aws",
+    "gcp",
+    "lambda",
+    "google function",
+    "dependency",
+    "injection",
+    "cloud",
+    "api gateway"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/loopflash/cloudfunc"
@@ -24,10 +37,8 @@
   },
   "dependencies": {
     "cookie": "^0.4.1",
-    "dependency-graph": "^0.11.0",
     "dot-object": "^2.1.4",
     "inversify": "^5.1.1",
-    "nanoid": "^3.1.25",
     "tslib": "^2.3.1"
   }
 }
