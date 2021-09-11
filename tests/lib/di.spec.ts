@@ -1,4 +1,4 @@
-import { Container, ContainerModule, interfaces } from 'inversify';
+import { Container, ContainerModule, interfaces, inject } from 'inversify';
 import 'reflect-metadata';
 import {DependencyContainer, Inject, Injectable} from '../../src/lib/internal';
 
