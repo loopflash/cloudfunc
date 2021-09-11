@@ -4,7 +4,8 @@
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
-    "name": "Loopflash"
+    "name": "Eduardo Barron Luccioni",
+    "email": "barron.luccioni@gmail.com"
   },
   "files": [
     "dist/"
