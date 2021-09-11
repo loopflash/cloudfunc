@@ -2,6 +2,7 @@
   "name": "cloudfunc",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "description": "A simple library for manage functions in cloud on simple way and with dependency injection.",
   "license": "MIT",
   "author": {
     "name": "Eduardo Barron Luccioni",
@@ -20,6 +21,9 @@
     "cloud",
     "api gateway"
   ],
+  "engines": {
+    "node": ">=12"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/loopflash/cloudfunc"
