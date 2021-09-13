@@ -18,6 +18,7 @@ let dependencyContainer : DependencyContainer = null;
 
 export abstract class ContainerProcess{
 
+    protected _modules : any[];
     protected _dependencyList : DependencyElement[];
     protected _provider : Provider;
     protected _entryPoint : {new (...args : any[]) : IEntryPoint};
@@ -59,9 +60,10 @@ export abstract class ContainerProcess{
     private async loadDependencies() : Promise<void>{
         if(dependencyContainer) return;
         dependencyContainer = DependencyContainer.makeContainer(
-            this._dependencyList
+            this._dependencyList,
+            this._modules
         );
-        await dependencyContainer.execute();
+        dependencyContainer.execute();
         dependencyContainer.container.bind(this._entryPoint).toSelf();
         if(
             typeof this._interceptor === 'function' &&
@@ -90,6 +92,10 @@ export class Container extends ContainerProcess{
 
     addDependencies(dependencies : DependencyElement[]){
         this._dependencyList = dependencies;
+    }
+
+    addModules(modules : any[]){
+        this._modules = modules;
     }
 
     addEntryPoint(entry : {new (...args : any[]) : IEntryPoint}){

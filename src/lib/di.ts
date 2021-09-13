@@ -3,8 +3,12 @@ import {
     inject,
     injectable,
     optional,
-    interfaces
+    interfaces,
+    tagged,
+    named
 } from "inversify";
+import { nanoid } from 'nanoid';
+import { DepGraph } from 'dependency-graph';
 
 export interface IActivation{
     onActivation() : Promise<void>;
@@ -18,42 +22,92 @@ export type DependencyElementObject = {
 }
 
 export type DependencyElement = DependencyElementObject | 
-                                {new (...args : any[]) : any} |
-                                DependencyElement[]
+                                {new (...args : any[]) : any}
+
+export type DependencyModule = {
+    modules: DependencyModule[],
+    dependencies: DependencyElement[]
+}
 
 export class DependencyContainer{
 
     private _container : interfaces.Container;
     private _resolver : ResolverDependency = new ResolverDependency();
+    private _graphPackage : DepGraph<string> = new DepGraph();
+    private _mapPackages : {
+        [key : string]: any
+    } = {} as any;
+
     constructor(
-        private _dependencyList : DependencyElement[]
+        private _dependencyList : DependencyElement[],
+        private _modulesList : any[]
     ){}
 
     static makeContainer(
-        dependencyList : DependencyElement[]
+        dependencyList : DependencyElement[],
+        modulesList : any[]
     ){
-        return new DependencyContainer(dependencyList);
+        return new DependencyContainer(dependencyList, modulesList);
     }
 
-    async execute(){
+    execute(){
+        this.resolvePackages();
         this.resolveDependencies();
     }
 
-    private resolveDependencies(){
+    resolvePackages(){
+        const rootModules = this._modulesList;
+        const iteration = (packages : any[], dependsOn : string) => {
+            for(const element of packages){
+                const getId = Reflect.getMetadata('package:id', element);
+                const {
+                    packages,
+                    services
+                } = new element().onPackage();
+                this._mapPackages[getId] = services;
+                this._graphPackage.addNode(getId);
+                if(!(dependsOn === '')){
+                    this._graphPackage.addDependency(dependsOn, getId);
+                }
+                iteration(packages, getId);
+            }
+        }
+        iteration(rootModules, '');
+    }
+
+    resolveDependencies(){
         const principalServices = this._dependencyList;
-        const modules = [];
-        const iterator = (services : DependencyElement[]) => {
+        const graph = this._graphPackage.overallOrder();
+        const ids = [];
+        // Insert root services in graph for normalization
+        const rootServicesId = nanoid(8);
+        graph.push(rootServicesId);
+        this._mapPackages[rootServicesId] = principalServices;
+        // End normalization
+        const iterator = (
+            index : number
+        ) => {
             const scopeModule = new Container({
-                defaultScope: 'Singleton'
+                defaultScope: 'Singleton',
+                skipBaseClassChecks: true,
+                autoBindInjectable: true,
             });
+            const id = graph[index];
+            const services = this._mapPackages[id];
+            const nextIndex = index + 1;
+            if(graph[nextIndex]) scopeModule.parent = iterator(nextIndex);
             for(const element of services){
-                if(element instanceof Array){
-                    iterator(element);
-                    continue;
-                };
                 const ref = normalizeBind(element);
+                const subId = 'A';
                 if(typeof ref.to === 'function'){
+                    const getAllContext = Reflect.getMetadata('service:context', ref.to) ?? [];
+                    (getAllContext as any[]).forEach((invoke) => {
+                        invoke(id, subId);
+                    });
                     const binding = scopeModule.bind(ref.bind).to(ref.to);
+                    // binding.when((request: interfaces.Request) => {
+                    //     return request.target.name.equals(id);
+                    // });
                     const hasActivation = hasActivationHandler(ref.to);
                     binding.onActivation((_ : any, self : IActivation) => {
                         const ctx = self;
@@ -66,18 +120,31 @@ export class DependencyContainer{
                         return ctx;
                     });
                 }else{
-                    scopeModule.bind(ref.bind).toConstantValue(ref.to);
+                    console.log("--->", id, subId)
+                    const binding = scopeModule.bind(ref.bind).toDynamicValue(() => {
+                        return ref.to;
+                    });
+                    ids.push(id);
+                    binding.whenTargetNamed(id);
                 }
             }
-            modules.push(scopeModule);
+            return scopeModule;
         }
-        iterator(principalServices);
-        const rootContainer = Container.merge.apply(null, modules);
-        this._container = rootContainer;
+        const container = iterator(0);
+        this._container = container;
+        console.log("--->", ids)
     }
 
     public get container(){
         return this._container;
+    }
+
+    public get graph(){
+        return this._graphPackage;
+    }
+
+    public get mapPackages(){
+        return this._mapPackages;
     }
 
     public get resolver(){
@@ -124,6 +191,12 @@ export type ResolverDependencyActivation = {
  * Decorator for Injectable
  */
 
+export function Package(){
+    return (target : any) => {
+        Reflect.defineMetadata('package:id', nanoid(8), target);
+    }
+}
+
 export function Injectable(){
     return (target : any) => {
         injectable()(target);
@@ -131,7 +204,18 @@ export function Injectable(){
 }
 
 export function Inject(key : string | symbol){
-    return inject(key);
+    return (target : any, targetKey: string, index : number) => {
+        inject(key)(target, targetKey, index);
+        const servicesContext = Reflect.getMetadata('service:context', target) ?? [];
+        const func = (id : string, random : string) => {
+            console.log("--->", id,  target, targetKey, index)
+            named(id)(target, targetKey, index);
+        };
+        Reflect.defineMetadata('service:context', [
+            ...servicesContext,
+            func
+        ], target);
+    }
 }
 
 export function Optional(){
