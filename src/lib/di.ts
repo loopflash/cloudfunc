@@ -8,10 +8,22 @@ import {
 } from "inversify";
 import { nanoid } from 'nanoid';
 import { DepGraph } from 'dependency-graph';
+import { isClass } from "./internal";
 
-export interface IActivation{
-    onActivation() : Promise<void>;
+export type ModuleImport = {new (...args : any[]) : IPackage} | PackageStaticObject;
+
+export interface IPackage{
+    onPackage() : PackageObject
 }
+
+export type PackageObject = {
+    packages: ModuleImport[],
+    services: DependencyElement[]
+}
+
+export type PackageStaticObject = {
+    context : any
+} & PackageObject;
 
 export type BindType = string | symbol | {new (...args : any[]) : any}
 
@@ -29,6 +41,10 @@ export type DependencyModule = {
     dependencies: DependencyElement[]
 }
 
+export interface IActivation{
+    onActivation() : Promise<void>;
+}
+
 export class DependencyContainer{
 
     private _container : interfaces.Container = new Container({
@@ -44,12 +60,12 @@ export class DependencyContainer{
 
     constructor(
         private _dependencyList : DependencyElement[],
-        private _modulesList : any[]
+        private _modulesList : ModuleImport[]
     ){}
 
     static makeContainer(
         dependencyList : DependencyElement[],
-        modulesList : any[]
+        modulesList : ModuleImport[]
     ){
         return new DependencyContainer(dependencyList, modulesList);
     }
@@ -61,19 +77,19 @@ export class DependencyContainer{
 
     resolvePackages(){
         const rootModules = this._modulesList;
-        const iteration = (packages : any[], dependsOn : string) => {
+        const iteration = (packages : ModuleImport[], dependsOn : string) => {
             for(const element of packages){
-                const getId = Reflect.getMetadata('package:id', element);
                 const {
+                    id,
                     packages,
                     services
-                } = new element().onPackage();
-                this._mapPackages[getId] = services;
-                this._graphPackage.addNode(getId);
+                } = normalizeModule(element);
+                this._mapPackages[id] = services;
+                this._graphPackage.addNode(id);
                 if(!(dependsOn === '')){
-                    this._graphPackage.addDependency(dependsOn, getId);
+                    this._graphPackage.addDependency(dependsOn, id);
                 }
-                iteration(packages, getId);
+                iteration(packages, id);
             }
         }
         iteration(rootModules, '');
@@ -98,10 +114,7 @@ export class DependencyContainer{
             for(const element of services){
                 const ref = normalizeBind(element);
                 if(typeof ref.to === 'function'){
-                    const getAllContext = Reflect.getMetadata('service:context', ref.to) ?? [];
-                    (getAllContext as any[]).forEach((invoke) => {
-                        invoke(id);
-                    });
+                    callLocalTags(ref.to, id);
                     const binding = scopeModule.bind(ref.bind).to(ref.to);
                     if(ref.scope === 'local'){
                         binding.when((request: interfaces.Request) => {
@@ -240,4 +253,29 @@ function normalizeBind(binding : any) : DependencyElementObject{
         }
     }
     return binding;
+}
+
+function normalizeModule(module : ModuleImport){
+    if(isClass(module)){
+        const moduleCast = module as any as {new (...args : any[]) : IPackage};
+        const {packages, services} = new moduleCast().onPackage();
+        return {
+            id: Reflect.getMetadata('package:id', module),
+            packages,
+            services
+        }
+    }
+    const {packages, services, context} = module as PackageStaticObject;
+    return {
+        id: context,
+        packages,
+        services
+    }
+}
+
+function callLocalTags(reference : any, id : string){
+    const getAllContext = Reflect.getMetadata('service:context', reference) ?? [];
+    (getAllContext as any[]).forEach((invoke) => {
+        invoke(id);
+    });
 }

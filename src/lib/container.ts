@@ -1,7 +1,8 @@
 import { 
     DependencyElement, 
     DependencyContainer,
-    Provider
+    Provider,
+    ModuleImport
 } from "./internal";
 
 export interface IEntryPoint{
@@ -18,7 +19,7 @@ let dependencyContainer : DependencyContainer = null;
 
 export abstract class ContainerProcess{
 
-    protected _modules : any[];
+    protected _modules : ModuleImport[];
     protected _dependencyList : DependencyElement[];
     protected _provider : Provider;
     protected _entryPoint : {new (...args : any[]) : IEntryPoint};
@@ -90,11 +91,11 @@ export class Container extends ContainerProcess{
         this._provider = provider;
     }
 
-    addDependencies(dependencies : DependencyElement[]){
+    addServices(dependencies : DependencyElement[]){
         this._dependencyList = dependencies;
     }
 
-    addModules(modules : any[]){
+    addModules(modules : ModuleImport[]){
         this._modules = modules;
     }
 

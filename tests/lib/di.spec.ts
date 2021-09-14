@@ -1,6 +1,6 @@
 import { Container, ContainerModule, interfaces, inject } from 'inversify';
 import 'reflect-metadata';
-import {DependencyContainer, Package, Inject, Injectable, Local} from '../../src/lib/internal';
+import {DependencyContainer, Package, Inject, Injectable, Local, IPackage, PackageObject} from '../../src/lib/internal';
 
 jest.setTimeout(1000 * 10);
 
@@ -87,7 +87,7 @@ describe('Test DI', () => {
     test('Should order dependencies', () => {
 
         @Package()
-        class PackageE{
+        class PackageE implements IPackage{
             
             onPackage(){
                 return {
@@ -125,7 +125,7 @@ describe('Test DI', () => {
         }
 
         @Package()
-        class PackageA{
+        class PackageA implements IPackage{
             
             onPackage(){
                 return {
@@ -140,7 +140,7 @@ describe('Test DI', () => {
         }
 
         @Package()
-        class PackageB{
+        class PackageB implements IPackage{
             
             onPackage(){
                 return {
@@ -182,9 +182,9 @@ describe('Test DI', () => {
         }
 
         @Package()
-        class PackageC{
-            
-            onPackage(){
+        class PackageC implements IPackage{
+
+            onPackage(): PackageObject {
                 return {
                     packages: [],
                     services: [
@@ -201,7 +201,7 @@ describe('Test DI', () => {
         }
 
         @Package()
-        class PackageA{
+        class PackageA implements IPackage{
             
             onPackage(){
                 return {
@@ -227,9 +227,9 @@ describe('Test DI', () => {
         }
 
         @Package()
-        class PackageB{
+        class PackageB implements IPackage{
             
-            onPackage(){
+            onPackage() : PackageObject{
                 return {
                     packages: [
                         PackageA
@@ -268,7 +268,7 @@ describe('Test DI', () => {
             ]
         );
         instance.execute();
-        const mainService = instance.container.get(ServiceB1);
+        const mainService = instance.container.get(ServiceC1);
         console.log(instance.container, mainService)
     });
 
