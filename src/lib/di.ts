@@ -4,8 +4,7 @@ import {
     injectable,
     optional,
     interfaces,
-    tagged,
-    named
+    targetName
 } from "inversify";
 import { nanoid } from 'nanoid';
 import { DepGraph } from 'dependency-graph';
@@ -18,6 +17,7 @@ export type BindType = string | symbol | {new (...args : any[]) : any}
 
 export type DependencyElementObject = {
     bind: BindType,
+    scope?: 'local' | 'global'
     to?: any,
 }
 
@@ -31,7 +31,11 @@ export type DependencyModule = {
 
 export class DependencyContainer{
 
-    private _container : interfaces.Container;
+    private _container : interfaces.Container = new Container({
+        defaultScope: 'Singleton',
+        skipBaseClassChecks: true,
+        autoBindInjectable: true,
+    });
     private _resolver : ResolverDependency = new ResolverDependency();
     private _graphPackage : DepGraph<string> = new DepGraph();
     private _mapPackages : {
@@ -76,9 +80,9 @@ export class DependencyContainer{
     }
 
     resolveDependencies(){
+        const scopeModule = this._container;
         const principalServices = this._dependencyList;
         const graph = this._graphPackage.overallOrder();
-        const ids = [];
         // Insert root services in graph for normalization
         const rootServicesId = nanoid(8);
         graph.push(rootServicesId);
@@ -87,27 +91,23 @@ export class DependencyContainer{
         const iterator = (
             index : number
         ) => {
-            const scopeModule = new Container({
-                defaultScope: 'Singleton',
-                skipBaseClassChecks: true,
-                autoBindInjectable: true,
-            });
             const id = graph[index];
             const services = this._mapPackages[id];
             const nextIndex = index + 1;
-            if(graph[nextIndex]) scopeModule.parent = iterator(nextIndex);
+            if(graph[nextIndex]) iterator(nextIndex);
             for(const element of services){
                 const ref = normalizeBind(element);
-                const subId = 'A';
                 if(typeof ref.to === 'function'){
                     const getAllContext = Reflect.getMetadata('service:context', ref.to) ?? [];
                     (getAllContext as any[]).forEach((invoke) => {
-                        invoke(id, subId);
+                        invoke(id);
                     });
                     const binding = scopeModule.bind(ref.bind).to(ref.to);
-                    // binding.when((request: interfaces.Request) => {
-                    //     return request.target.name.equals(id);
-                    // });
+                    if(ref.scope === 'local'){
+                        binding.when((request: interfaces.Request) => {
+                            return request.target.name.equals(id);
+                        });
+                    }
                     const hasActivation = hasActivationHandler(ref.to);
                     binding.onActivation((_ : any, self : IActivation) => {
                         const ctx = self;
@@ -120,19 +120,16 @@ export class DependencyContainer{
                         return ctx;
                     });
                 }else{
-                    console.log("--->", id, subId)
-                    const binding = scopeModule.bind(ref.bind).toDynamicValue(() => {
-                        return ref.to;
-                    });
-                    ids.push(id);
-                    binding.whenTargetNamed(id);
+                    const binding = scopeModule.bind(ref.bind).toConstantValue(ref.to);
+                    if(ref.scope === 'local'){
+                        binding.when((request: interfaces.Request) => {
+                            return request.target.name.equals(id);
+                        });
+                    }
                 }
             }
-            return scopeModule;
         }
-        const container = iterator(0);
-        this._container = container;
-        console.log("--->", ids)
+        iterator(0);
     }
 
     public get container(){
@@ -206,10 +203,14 @@ export function Injectable(){
 export function Inject(key : string | symbol){
     return (target : any, targetKey: string, index : number) => {
         inject(key)(target, targetKey, index);
+    }
+}
+
+export function Local(){
+    return (target : any, targetKey: string, index : number) => {
         const servicesContext = Reflect.getMetadata('service:context', target) ?? [];
-        const func = (id : string, random : string) => {
-            console.log("--->", id,  target, targetKey, index)
-            named(id)(target, targetKey, index);
+        const func = (id : string) => {
+            targetName(id)(target, targetKey, index);
         };
         Reflect.defineMetadata('service:context', [
             ...servicesContext,
@@ -234,6 +235,7 @@ function normalizeBind(binding : any) : DependencyElementObject{
     if(typeof binding === 'function'){
         return {
             to: binding,
+            scope: 'global',
             bind: binding
         }
     }

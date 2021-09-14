@@ -1,6 +1,6 @@
 import { Container, ContainerModule, interfaces, inject } from 'inversify';
 import 'reflect-metadata';
-import {DependencyContainer, Package, Inject, Injectable} from '../../src/lib/internal';
+import {DependencyContainer, Package, Inject, Injectable, Local} from '../../src/lib/internal';
 
 jest.setTimeout(1000 * 10);
 
@@ -173,7 +173,7 @@ describe('Test DI', () => {
         class ServiceC1{
 
             constructor(
-                @Inject('A') private _value : number
+                @Inject('A') @Local() private _value : number
             ){}
 
             get value(){
@@ -191,6 +191,7 @@ describe('Test DI', () => {
                         ServiceC1,
                         {
                             bind: 'A',
+                            scope: 'local',
                             to: 50
                         }
                     ]
@@ -217,7 +218,7 @@ describe('Test DI', () => {
         class ServiceB1{
 
             constructor(
-                @Inject('B') private _value : number
+                @Inject('A') @Local() private _value : number
             ){}
 
             get value(){
@@ -236,7 +237,8 @@ describe('Test DI', () => {
                     services: [
                         ServiceB1,
                         {
-                            bind: 'B',
+                            bind: 'A',
+                            scope: 'local',
                             to: 120
                         }
                     ]
@@ -266,26 +268,8 @@ describe('Test DI', () => {
             ]
         );
         instance.execute();
-        const mainService = instance.container.get(ServiceMain);
+        const mainService = instance.container.get(ServiceB1);
         console.log(instance.container, mainService)
-
-    //     // const mainService = instance.container.get(ServiceMain);
-    //     // console.log(mainService.value)
-    //     // const serviceC = instance.container.get(ServiceC1);
-    //     // const serviceB = instance.container.get(ServiceB1);
-    //     // const vv = instance.container.parent.parent;
-    //     // console.log((instance.container as any)._bindingDictionary._map, serviceB)
-    //     // console.log((vv as any)._bindingDictionary._map, serviceB)
-    //     // expect(serviceC.value).toBe(50);
-    //     // expect(serviceB.value).toBe(100);
     });
-
-    test('ttt', () => {
-        const container = new Container();
-        //container.bind('A').toConstantValue(10);
-        const childContainer = container.createChild();
-        childContainer.bind('A').toConstantValue(20);
-        console.log(container.get('A'))
-    })
 
 });
