@@ -1,6 +1,6 @@
 import { Container, ContainerModule, interfaces, inject } from 'inversify';
 import 'reflect-metadata';
-import {DependencyContainer, Package, Inject, Injectable, Local, IPackage, PackageObject} from '../../src/lib/internal';
+import {DependencyContainer, Package, Inject, Injectable, Local, IPackage, PackageObject, PackageStaticObject} from '../../src/lib/internal';
 
 jest.setTimeout(1000 * 10);
 
@@ -233,6 +233,98 @@ describe('Test DI', () => {
                 return {
                     packages: [
                         PackageA
+                    ],
+                    services: [
+                        ServiceB1,
+                        {
+                            bind: 'A',
+                            scope: 'local',
+                            to: 120
+                        }
+                    ]
+                }
+            }
+
+        }
+
+        @Injectable()
+        class ServiceMain{
+
+            constructor(
+                private _ss : ServiceB1
+            ){}
+
+            get value(){
+                return this._ss.value;
+            }
+        }
+
+        const instance = DependencyContainer.makeContainer(
+            [
+                ServiceMain
+            ],
+            [
+                PackageB
+            ]
+        );
+        instance.execute();
+        const mainService = instance.container.get(ServiceC1);
+        console.log(instance.container, mainService)
+    });
+
+    test('Should resolve static packages', () => {
+
+        @Injectable()
+        class ServiceC1{
+
+            constructor(
+                @Inject('A') @Local() private _value : number
+            ){}
+
+            get value(){
+                return this._value;
+            }
+        }
+
+        @Package()
+        class PackageA{
+            
+            static onPackage(val : number) : PackageStaticObject{
+                return {
+                    context: PackageA,
+                    packages: [],
+                    services: [
+                        ServiceC1,
+                        {
+                            bind: 'A',
+                            scope: 'local',
+                            to: val
+                        }
+                    ]
+                }
+            }
+
+        }
+
+        @Injectable()
+        class ServiceB1{
+
+            constructor(
+                @Inject('A') @Local() private _value : number
+            ){}
+
+            get value(){
+                return this._value;
+            }
+        }
+
+        @Package()
+        class PackageB implements IPackage{
+            
+            onPackage() : PackageObject{
+                return {
+                    packages: [
+                        PackageA.onPackage(50)
                     ],
                     services: [
                         ServiceB1,
