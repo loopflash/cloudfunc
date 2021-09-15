@@ -1,5 +1,4 @@
-import { awsFormatMiddleware, AwsProvider } from './lib/core';
-import { IValidator, executeValidator, executeMiddleware } from '../../internal';
+import { IValidator, executeValidator, executeMiddleware, awsFormatMiddleware, AwsProvider } from '../../internal';
 
 export class RawLambda extends AwsProvider{
 
