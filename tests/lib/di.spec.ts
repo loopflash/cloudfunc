@@ -269,7 +269,7 @@ describe('Test DI', () => {
         );
         instance.execute();
         const mainService = instance.container.get(ServiceC1);
-        console.log(instance.container, mainService)
+        expect(mainService.value).toBe(120);
     });
 
     test('Should resolve static packages', () => {
@@ -361,7 +361,7 @@ describe('Test DI', () => {
         );
         instance.execute();
         const mainService = instance.container.get(ServiceC1);
-        console.log(instance.container, mainService)
+        expect(mainService.value).toBe(120);
     });
 
 });
