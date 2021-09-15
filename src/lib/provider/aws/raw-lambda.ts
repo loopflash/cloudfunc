@@ -18,7 +18,8 @@ export class RawLambda extends AwsProvider{
                 this._context,
                 this.state
             ),
-            this.middlewares
+            this.middlewares,
+            this.container.container
         );
         await executeValidator(format, this.validator);
         return [format];

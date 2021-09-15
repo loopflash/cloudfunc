@@ -21,12 +21,7 @@ export abstract class ProviderBase{
     }
 
     addMiddleware(middleware : {new (...args: any) : IMiddleware}){
-        const getRef = this._container.container.isBound(middleware) ? (
-            this._container.container.get<any>(middleware)
-        ) : (new middleware());
-        this._middleware.push({
-            middleware: getRef,
-        });
+        this._middleware.push(middleware);
     }
 
     get validator(){

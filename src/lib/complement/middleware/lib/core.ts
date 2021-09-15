@@ -1,3 +1,5 @@
+import { Container } from 'inversify';
+
 export interface IMiddleware{
     onCall(event : MiddlewareEvent) : Promise<void>;
 }
@@ -13,15 +15,18 @@ export type MiddlewareEvent = {
     }
 }
 
-export type MiddlewareObject = {
-    middleware: IMiddleware
-}
+export type MiddlewareObject = {new (...args: any) : IMiddleware};
 
 export async function executeMiddleware(
     event : MiddlewareEvent,
-    validators : MiddlewareObject[]
+    validators : MiddlewareObject[],
+    container : Container
+
 ) : Promise<void>{
-    for(const item of validators){
-        await item.middleware.onCall(event);
+    for(const element of validators){
+        const getRef = container.isBound(element) ? (
+            container.get<any>(element)
+        ) : (new element());
+        await getRef.onCall(event);
     }
 }

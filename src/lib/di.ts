@@ -47,7 +47,7 @@ export interface IActivation{
 
 export class DependencyContainer{
 
-    private _container : interfaces.Container = new Container({
+    private _container : Container = new Container({
         defaultScope: 'Singleton',
         skipBaseClassChecks: true,
         autoBindInjectable: true,
