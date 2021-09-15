@@ -37,21 +37,20 @@ export abstract class ContainerProcess{
                 instance, 
                 beforeEventObject
             );
-            const afterEventObject = await this._provider.afterEntry(eventObject);
-            return afterEventObject;
+            return await this._provider.afterEntry(eventObject);
         }catch(e : any){
             if(
                 typeof this._interceptor === 'function' &&
                 this._interceptor.constructor
             ){
-                return await dependencyContainer.container
-                            .get<IInterceptor>(this._interceptor)
-                            .intercept(e);
+                return dependencyContainer.container
+                        .get<IInterceptor>(this._interceptor)
+                        .intercept(e);
             }else if(
                 typeof this._interceptor === 'function' &&
                 !this._interceptor.constructor
             ){
-                return await (this._interceptor as (error : any) => Promise<any>)(e);
+                return (this._interceptor as (error : any) => Promise<any>)(e);
             }else{
                 throw e;
             }
@@ -76,7 +75,7 @@ export abstract class ContainerProcess{
 
     async execute(){
         await this.loadDependencies();
-        return await this.process();
+        return this.process();
     }
 
 }

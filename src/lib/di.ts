@@ -77,8 +77,8 @@ export class DependencyContainer{
 
     resolvePackages(){
         const rootModules = this._modulesList;
-        const iteration = (packages : ModuleImport[], dependsOn : string) => {
-            for(const element of packages){
+        const iteration = (moduleImport : ModuleImport[], dependsOn : string) => {
+            for(const element of moduleImport){
                 const {
                     id,
                     packages,
@@ -86,7 +86,7 @@ export class DependencyContainer{
                 } = normalizeModule(element);
                 this._mapPackages[id] = services;
                 this._graphPackage.addNode(id);
-                if(!(dependsOn === '')){
+                if(dependsOn !== ''){
                     this._graphPackage.addDependency(dependsOn, id);
                 }
                 iteration(packages, id);
@@ -258,7 +258,7 @@ function normalizeBind(binding : any) : DependencyElementObject{
 function normalizeModule(module : ModuleImport){
     if(isClass(module)){
         const moduleCast = module as any as {new (...args : any[]) : IPackage};
-        const {packages, services} = new moduleCast().onPackage();
+        const { packages, services } = new moduleCast().onPackage();
         return {
             id: Reflect.getMetadata('package:id', module),
             packages,

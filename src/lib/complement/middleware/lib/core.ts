@@ -24,4 +24,4 @@ export async function executeMiddleware(
     for(const item of validators){
         await item.middleware.onCall(event);
     }
-};
+}
