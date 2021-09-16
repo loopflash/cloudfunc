@@ -1,4 +1,4 @@
-import { IMiddleware, DependencyContainer, MiddlewareObject } from '../internal';
+import { DependencyContainer, MiddlewareObject } from '../internal';
 
 export abstract class ProviderBase{
     private _container : DependencyContainer;
