@@ -1,4 +1,4 @@
-import { IValidator, executeValidator, executeMiddleware, awsFormatMiddleware, AwsProvider } from '../../internal';
+import { executeMiddleware, awsFormatMiddleware, AwsProvider } from '../../internal';
 
 export class RawLambda extends AwsProvider{
 
@@ -21,16 +21,11 @@ export class RawLambda extends AwsProvider{
             this.middlewares,
             this.container.container
         );
-        await executeValidator(format, this.validator);
         return [format];
     }
     
     async afterEntry(payload : any): Promise<any> {
         return formatOutputRawLambda(payload);
-    }
-
-    addValidator(validator : {new (...args: any) : IValidator}, reference : string){
-        super.addValidator(validator, reference);
     }
 
 }

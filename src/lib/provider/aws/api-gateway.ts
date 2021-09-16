@@ -1,5 +1,5 @@
 import * as cookie from 'cookie';
-import { IValidator, executeValidator, executeMiddleware, awsFormatMiddleware, AwsProvider } from '../../internal';
+import { executeMiddleware, awsFormatMiddleware, AwsProvider } from '../../internal';
 
 export class ApiGateway extends AwsProvider{
 
@@ -26,9 +26,9 @@ export class ApiGateway extends AwsProvider{
                 this._context,
                 this.state
             ),
-            this.middlewares
+            this.middlewares,
+            this.container.container
         );
-        await executeValidator(format, this.validator);
         return [format, this._apiGatewaycontext];
     }
     
@@ -40,10 +40,6 @@ export class ApiGateway extends AwsProvider{
             multiValueHeaders: this._apiGatewaycontext.multiHeaders,
             isBase64Encoded: this._apiGatewaycontext.isBase64Encoded,
         });
-    }
-
-    addValidator(validator : {new (...args: any) : IValidator}, reference : ApiGatewayTypeValidator | string){
-        super.addValidator(validator, reference);
     }
 
 }

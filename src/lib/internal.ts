@@ -2,7 +2,6 @@ export * from './container';
 export * from './exception';
 export * from './di';
 export * from './provider/common';
-export * from './complement/validator';
 export * from './complement/middleware';
 export * from './helper';
 export * from './provider/aws/lib/core';
