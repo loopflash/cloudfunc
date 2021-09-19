@@ -6,6 +6,7 @@ describe('Provider AWS - Raw Lambda', () => {
 
     beforeEach(() => {
         instance = new RawLambda();
+        instance.setContainer({} as any);
     });
     
     test('Should format input for AWS provider in simple way', async () => {
