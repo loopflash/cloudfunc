@@ -7,7 +7,7 @@ import {
 } from "./internal";
 
 export interface IEntryPoint{
-    entry() : Promise<any>;
+    entry(...args : any[]) : Promise<any>;
 }
 
 export interface IInterceptor{
