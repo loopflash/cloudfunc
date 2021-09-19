@@ -23,23 +23,22 @@ export abstract class ContainerProcess{
 
     protected _modules : ModuleImport[];
     protected _dependencyList : DependencyElement[];
-    protected _provider : Provider;
     protected _entryPoint : EntryPointClass;
     protected _interceptor : Interceptor;
 
-    private async process() : Promise<any>{
+    private async process(provider : Provider) : Promise<any>{
         try{
-            this._provider.setContainer(dependencyContainer);
+            provider.setContainer(dependencyContainer);
             const instance = dependencyContainer.container.get<IEntryPoint>(
                 this._entryPoint
             );
             await dependencyContainer.resolver.resolve();
-            const beforeEventObject = await this._provider.beforeEntry();
+            const beforeEventObject = await provider.beforeEntry();
             const eventObject = await instance.entry.apply(
                 instance, 
                 beforeEventObject
             );
-            return await this._provider.afterEntry(eventObject);
+            return await provider.afterEntry(eventObject);
         }catch(e : any){
             if(isClass(this._interceptor)){
                 return dependencyContainer.container
@@ -54,7 +53,6 @@ export abstract class ContainerProcess{
     }
 
     private async loadDependencies() : Promise<void>{
-        if(dependencyContainer) return;
         if(!hasEntryPoint(this._entryPoint)){
             throw new Error('Not found EntryPoint, use addEntryPoint() method');
         }
@@ -69,9 +67,13 @@ export abstract class ContainerProcess{
         }
     }
 
-    async execute(){
+    async load(){
         await this.loadDependencies();
-        return this.process();
+    }
+
+    async execute(provider : Provider){
+        if(!dependencyContainer) await this.load();
+        return this.process(provider);
     }
 
 }
@@ -80,10 +82,6 @@ export class Container extends ContainerProcess{
 
     addInterceptor(interceptor : Interceptor){
         this._interceptor = interceptor;
-    }
-
-    addProvider(provider : Provider){
-        this._provider = provider;
     }
 
     addServices(dependencies : DependencyElement[]){
