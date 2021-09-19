@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { isClass } from 'lib/helper';
+import { isClass } from '../../../helper';
 
 export interface IMiddleware{
     onCall(event : MiddlewareEvent, options? : any) : Promise<void>;
@@ -25,10 +25,10 @@ export type MiddlewareClass = {new (...args: any) : IMiddleware};
 
 export async function executeMiddleware(
     event : MiddlewareEvent,
-    validators : MiddlewareObject[],
+    middlewares : MiddlewareObject[],
     container : Container
 ) : Promise<void>{
-    for(const element of validators){
+    for(const element of middlewares){
         const {middleware, options} = normalizeMiddleware(element);
         const getRef = container.isBound(middleware) ? (
             container.get<any>(middleware)
