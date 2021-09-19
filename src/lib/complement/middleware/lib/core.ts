@@ -41,7 +41,7 @@ function normalizeMiddleware(element : MiddlewareObject) : MiddlewareObjectWithO
     if(isClass(element)){
         return {
             middleware: element as MiddlewareClass,
-            options: undefined
+            options: {}
         }
     }
     return element as MiddlewareObjectWithOptions;
