@@ -13,6 +13,10 @@ export type MiddlewareEvent = {
     gcp?: {
         request: any,
         response: any
+    },
+    azure?: {
+        request: any,
+        context: any
     }
 }
 

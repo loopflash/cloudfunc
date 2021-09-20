@@ -5,3 +5,5 @@ export * from './complement/middleware';
 export * from './helper';
 export * from './provider/aws/lib/core';
 export * from './provider/aws';
+export * from './provider/azure/lib/core';
+export * from './provider/azure';
