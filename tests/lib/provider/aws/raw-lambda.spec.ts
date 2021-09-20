@@ -1,11 +1,11 @@
-import {RawLambda} from '../../../../src/lib/provider/aws/raw-lambda';
+import {AwsRawLambda} from '../../../../src/lib/provider/aws/raw-lambda';
 
 describe('Provider AWS - Raw Lambda', () => {
 
-    let instance : RawLambda;
+    let instance : AwsRawLambda;
 
     beforeEach(() => {
-        instance = new RawLambda();
+        instance = new AwsRawLambda();
         instance.setContainer({} as any);
     });
     
