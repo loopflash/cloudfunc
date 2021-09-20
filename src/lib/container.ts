@@ -17,22 +17,20 @@ export interface IInterceptor{
 export type EntryPointClass = {new (...args : any[]) : IEntryPoint};
 export type Interceptor = ({new (...args : any[]) : IInterceptor}) | ((error : any) => Promise<any>);
 
-let dependencyContainer : DependencyContainer = null;
-
 export abstract class ContainerProcess{
 
-    protected _modules : ModuleImport[];
-    protected _dependencyList : DependencyElement[];
+    private _container : DependencyContainer;
+    protected _modules : ModuleImport[] = [];
+    protected _dependencyList : DependencyElement[] = [];
     protected _entryPoint : EntryPointClass;
     protected _interceptor : Interceptor;
 
     private async process(provider : Provider) : Promise<any>{
         try{
-            provider.setContainer(dependencyContainer);
-            const instance = dependencyContainer.container.get<IEntryPoint>(
+            provider.setContainer(this._container);
+            const instance = this._container.container.get<IEntryPoint>(
                 this._entryPoint
             );
-            await dependencyContainer.resolver.resolve();
             const beforeEventObject = await provider.beforeEntry();
             const eventObject = await instance.entry.apply(
                 instance, 
@@ -41,11 +39,9 @@ export abstract class ContainerProcess{
             return await provider.afterEntry(eventObject);
         }catch(e : any){
             if(isClass(this._interceptor)){
-                return dependencyContainer.container
+                return this._container.container
                     .get<IInterceptor>(this._interceptor)
                     .intercept(e);
-            }else if(!isClass(this._interceptor)){
-                return (this._interceptor as (error : any) => Promise<any>)(e);
             }else{
                 throw e;
             }
@@ -56,15 +52,19 @@ export abstract class ContainerProcess{
         if(!hasEntryPoint(this._entryPoint)){
             throw new Error('Not found EntryPoint, use addEntryPoint() method');
         }
-        dependencyContainer = DependencyContainer.makeContainer(
+        this._container = DependencyContainer.makeContainer(
             this._dependencyList,
             this._modules
         );
-        dependencyContainer.execute();
-        dependencyContainer.container.bind(this._entryPoint).toSelf();
+        this._container.execute();
+        this._container.container.bind(this._entryPoint).toSelf();
         if(isClass(this._interceptor)){
-            dependencyContainer.container.bind(this._interceptor).toSelf();
+            this._container.container.bind(this._interceptor).toSelf();
         }
+        this._container.container.get<IEntryPoint>(
+            this._entryPoint
+        );
+        await this._container.resolver.resolve();
     }
 
     async load(){
@@ -72,8 +72,12 @@ export abstract class ContainerProcess{
     }
 
     async execute(provider : Provider){
-        if(!dependencyContainer) await this.load();
+        if(!this._container) await this.load();
         return this.process(provider);
+    }
+
+    get container(){
+        return this._container.container;
     }
 
 }
