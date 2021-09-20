@@ -127,7 +127,7 @@ export class ApiGatewayContext{
  * General usage
  */
 
-export type EventApiGateway<
+export type EventAwsApiGateway<
     BodyRequest = any,
     HeadersRequest = any,
     ParamsRequest = any,
@@ -173,14 +173,4 @@ function formatInputApiGateway(event : any, context : any, state : any){
         multiValueHeaders: output.multiValueHeaders,
         isBase64Encoded: output.isBase64Encoded
     }
-}
-
-export enum ApiGatewayTypeValidator{
-    PARAMS = 'params',
-    HEADERS = 'headers',
-    METHOD = 'method',
-    PATH = 'path',
-    BODY = 'body',
-    EVENT = 'event',
-    CONTEXT = 'context'
 }
