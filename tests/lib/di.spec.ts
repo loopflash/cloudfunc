@@ -1,4 +1,3 @@
-import { Container, ContainerModule, interfaces, inject } from 'inversify';
 import 'reflect-metadata';
 import {DependencyContainer, Package, Inject, Injectable, Local, IPackage, PackageObject, PackageStaticObject} from '../../src/lib/internal';
 
@@ -15,9 +14,8 @@ describe('Test DI', () => {
             async onActivation(){
                 await new Promise((resolve) => {
                     setTimeout(() => {
-                        console.log("timeout 3000")
                         resolve(null);
-                    }, 3000);
+                    }, 100);
                 });
             }
 
@@ -35,10 +33,9 @@ describe('Test DI', () => {
             async onActivation(){
                 await new Promise((resolve) => {
                     setTimeout(() => {
-                        console.log("timeout 1000-2")
                         this._service.initial++;
                         resolve(null);
-                    }, 1000);
+                    }, 100);
                 });
             }
 
@@ -56,10 +53,9 @@ describe('Test DI', () => {
             async onActivation(){
                 await new Promise((resolve) => {
                     setTimeout(() => {
-                        console.log("timeout 1000-1")
                         this._service._service.initial = 0;
                         resolve(null);
-                    }, 1000);
+                    }, 100);
                 });
             }
 
@@ -269,7 +265,7 @@ describe('Test DI', () => {
         );
         instance.execute();
         const mainService = instance.container.get(ServiceC1);
-        expect(mainService.value).toBe(120);
+        expect(mainService.value).toBe(50);
     });
 
     test('Should resolve static packages', () => {
@@ -361,7 +357,7 @@ describe('Test DI', () => {
         );
         instance.execute();
         const mainService = instance.container.get(ServiceC1);
-        expect(mainService.value).toBe(120);
+        expect(mainService.value).toBe(50);
     });
 
 });
