@@ -34,7 +34,7 @@ export class RawLambda extends AwsProvider{
  * General usage
  */
 
-export type EventRawLambda<
+export type EventAwsRawLambda<
     Event = any,
     Context = any,
     State = any
