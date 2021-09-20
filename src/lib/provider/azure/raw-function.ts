@@ -34,7 +34,7 @@ export class AzureRawFunction extends AzureProvider{
  * General usage
  */
 
-export type EventRawFunction<
+export type EventAzureRawFunction<
     Request = any,
     Context = any,
     State = any
