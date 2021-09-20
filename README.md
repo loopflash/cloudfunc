@@ -7,3 +7,4 @@ Please visit [our documentation](gg).
 
  - AWS
  - GCP
+ - Azure
