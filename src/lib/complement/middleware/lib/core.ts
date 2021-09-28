@@ -2,6 +2,13 @@ import { Container } from 'inversify';
 import { isClass } from '../../../helper';
 
 export interface IMiddleware{
+    /**
+     * Hook for execution of middleware
+     * 
+     * @param event - Event for middleware
+     * @param options - Options declared for middleware
+     * @public
+     */
     onCall(event : MiddlewareEvent, options? : any) : Promise<void>;
 }
 
