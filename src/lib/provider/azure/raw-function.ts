@@ -1,5 +1,6 @@
 import { executeMiddleware, azureFormatMiddleware, AzureProvider } from '../../internal';
 
+/** @public */
 export class AzureRawFunction extends AzureProvider{
 
     constructor(){

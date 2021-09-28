@@ -1,5 +1,6 @@
 import { executeMiddleware, GcpProvider, gcpFormatMiddleware } from '../../internal';
 
+/** @public */
 export class GcpRawFunction extends GcpProvider{
 
     constructor(){

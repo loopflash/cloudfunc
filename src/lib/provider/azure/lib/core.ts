@@ -1,5 +1,6 @@
 import { Provider } from '../../../internal';
 
+/** @public */
 export abstract class AzureProvider extends Provider{
 
     private _providerName : string = 'azure';

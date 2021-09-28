@@ -1,6 +1,7 @@
 import * as cookie from 'cookie';
 import { executeMiddleware, awsFormatMiddleware, AwsProvider } from '../../internal';
 
+/** @public */
 export class ApiGateway extends AwsProvider{
 
     private _apiGatewaycontext : ApiGatewayContext;

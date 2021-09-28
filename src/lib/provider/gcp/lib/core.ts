@@ -1,5 +1,6 @@
 import { Provider } from '../../../internal';
 
+/** @public */
 export abstract class GcpProvider extends Provider{
 
     private _providerName : string = 'gcp';

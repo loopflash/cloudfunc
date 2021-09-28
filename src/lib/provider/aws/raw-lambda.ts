@@ -1,5 +1,6 @@
 import { executeMiddleware, awsFormatMiddleware, AwsProvider } from '../../internal';
 
+/** @public */
 export class AwsRawLambda extends AwsProvider{
 
     constructor(){
