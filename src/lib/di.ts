@@ -13,6 +13,9 @@ import { isClass } from "./internal";
 export type ModuleImport = {new (...args : any[]) : IPackage} | PackageStaticObject;
 
 export interface IPackage{
+    /**
+     * Logic of package creator
+     */
     onPackage() : PackageObject
 }
 
@@ -42,6 +45,9 @@ export type DependencyModule = {
 }
 
 export interface IActivation{
+    /**
+     * Logic of activation service
+     */
     onActivation() : Promise<void>;
 }
 
@@ -63,6 +69,9 @@ export class DependencyContainer{
         private _modulesList : ModuleImport[]
     ){}
 
+    /**
+     * Static generator of instances of Container
+     */
     static makeContainer(
         dependencyList : DependencyElement[],
         modulesList : ModuleImport[]
@@ -70,12 +79,18 @@ export class DependencyContainer{
         return new DependencyContainer(dependencyList, modulesList);
     }
 
+    /**
+     * Execute all resolvers
+     */
     execute(){
         this.resolvePackages();
         this.resolveDependencies();
     }
 
-    resolvePackages(){
+    /**
+     * Generate graph with packages
+     */
+    private resolvePackages(){
         const rootModules = this._modulesList;
         const iteration = (moduleImport : ModuleImport[], dependsOn : string) => {
             for(const element of moduleImport){
@@ -95,7 +110,10 @@ export class DependencyContainer{
         iteration(rootModules, '');
     }
 
-    resolveDependencies(){
+    /**
+     * Generate link for each package
+     */
+    private resolveDependencies(){
         const scopeModule = this._container;
         const principalServices = this._dependencyList;
         const graph = this._graphPackage.overallOrder();
@@ -145,18 +163,42 @@ export class DependencyContainer{
         iterator(0);
     }
 
+    /**
+     * Get instance of Container
+     * 
+     * @returns Instance of Container
+     * @readonly @public
+     */
     public get container(){
         return this._container;
     }
 
+    /**
+     * Get graph of packages
+     * 
+     * @returns Graph of packages
+     * @readonly @public
+     */
     public get graph(){
         return this._graphPackage;
     }
 
+    /**
+     * Get map of packages
+     * 
+     * @returns Map of packages
+     * @readonly @public
+     */
     public get mapPackages(){
         return this._mapPackages;
     }
 
+    /**
+     * Get instance of Resolver
+     * 
+     * @returns Instance of {@link ResolverDependency}
+     * @readonly @public
+     */
     public get resolver(){
         return this._resolver;
     }
@@ -197,28 +239,41 @@ export type ResolverDependencyActivation = {
     ctx: ActivationClassHandler
 }
 
-/***
- * Decorator for Injectable
+/**
+ * Make a module
+ * 
  */
-
 export function Package(){
     return (target : any) => {
         Reflect.defineMetadata('package:id', nanoid(8), target);
     }
 }
 
+/**
+ * Make a service injectable for application
+ * 
+ */
 export function Injectable(){
     return (target : any) => {
         injectable()(target);
     }
 }
 
+/**
+ * Inject a service for his utilization
+ * 
+ * @param key - Key value to reference service
+ */
 export function Inject(key : string | symbol){
     return (target : any, targetKey: string, index : number) => {
         inject(key)(target, targetKey, index);
     }
 }
 
+/**
+ * Inject a service for his utilization but with a context inside his module
+ * 
+ */
 export function Local(){
     return (target : any, targetKey: string, index : number) => {
         const servicesContext = Reflect.getMetadata('service:context', target) ?? [];
@@ -232,18 +287,24 @@ export function Local(){
     }
 }
 
+/**
+ * Set an injection with optionable option
+ * 
+ */
 export function Optional(){
     return optional();
 }
 
-/**********
- * Helper
+/**
+ * Detect if is has 'onActivation' method
  */
-
 function hasActivationHandler(target : any){
     return target.prototype && target.prototype.onActivation;
 }
 
+/**
+ * Normalize differents binds in one
+ */
 function normalizeBind(binding : any) : DependencyElementObject{
     if(typeof binding === 'function'){
         return {
@@ -255,6 +316,9 @@ function normalizeBind(binding : any) : DependencyElementObject{
     return binding;
 }
 
+/**
+ * Normalize differents binds modules in one
+ */
 function normalizeModule(module : ModuleImport){
     if(isClass(module)){
         const moduleCast = module as any as {new (...args : any[]) : IPackage};
@@ -273,6 +337,9 @@ function normalizeModule(module : ModuleImport){
     }
 }
 
+/**
+ * Call local tags
+ */
 function callLocalTags(reference : any, id : string){
     const getAllContext = Reflect.getMetadata('service:context', reference) ?? [];
     (getAllContext as any[]).forEach((invoke) => {
