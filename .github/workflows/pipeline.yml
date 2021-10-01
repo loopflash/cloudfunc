@@ -12,11 +12,11 @@ jobs:
         with:
           node-version: 14.x
           cache: yarn
-      - run: |
-        npm install -g npm-cli-login
-        yarn install
+      - run: >
+          npm install -g npm-cli-login
+          yarn install
       - run: yarn test
-      - run: |
+      - run: >
           echo "ACTUAL_VERSION=$(node -e "console.log(require('./package.json').version);")" >> $GITHUB_ENV
           echo "Version to publish: ${{env.ACTUAL_VERSION}}"
       - name: Login
