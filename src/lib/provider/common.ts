@@ -20,8 +20,11 @@ export abstract class ProviderBase{
      * 
      * @param container - Instance of {@link DependencyContainer}
      */
-    addMiddleware(middleware : MiddlewareObject){
-        this._middleware.push(middleware);
+    addMiddleware(middleware : MiddlewareObject[]){
+        this._middleware = [
+            ...this._middleware,
+            ...middleware
+        ];
     }
 
     /**
