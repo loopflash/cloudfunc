@@ -155,7 +155,7 @@ describe('Test DI', () => {
                 PackageB
             ]
         );
-        instance.resolvePackages();
+        instance.execute()
         const v = instance.graph;
         const or = v.overallOrder();
         expect(or[or.length - 1]).toBe(
