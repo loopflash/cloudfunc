@@ -1,3 +1,6 @@
+/**
+ * @group unit/di
+ */
 import 'reflect-metadata';
 import {DependencyContainer, Package, Inject, Injectable, Local, IPackage, PackageObject, PackageStaticObject} from '../../src/lib/internal';
 

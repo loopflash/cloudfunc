@@ -1,3 +1,6 @@
+/**
+ * @group unit/raw-lambda
+ */
 import {AwsRawLambda} from '../../../../src/lib/provider/aws/raw-lambda';
 
 describe('Provider AWS - Raw Lambda', () => {

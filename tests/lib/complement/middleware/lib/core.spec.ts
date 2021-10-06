@@ -1,3 +1,6 @@
+/**
+ * @group unit/middleware/core
+ */
 import { executeMiddleware, MiddlewareClass, MiddlewareObject, IMiddleware, MiddlewareEvent } from "../../../../../src/lib/internal"
 
 describe('Test Middleware', () => {

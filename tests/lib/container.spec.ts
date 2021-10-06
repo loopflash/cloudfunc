@@ -1,3 +1,6 @@
+/**
+ * @group unit/container
+ */
 import 'reflect-metadata';
 import {Container} from '../../src/lib/internal';
 import {EntryMain, Service1, Service2, Service3} from '../__test__/container';
