@@ -1,5 +1,5 @@
 /**
- * @group integration/basic-services
+ * @group integration/modules
  */
 import 'reflect-metadata';
 import {
@@ -7,21 +7,18 @@ import {
     AwsRawLambda
 } from '../../../src';
 import { EntryPoint } from './entry';
-import { Service1 } from './services/service1';
-import { Service2 } from './services/service2';
+import { MyPackage } from './module';
 import { Service3 } from './services/service3';
 
-describe('Integration - Basic Services', () => {
+describe('Integration - Module', () => {
 
     test('Should return status 700', async () => {
         const container = new Container();
         container.addEntryPoint(EntryPoint);
+        container.addModules([
+            MyPackage
+        ]);
         container.addServices([
-            Service1,
-            {
-                bind: 'myService',
-                to: Service2
-            },
             Service3
         ]);
         await container.load();
