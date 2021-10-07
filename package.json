@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "description": "A simple library for manage functions in cloud on simple way and with dependency injection.",
   "license": "MIT",
+  "types": "dist/index.d.ts",
   "author": {
     "name": "Eduardo Barron Luccioni",
     "email": "barron.luccioni@gmail.com"
