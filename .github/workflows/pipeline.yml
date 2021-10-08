@@ -13,7 +13,7 @@ jobs:
           node-version: 12.x
           cache: yarn
       - run: >
-          npm install -g npm-cli-login
+          npm install -g npm-cli-login @microsoft/api-extractor @microsoft/api-documenter
           yarn install
       - run: yarn test
       - run: yarn build
