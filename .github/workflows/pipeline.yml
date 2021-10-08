@@ -43,6 +43,6 @@ jobs:
           path: './dist/'
       - run: >
           echo "Version to publish: ${{needs.build.outputs.version}}"
-      - uses: npm publish --access public
-        with:
+      - run: npm publish --access public
+        env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
