@@ -7,7 +7,8 @@ const yesno = require('yesno');
 
 const questions = [
     {
-        question: 'Are you generate new docs files?'
+        question: 'Are you generate new docs files? (y/n):',
+        defaultValue: 'y'
     }
 ];
 
