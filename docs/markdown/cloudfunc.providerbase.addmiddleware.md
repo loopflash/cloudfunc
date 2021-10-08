@@ -9,14 +9,14 @@ Add middleware
 <b>Signature:</b>
 
 ```typescript
-addMiddleware(middleware: MiddlewareObject): void;
+addMiddleware(middleware: MiddlewareObject[]): void;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  middleware | [MiddlewareObject](./cloudfunc.middlewareobject.md) |  |
+|  middleware | [MiddlewareObject](./cloudfunc.middlewareobject.md)<!-- -->\[\] |  |
 
 <b>Returns:</b>
 

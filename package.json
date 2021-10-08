@@ -33,7 +33,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --group=unit",
-    "docs": "api-extractor run --local --verbose && api-documenter markdown --input-folder ./docs --output-folder ./docs/markdown",
+    "docs": "tsc && api-extractor run --local --verbose && api-documenter markdown --input-folder ./docs --output-folder ./docs/markdown",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"

@@ -4413,6 +4413,10 @@
                 },
                 {
                   "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
                   "text": "): "
                 },
                 {
@@ -4427,8 +4431,8 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
+                "startIndex": 4,
+                "endIndex": 5
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -4437,7 +4441,7 @@
                   "parameterName": "middleware",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 2
+                    "endIndex": 3
                   }
                 }
               ],
