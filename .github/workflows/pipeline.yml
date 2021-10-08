@@ -31,11 +31,6 @@ jobs:
           name: package
           path: './package.json'
           retention-days: 1
-      - uses: actions/upload-artifact@v2
-        with:
-          name: npmrc
-          path: './.npmrc'
-          retention-days: 1
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,11 +49,8 @@ jobs:
         with:
           name: package
           path: './package.json'
-      - uses: actions/download-artifact@v2
-        with:
-          name: npmrc
-          path: './.npmrc'
       - run: >
           echo "Version to publish: ${{needs.build.outputs.version}}"
-      - run: |
-          npm publish --access public
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
