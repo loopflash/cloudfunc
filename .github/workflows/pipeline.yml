@@ -50,7 +50,7 @@ jobs:
       - run: >
           echo "Version to publish: ${{needs.build.outputs.version}}"
       - run: >
-          ls dist/
+          cat ./.npmrc
       - run: |
           npm publish --access public
         env:
