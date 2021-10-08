@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
       - main
+env:
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -62,5 +64,3 @@ jobs:
           cat ./.npmrc
       - run: |
           npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
