@@ -13,7 +13,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 12.x
-          registry-url: 'https://registry.npmjs.org'
           cache: yarn
       - run: yarn install
       - run: yarn test
@@ -30,31 +29,28 @@ jobs:
           name: package
           path: './package.json'
           retention-days: 1
-      - uses: actions/upload-artifact@v2
-        with:
-          name: npmrc
-          path: './.npmrc'
-          retention-days: 1
 
   deploy:
     runs-on: ubuntu-latest
     environment: 'package'
     needs: build
     steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+          registry-url: 'https://registry.npmjs.org'
       - uses: actions/download-artifact@v2
         with:
           name: distribution
           path: './dist/'
       - uses: actions/download-artifact@v2
         with:
-          name: npmrc
-          path: './.npmrc'
-      - uses: actions/download-artifact@v2
-        with:
           name: package
           path: './package.json'
       - run: >
           echo "Version to publish: ${{needs.build.outputs.version}}"
+      - run: >
+          ls
       - run: |
           npm publish --access public
         env:
