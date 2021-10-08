@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 12.x
+          registry-url: 'https://registry.npmjs.org'
           cache: yarn
       - run: yarn install
       - run: yarn test
@@ -29,6 +30,11 @@ jobs:
           name: package
           path: './package.json'
           retention-days: 1
+      - uses: actions/upload-artifact@v2
+        with:
+          name: npmrc
+          path: './.npmrc'
+          retention-days: 1
 
   deploy:
     runs-on: ubuntu-latest
@@ -41,17 +47,15 @@ jobs:
           path: './dist/'
       - uses: actions/download-artifact@v2
         with:
+          name: npmrc
+          path: './.npmrc'
+      - uses: actions/download-artifact@v2
+        with:
           name: package
           path: './package.json'
       - run: >
-          npm install -g npm-cli-login
-      - run: >
           echo "Version to publish: ${{needs.build.outputs.version}}"
-      - name: Login
-        run: npm-cli-login -u ${{env.USERNAME}} -p ${{env.PASSWORD}} -e ${{env.EMAIL}}
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          EMAIL: ${{ secrets.EMAIL }}
       - run: |
-          yarn publish --new-version ${{needs.build.outputs.version}} --access public
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
