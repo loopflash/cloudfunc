@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -16,6 +16,10 @@
     "allowJs": true,
     "baseUrl": "./src",
     "outDir": "./dist",
+    "types": [
+      "reflect-metadata",
+      "@types/jest"
+    ]
   },
   "include": [
     "./src/**/*",

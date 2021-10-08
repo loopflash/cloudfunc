@@ -1,0 +1,49 @@
+name: Pipeline Cloudfunc
+on:
+  pull_request:
+    branches:
+      - main
+env:
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{steps.version_step.outputs.version}}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+          cache: yarn
+      - run: yarn install
+      - run: yarn test
+      - run: yarn build
+      - id: version_step
+        run: echo "::set-output name=version::$(node -e "console.log(require('./package.json').version);")"
+      - uses: actions/upload-artifact@v2
+        with:
+          name: distribution
+          path: './dist/'
+          retention-days: 1
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment: 'package'
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm i -g pinst
+      - uses: actions/download-artifact@v2
+        with:
+          name: distribution
+          path: './dist/'
+      - run: >
+          echo "Version to publish: ${{needs.build.outputs.version}}"
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
