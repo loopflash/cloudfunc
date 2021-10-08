@@ -1,25 +1,52 @@
 name: Pipeline Cloudfunc
 on:
-  push:
+  pull_request:
     branches:
       - main
 jobs:
-  entry-point:
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{steps.version_step.outputs.version}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 12.x
           cache: yarn
-      - run: >
-          npm install -g npm-cli-login @microsoft/api-extractor @microsoft/api-documenter
-          yarn install
+      - run: yarn install
       - run: yarn test
       - run: yarn build
+      - id: version_step
+        run: echo "::set-output name=version::$(node -e "console.log(require('./package.json').version);")"
+      - uses: actions/upload-artifact@v2
+        with:
+          name: distribution
+          path: './dist/'
+          retention-days: 1
+      - uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: './package.json'
+          retention-days: 1
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment: 'package'
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: distribution
+          path: './dist/'
+      - uses: actions/download-artifact@v2
+        with:
+          name: package
+          path: './package.json'
       - run: >
-          echo "ACTUAL_VERSION=$(node -e "console.log(require('./package.json').version);")" >> $GITHUB_ENV
-          echo "Version to publish: ${{env.ACTUAL_VERSION}}"
+          npm install -g npm-cli-login
+      - run: >
+          echo "Version to publish: ${{needs.build.outputs.version}}"
       - name: Login
         run: npm-cli-login -u ${{env.USERNAME}} -p ${{env.PASSWORD}} -e ${{env.EMAIL}}
         env:
@@ -27,4 +54,4 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
           EMAIL: ${{ secrets.EMAIL }}
       - run: |
-          yarn publish --new-version ${{env.ACTUAL_VERSION}} --access public
+          yarn publish --new-version ${{needs.build.outputs.version}} --access public
