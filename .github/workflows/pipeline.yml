@@ -60,7 +60,5 @@ jobs:
           path: './.npmrc'
       - run: >
           echo "Version to publish: ${{needs.build.outputs.version}}"
-      - run: >
-          cat ./.npmrc
       - run: |
           npm publish --access public
