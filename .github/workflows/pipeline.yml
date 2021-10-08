@@ -26,17 +26,13 @@ jobs:
           name: distribution
           path: './dist/'
           retention-days: 1
-      - uses: actions/upload-artifact@v2
-        with:
-          name: package
-          path: './package.json'
-          retention-days: 1
 
   deploy:
     runs-on: ubuntu-latest
     environment: 'package'
     needs: build
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 12.x
@@ -45,12 +41,8 @@ jobs:
         with:
           name: distribution
           path: './dist/'
-      - uses: actions/download-artifact@v2
-        with:
-          name: package
-          path: './package.json'
       - run: >
           echo "Version to publish: ${{needs.build.outputs.version}}"
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: npm publish --access public
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
