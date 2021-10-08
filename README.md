@@ -6,5 +6,5 @@ Please visit [our documentation](gg).
 ### Providers
 
  - AWS
- - GCP
+ - GCPp
  - Azure
