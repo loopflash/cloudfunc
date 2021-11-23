@@ -1,59 +1,45 @@
 import { Container } from 'inversify';
-import { isClass } from '../../../helper';
 
-export interface IMiddleware{
-    /**
-     * Hook for execution of middleware
-     * 
-     * @param event - Event for middleware
-     * @param options - Options declared for middleware
-     * @public
-     */
-    onCall(event : MiddlewareEvent, options? : any) : Promise<void>;
+export type MiddlewareExecutor = (...args : any[]) => Promise<void>;
+export type MiddlewareDynamic = {
+    service: any,
+    executor: MiddlewareExecutor,
+    params: any
 }
+export type MiddlewareParam = MiddlewareExecutor | MiddlewareDynamic;
 
-export type MiddlewareEvent = {
-    aws?: {
-        event: any,
-        context: any
-    },
-    gcp?: {
-        event: any,
-        context: any
-    },
-    azure?: {
-        request: any,
-        context: any
+/**
+ * Add middleware to entry point
+ */
+export function Middleware(fn : MiddlewareParam){
+    return (target : any, targetKey: string) => {
+        const middlewares = Reflect.getMetadata('entry:middleware', target, targetKey) ?? [];
+        Reflect.defineMetadata('entry:middleware', [
+            ...middlewares,
+            fn
+        ], target, targetKey);
     }
 }
 
-export type MiddlewareObject = MiddlewareClass | MiddlewareObjectWithOptions;
-export type MiddlewareObjectWithOptions = {
-    middleware: MiddlewareClass,
-    options: any
-}
-export type MiddlewareClass = {new (...args: any) : IMiddleware};
-
 export async function executeMiddleware(
-    event : MiddlewareEvent,
-    middlewares : MiddlewareObject[],
+    args : any[],
+    middlewares : MiddlewareParam[],
     container : Container
 ) : Promise<void>{
     for(const element of middlewares){
-        const {middleware, options} = normalizeMiddleware(element);
-        const getRef = container.isBound(middleware) ? (
-            container.get<any>(middleware)
-        ) : (new middleware());
-        await getRef.onCall(event, options);
+        const {executor, params, service} = adapterMiddleware(element);
+        const getService = service ? container.get(service) : null;
+        await executor.apply(getService, [params, ...args]);
     }
 }
 
-function normalizeMiddleware(element : MiddlewareObject) : MiddlewareObjectWithOptions{
-    if(isClass(element)){
+function adapterMiddleware(element : MiddlewareParam) : MiddlewareDynamic{
+    if(typeof element === 'function'){
         return {
-            middleware: element as MiddlewareClass,
-            options: {}
+            service: null,
+            params: null,
+            executor: element
         }
     }
-    return element as MiddlewareObjectWithOptions;
+    return element;
 }
