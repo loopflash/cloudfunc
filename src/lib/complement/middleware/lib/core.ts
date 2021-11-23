@@ -10,6 +10,10 @@ export type MiddlewareParam = MiddlewareExecutor | MiddlewareDynamic;
 
 /**
  * Add middleware to entry point
+ * 
+ * @param fn - Middleware hook {@link MiddlewareParam}
+ * 
+ * @public
  */
 export function Middleware(fn : MiddlewareParam){
     return (target : any, targetKey: string) => {
