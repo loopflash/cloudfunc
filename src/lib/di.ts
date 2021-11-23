@@ -28,7 +28,7 @@ export type PackageStaticObject = {
     context : any
 } & PackageObject;
 
-export type BindType = string | symbol | {new (...args : any[]) : any}
+export type BindType = string | symbol | (abstract new (...args: any[]) => any) | (new (...args: any[]) => any)
 
 export type DependencyElementObject = {
     bind: BindType,
