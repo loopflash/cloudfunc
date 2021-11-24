@@ -1,4 +1,4 @@
-import { executeMiddleware, awsFormatMiddleware, AwsProvider } from '../../internal';
+import { executeMiddleware, AwsProvider } from '../../internal';
 
 /** @public */
 export class AwsRawLambda extends AwsProvider{
@@ -7,26 +7,27 @@ export class AwsRawLambda extends AwsProvider{
         super();
     }
 
-    async beforeEntry(): Promise<any[]> {
-        const format = formatInputRawLambda(
-            this._event,
-            this._context,
-            this.state
-        );
+    async beforeEntry(middlewares : any[]): Promise<any[]> {
+        const args = this.args;
         await executeMiddleware(
-            awsFormatMiddleware(
-                this._event,
-                this._context,
-                this.state
-            ),
-            this.middlewares,
+            args,
+            middlewares,
             this.container.container
         );
-        return [format];
+        return args;
     }
     
-    async afterEntry(payload : any): Promise<any> {
-        return formatOutputRawLambda(payload);
+    async afterEntry(payload : any, middlewares : any[]): Promise<any> {
+        const args = [
+            payload,
+            ...this.args
+        ];
+        await executeMiddleware(
+            args,
+            middlewares,
+            this.container.container
+        );
+        return payload;
     }
 
 }
@@ -43,23 +44,4 @@ export type EventAwsRawLambda<
     event: Event,
     context: Context,
     state: State
-}
-
-/*******
- * Create format for input API GATEWAY
- */
-
-function formatInputRawLambda(event : any, context : any, state : any){
-    return {
-        event,
-        context,
-        state
-    }
-}
-
-/*******
- * Create format for output API GATEWAY
- */
- function formatOutputRawLambda(output : any){
-    return output;
 }

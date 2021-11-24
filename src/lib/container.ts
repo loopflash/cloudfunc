@@ -3,7 +3,9 @@ import {
     DependencyContainer,
     Provider,
     ModuleImport,
-    isClass
+    isClass,
+    metadataKeyMiddleware,
+    getMiddlewares
 } from "./internal";
 
 export interface IEntryPoint{
@@ -53,15 +55,14 @@ export abstract class ContainerProcess{
     private async process(provider : Provider) : Promise<any>{
         try{
             provider.setContainer(this._container);
-            const instance = this._container.container.get<IEntryPoint>(
-                this._entryPoint
-            );
-            const beforeEventObject = await provider.beforeEntry();
+            const instance = this._container.container.get<IEntryPoint>(this._entryPoint);
+            const middlewares = getMiddlewares(this._entryPoint);
+            const beforeEventObject = await provider.beforeEntry(middlewares.input);
             const eventObject = await instance.entry.apply(
                 instance, 
                 beforeEventObject
             );
-            return await provider.afterEntry(eventObject);
+            return await provider.afterEntry(eventObject, middlewares.output);
         }catch(e : any){
             if(isClass(this._interceptor)){
                 return this._container.container

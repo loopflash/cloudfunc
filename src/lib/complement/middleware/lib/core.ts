@@ -1,5 +1,7 @@
 import { Container } from 'inversify';
 
+export const metadataKeyMiddleware = 'entry:middleware';
+
 export type MiddlewareExecutor = (...args : any[]) => Promise<void>;
 export type MiddlewareDynamic = {
     service: any,
@@ -7,6 +9,13 @@ export type MiddlewareDynamic = {
     params: any
 }
 export type MiddlewareParam = MiddlewareExecutor | MiddlewareDynamic;
+export enum MiddlewareOrder{
+    INPUT,
+    OUTPUT
+}
+export type MiddlewareObject = MiddlewareDynamic & {
+    order: MiddlewareOrder
+};
 
 /**
  * Add middleware to entry point
@@ -15,12 +24,15 @@ export type MiddlewareParam = MiddlewareExecutor | MiddlewareDynamic;
  * 
  * @public
  */
-export function Middleware(fn : MiddlewareParam){
+export function Middleware(fn : MiddlewareParam, order : MiddlewareOrder = MiddlewareOrder.INPUT){
     return (target : any, targetKey: string) => {
-        const middlewares = Reflect.getMetadata('entry:middleware', target, targetKey) ?? [];
-        Reflect.defineMetadata('entry:middleware', [
+        const middlewares = Reflect.getMetadata(metadataKeyMiddleware, target, targetKey) ?? [];
+        Reflect.defineMetadata(metadataKeyMiddleware, [
             ...middlewares,
-            fn
+            {
+                ...adapterMiddleware(fn),
+                order
+            }
         ], target, targetKey);
     }
 }
@@ -46,4 +58,12 @@ function adapterMiddleware(element : MiddlewareParam) : MiddlewareDynamic{
         }
     }
     return element;
+}
+
+export function getMiddlewares(entryPoint : any){
+    const middlewares = (Reflect.getMetadata(metadataKeyMiddleware, entryPoint, 'entry') ?? []) as MiddlewareObject[];
+    return {
+        input: middlewares.filter(value => value.order === MiddlewareOrder.INPUT),
+        output: middlewares.filter(value => value.order === MiddlewareOrder.OUTPUT),
+    }
 }

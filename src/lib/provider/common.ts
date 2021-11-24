@@ -1,9 +1,8 @@
-import { DependencyContainer, MiddlewareObject } from '../internal';
+import { DependencyContainer } from '../internal';
 
 /** @public */
 export abstract class ProviderBase{
     private _container : DependencyContainer;
-    private _middleware : MiddlewareObject[] = [];
     private _state : any = {};
 
     /**
@@ -13,28 +12,6 @@ export abstract class ProviderBase{
      */
     setContainer(container : DependencyContainer){
         this._container = container;
-    }
-
-    /**
-     * Add middleware
-     * 
-     * @param container - Instance of {@link DependencyContainer}
-     */
-    addMiddleware(middleware : MiddlewareObject[]){
-        this._middleware = [
-            ...this._middleware,
-            ...middleware
-        ];
-    }
-
-    /**
-     * Get all middlewares
-     * 
-     * @returns Group of middlewares
-     * @readonly
-     */
-    get middlewares(){
-        return this._middleware;
     }
 
     /**
@@ -59,9 +36,18 @@ export abstract class ProviderBase{
 }
 
 export abstract class Provider extends ProviderBase{
+
+    private _args : any[];
+
     /**
      * Execute before to enter on {@link entry() function} declare on 
      */
-    abstract beforeEntry() : Promise<any[]>;
-    abstract afterEntry(...args : any[]) : Promise<any>;
+    abstract beforeEntry(middlewares : any[]) : Promise<any[]>;
+    abstract afterEntry(input : any, middlewares : any[]) : Promise<any>;
+    setArgs(args : any[]){
+        this._args = args;
+    }
+    get args(){
+        return this._args;
+    }
 }
