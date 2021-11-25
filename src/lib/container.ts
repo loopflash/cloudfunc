@@ -4,7 +4,6 @@ import {
     Provider,
     ModuleImport,
     isClass,
-    metadataKeyMiddleware,
     getMiddlewares
 } from "./internal";
 
