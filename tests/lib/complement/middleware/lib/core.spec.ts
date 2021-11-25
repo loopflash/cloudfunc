@@ -54,24 +54,28 @@ describe('Test Middleware', () => {
         const context = {};
         const params = {};
         const args = [event, context];
+        const middelware = jest.fn().mockImplementation(function(){
+            expect(this.myservice).toBeDefined();
+            expect(this.myservice).toBe(100);
+        });
         const middlewares : MiddlewareObject[] = [
             {
-                executor: fakeMiddleware,
+                executor: middelware,
                 order: MiddlewareOrder.INPUT,
                 params,
-                service: null
+                service: {
+                    myservice: 100
+                }
             }
         ];
         const container = {
             isBound: jest.fn().mockReturnValue(true),
-            get: jest.fn().mockReturnValue({
-                myservice: 100
-            })
+            get: jest.fn().mockImplementation(obj => obj)
         };
         await expect(
             executeMiddleware(args, middlewares, container as any)
         ).resolves.not.toThrow();
-        expect(fakeMiddleware).toHaveBeenCalledWith(params, event, context);
+        expect(middelware).toHaveBeenCalledWith(params, event, context);
     });
 
 });
