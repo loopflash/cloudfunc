@@ -1,131 +1,77 @@
 /**
  * @group unit/middleware/core
  */
-import { executeMiddleware, MiddlewareClass, MiddlewareObject, IMiddleware, MiddlewareEvent } from "../../../../../src/lib/internal"
+import { executeMiddleware, MiddlewareObject, MiddlewareOrder } from "../../../../../src/lib/internal"
 
 describe('Test Middleware', () => {
 
-    let fakeMiddleware : MiddlewareClass;
-    let fakeMiddleware2 : MiddlewareClass;
+    let fakeMiddleware : jest.Mock;
+    let fakeMiddleware2 : jest.Mock;
 
     beforeEach(() => {
-        fakeMiddleware = class implements IMiddleware{
-
-            async onCall(event: MiddlewareEvent, options?: any): Promise<void> {
-                event.aws.event.flag = true;
-                options.flag = true;
-            }
-
-        }
-
-        fakeMiddleware2 = class implements IMiddleware{
-
-            async onCall(event: MiddlewareEvent, options?: any): Promise<void> {
-                event.aws.event.flag = true;
-                options.flag = true;
-            }
-
-        }
+        fakeMiddleware = jest.fn();
+        fakeMiddleware2 = jest.fn();
     });
 
     test('Should execute flow with empty array of middlewares', async () => {
         const event = {};
+        const context = {};
+        const args = [event, context];
         const middlewares = [];
         const container = null;
         await expect(
-            executeMiddleware(event, middlewares, container)
+            executeMiddleware(args, middlewares, container)
         ).resolves.not.toThrow();
     });
 
-    test('Should execute flow with some neutral classes', async () => {
-        const event : MiddlewareEvent = {
-            aws: {
-                context: {},
-                event: {}
-            }
-        };
+    test('Should execute flow with function in list', async () => {
+        const event = {};
+        const context = {};
+        const args = [event, context];
         const middlewares : MiddlewareObject[] = [
-            fakeMiddleware
+            {
+                executor: fakeMiddleware,
+                order: MiddlewareOrder.INPUT,
+                params: {},
+                service: null
+            },
+            {
+                executor: fakeMiddleware2,
+                order: MiddlewareOrder.INPUT,
+                params: {},
+                service: null
+            }
         ];
-        const container = {
-            isBound: jest.fn().mockReturnValue(false)
-        };
         await expect(
-            executeMiddleware(event, middlewares, container as any)
+            executeMiddleware(args, middlewares, null as any)
         ).resolves.not.toThrow();
-        expect(event).toHaveProperty('aws.event.flag', true)
+        expect(fakeMiddleware).toBeCalled();
+        expect(fakeMiddleware2).toBeCalled();
     });
 
     test('Should execute flow with some injectable classes', async () => {
-        const event : MiddlewareEvent = {
-            aws: {
-                context: {},
-                event: {}
-            }
-        };
+        const event = {};
+        const context = {};
+        const params = {};
+        const args = [event, context];
         const middlewares : MiddlewareObject[] = [
-            fakeMiddleware
+            {
+                executor: fakeMiddleware,
+                order: MiddlewareOrder.INPUT,
+                params,
+                service: null
+            }
         ];
         const container = {
             isBound: jest.fn().mockReturnValue(true),
-            get: jest.fn().mockReturnValue(new fakeMiddleware())
+            get: jest.fn().mockReturnValue({
+                myservice: 100
+            })
         };
         await expect(
-            executeMiddleware(event, middlewares, container as any)
+            executeMiddleware(args, middlewares, container as any)
         ).resolves.not.toThrow();
-        expect(event).toHaveProperty('aws.event.flag', true)
-    });
-
-    test('Should execute flow with some neutral classes and options', async () => {
-        const event : MiddlewareEvent = {
-            aws: {
-                context: {},
-                event: {}
-            }
-        };
-        const options = {};
-        const middlewares : MiddlewareObject[] = [
-            {
-                middleware: fakeMiddleware,
-                options
-            }
-        ];
-        const container = {
-            isBound: jest.fn().mockReturnValue(false)
-        };
-        await expect(
-            executeMiddleware(event, middlewares, container as any)
-        ).resolves.not.toThrow();
-        expect(event).toHaveProperty('aws.event.flag', true);
-        expect(options).toHaveProperty('flag', true);
-    });
-
-    test('Should execute flow with two neutral classes and options', async () => {
-        const event : MiddlewareEvent = {
-            aws: {
-                context: {},
-                event: {}
-            }
-        };
-        const options = [{}, {}];
-        const middlewares : MiddlewareObject[] = [
-            {
-                middleware: fakeMiddleware,
-                options: options[0]
-            },
-            {
-                middleware: fakeMiddleware2,
-                options: options[1]
-            }
-        ];
-        const container = {
-            isBound: jest.fn().mockReturnValue(false)
-        };
-        await expect(
-            executeMiddleware(event, middlewares, container as any)
-        ).resolves.not.toThrow();
-        expect(options[0]).toHaveProperty('flag', true);
-        expect(options[1]).toHaveProperty('flag', true);
+        expect(fakeMiddleware).toHaveBeenCalledWith(params, event, context);
     });
 
 });
