@@ -4,7 +4,7 @@
 import 'reflect-metadata';
 import {
     Container,
-    AwsRawLambda
+    AwsProvider
 } from '../../../src';
 import { EntryPoint } from './entry';
 import { Service1 } from './services/service1';
@@ -25,9 +25,8 @@ describe('Integration - Basic Services', () => {
             Service3
         ]);
         await container.load();
-        const provider = new AwsRawLambda();
-        provider.setEvent({});
-        provider.setContext({});
+        const provider = new AwsProvider();
+        provider.setArgs([{}, {}]);
         const result = await container.execute(provider);
         expect(result.status).toBeDefined();
         expect(result.status).toBe(700);
