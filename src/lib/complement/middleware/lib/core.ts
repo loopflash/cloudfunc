@@ -6,7 +6,8 @@ export type MiddlewareExecutor = (...args : any[]) => Promise<void>;
 export type MiddlewareDynamic = {
     service: any,
     executor: MiddlewareExecutor,
-    params: any
+    params: any,
+    source?: 'module' | 'function'
 }
 export type MiddlewareParam = MiddlewareExecutor | MiddlewareDynamic;
 export enum MiddlewareOrder{
@@ -25,27 +26,33 @@ export type MiddlewareObject = MiddlewareDynamic & {
  * @public
  */
 export function Middleware(fn : MiddlewareParam, order : MiddlewareOrder = MiddlewareOrder.INPUT){
-    return (target : any, targetKey: string) => {
-        const middlewares = Reflect.getMetadata(metadataKeyMiddleware, target, targetKey) ?? [];
+    return (target : any, targetKey: string, descriptor : any) => {
+        const middlewares = Reflect.getMetadata(metadataKeyMiddleware, descriptor.value) ?? [];
         Reflect.defineMetadata(metadataKeyMiddleware, [
             ...middlewares,
             {
                 ...adapterMiddleware(fn),
                 order
             }
-        ], target, targetKey);
+        ], descriptor.value);
     }
 }
 
 export async function executeMiddleware(
     args : any[],
-    middlewares : MiddlewareParam[],
+    middlewares : MiddlewareDynamic[],
     container : Container
 ) : Promise<void>{
     for(const element of middlewares){
-        const {executor, params, service} = adapterMiddleware(element);
+        const {executor, params, service, source} = element;
         const getService = service ? container.get(service) : null;
-        await executor.apply(getService, [params, ...args]);
+        let argsToPass : any[];
+        if(source === 'function'){
+            argsToPass = args;
+        }else{
+            argsToPass = [params, ...args];
+        }
+        await executor.apply(getService, argsToPass);
     }
 }
 
@@ -54,14 +61,18 @@ function adapterMiddleware(element : MiddlewareParam) : MiddlewareDynamic{
         return {
             service: null,
             params: null,
-            executor: element
+            executor: element,
+            source: 'function'
         }
     }
-    return element;
+    return {
+        ...element,
+        source: 'module'
+    };
 }
 
 export function getMiddlewares(entryPoint : any){
-    const middlewares = (Reflect.getMetadata(metadataKeyMiddleware, entryPoint, 'entry') ?? []) as MiddlewareObject[];
+    const middlewares = (Reflect.getMetadata(metadataKeyMiddleware, entryPoint.prototype.entry) ?? []) as MiddlewareObject[];
     return {
         input: middlewares.filter(value => value.order === MiddlewareOrder.INPUT),
         output: middlewares.filter(value => value.order === MiddlewareOrder.OUTPUT),
