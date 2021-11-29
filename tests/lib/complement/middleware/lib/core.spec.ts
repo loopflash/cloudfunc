@@ -1,7 +1,7 @@
 /**
  * @group unit/middleware/core
  */
-import { executeMiddleware, MiddlewareObject, MiddlewareOrder } from "../../../../../src/lib/internal"
+import { executeMiddleware, MiddlewareObject, MiddlewareOrder, ProviderInfo } from "../../../../../src/lib/internal"
 
 describe('Test Middleware', () => {
 
@@ -19,8 +19,9 @@ describe('Test Middleware', () => {
         const args = [event, context];
         const middlewares = [];
         const container = null;
+        const provider = {provider: 'aws'} as ProviderInfo
         await expect(
-            executeMiddleware(args, middlewares, container)
+            executeMiddleware(args, middlewares, container, provider)
         ).resolves.not.toThrow();
     });
 
@@ -28,6 +29,7 @@ describe('Test Middleware', () => {
         const event = {};
         const context = {};
         const args = [event, context];
+        const provider = {provider: 'aws'} as ProviderInfo
         const middlewares : MiddlewareObject[] = [
             {
                 executor: fakeMiddleware,
@@ -43,7 +45,7 @@ describe('Test Middleware', () => {
             }
         ];
         await expect(
-            executeMiddleware(args, middlewares, null as any)
+            executeMiddleware(args, middlewares, null as any, provider)
         ).resolves.not.toThrow();
         expect(fakeMiddleware).toBeCalled();
         expect(fakeMiddleware2).toBeCalled();
@@ -54,28 +56,33 @@ describe('Test Middleware', () => {
         const context = {};
         const params = {};
         const args = [event, context];
-        const middelware = jest.fn().mockImplementation(function(){
-            expect(this.myservice).toBeDefined();
-            expect(this.myservice).toBe(100);
+        const serv = {
+            myservice: 100
+        } as any;
+        const middelware = jest.fn().mockImplementation(function(service){
+            expect(service.myservice).toBeDefined();
+            expect(service.myservice).toBe(100);
         });
         const middlewares : MiddlewareObject[] = [
             {
                 executor: middelware,
                 order: MiddlewareOrder.INPUT,
                 params,
-                service: {
-                    myservice: 100
-                }
+                service: serv
             }
         ];
         const container = {
             isBound: jest.fn().mockReturnValue(true),
             get: jest.fn().mockImplementation(obj => obj)
         };
+        const provider = {provider: 'aws'} as ProviderInfo
         await expect(
-            executeMiddleware(args, middlewares, container as any)
+            executeMiddleware(args, middlewares, container as any, provider)
         ).resolves.not.toThrow();
-        expect(middelware).toHaveBeenCalledWith(params, event, context);
+        expect(middelware).toHaveBeenCalledWith(serv, {
+            ...params,
+            ...provider
+        }, event, context);
     });
 
 });
