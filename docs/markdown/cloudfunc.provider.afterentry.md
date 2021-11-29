@@ -7,14 +7,15 @@
 <b>Signature:</b>
 
 ```typescript
-abstract afterEntry(...args: any[]): Promise<any>;
+afterEntry(payload: any, middlewares: any[]): Promise<any>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  args | any\[\] |  |
+|  payload | any |  |
+|  middlewares | any\[\] |  |
 
 <b>Returns:</b>
 

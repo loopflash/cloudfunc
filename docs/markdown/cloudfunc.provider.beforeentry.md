@@ -4,13 +4,18 @@
 
 ## Provider.beforeEntry() method
 
-Execute before to enter on  declare on
-
 <b>Signature:</b>
 
 ```typescript
-abstract beforeEntry(): Promise<any[]>;
+beforeEntry(middlewares: any[]): Promise<any[]>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  middlewares | any\[\] |  |
+
 <b>Returns:</b>
 
 Promise&lt;any\[\]&gt;

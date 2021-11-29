@@ -8,7 +8,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare abstract class AzureProvider extends Provider 
+export declare class AzureProvider extends Provider 
 ```
 <b>Extends:</b> [Provider](./cloudfunc.provider.md)
 
@@ -22,14 +22,5 @@ export declare abstract class AzureProvider extends Provider
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [\_context](./cloudfunc.azureprovider._context.md) |  | any |  |
-|  [\_request](./cloudfunc.azureprovider._request.md) |  | any |  |
-|  [providerName](./cloudfunc.azureprovider.providername.md) |  | string |  |
-
-## Methods
-
-|  Method | Modifiers | Description |
-|  --- | --- | --- |
-|  [setContext(context)](./cloudfunc.azureprovider.setcontext.md) |  |  |
-|  [setRequest(request)](./cloudfunc.azureprovider.setrequest.md) |  |  |
+|  [\_provider](./cloudfunc.azureprovider._provider.md) |  | [Providers](./cloudfunc.providers.md) |  |
 

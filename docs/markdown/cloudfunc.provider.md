@@ -15,6 +15,6 @@ export declare abstract class Provider extends ProviderBase
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [afterEntry(args)](./cloudfunc.provider.afterentry.md) |  |  |
-|  [beforeEntry()](./cloudfunc.provider.beforeentry.md) |  | Execute before to enter on  declare on |
+|  [afterEntry(payload, middlewares)](./cloudfunc.provider.afterentry.md) |  |  |
+|  [beforeEntry(middlewares)](./cloudfunc.provider.beforeentry.md) |  |  |
 

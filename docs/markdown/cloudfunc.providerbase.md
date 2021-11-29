@@ -15,14 +15,18 @@ export declare abstract class ProviderBase
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
+|  [\_provider](./cloudfunc.providerbase._provider.md) |  | [Providers](./cloudfunc.providers.md) |  |
+|  [args](./cloudfunc.providerbase.args.md) |  | any\[\] |  |
 |  [container](./cloudfunc.providerbase.container.md) |  | [DependencyContainer](./cloudfunc.dependencycontainer.md) | Get container |
-|  [middlewares](./cloudfunc.providerbase.middlewares.md) |  | [MiddlewareObject](./cloudfunc.middlewareobject.md)<!-- -->\[\] | Get all middlewares |
+|  [provider](./cloudfunc.providerbase.provider.md) |  | [Providers](./cloudfunc.providers.md) | Get provider |
 |  [state](./cloudfunc.providerbase.state.md) |  | any | Get state |
 
 ## Methods
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [addMiddleware(middleware)](./cloudfunc.providerbase.addmiddleware.md) |  | Add middleware |
+|  [afterEntry(input, middlewares)](./cloudfunc.providerbase.afterentry.md) |  |  |
+|  [beforeEntry(middlewares)](./cloudfunc.providerbase.beforeentry.md) |  | Execute before to enter on  declare on |
+|  [setArgs(args)](./cloudfunc.providerbase.setargs.md) |  |  |
 |  [setContainer(container)](./cloudfunc.providerbase.setcontainer.md) |  | Set global container |
 
