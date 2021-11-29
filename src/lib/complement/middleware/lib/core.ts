@@ -1,59 +1,89 @@
 import { Container } from 'inversify';
-import { isClass } from '../../../helper';
+import { BindType } from '../../../internal';
 
-export interface IMiddleware{
-    /**
-     * Hook for execution of middleware
-     * 
-     * @param event - Event for middleware
-     * @param options - Options declared for middleware
-     * @public
-     */
-    onCall(event : MiddlewareEvent, options? : any) : Promise<void>;
+export const metadataKeyMiddleware = 'entry:middleware';
+
+export type MiddlewareExecutor = (...args : any[]) => Promise<void>;
+export type MiddlewareDynamic = {
+    service: BindType,
+    executor: MiddlewareExecutor,
+    params: any,
+    source?: 'module' | 'function'
+}
+export type MiddlewareParam = MiddlewareExecutor | MiddlewareDynamic;
+export enum MiddlewareOrder{
+    INPUT,
+    OUTPUT
+}
+export type MiddlewareObject = MiddlewareDynamic & {
+    order: MiddlewareOrder
+};
+export type ProviderInfo = {
+    provider: 'aws' | 'gcp' | 'azure'
 }
 
-export type MiddlewareEvent = {
-    aws?: {
-        event: any,
-        context: any
-    },
-    gcp?: {
-        event: any,
-        context: any
-    },
-    azure?: {
-        request: any,
-        context: any
+/**
+ * Add middleware to entry point
+ * 
+ * @param fn - Middleware hook {@link MiddlewareParam}
+ * 
+ * @public
+ */
+export function Middleware(fn : MiddlewareParam, order : MiddlewareOrder = MiddlewareOrder.INPUT){
+    return (target : any, targetKey: string, descriptor : any) => {
+        const middlewares = Reflect.getMetadata(metadataKeyMiddleware, descriptor.value) ?? [];
+        Reflect.defineMetadata(metadataKeyMiddleware, [
+            {
+                ...adapterMiddleware(fn),
+                order
+            },
+            ...middlewares,
+        ], descriptor.value);
     }
 }
-
-export type MiddlewareObject = MiddlewareClass | MiddlewareObjectWithOptions;
-export type MiddlewareObjectWithOptions = {
-    middleware: MiddlewareClass,
-    options: any
-}
-export type MiddlewareClass = {new (...args: any) : IMiddleware};
 
 export async function executeMiddleware(
-    event : MiddlewareEvent,
-    middlewares : MiddlewareObject[],
-    container : Container
+    args : any[],
+    middlewares : MiddlewareDynamic[],
+    container : Container,
+    provider: ProviderInfo
 ) : Promise<void>{
     for(const element of middlewares){
-        const {middleware, options} = normalizeMiddleware(element);
-        const getRef = container.isBound(middleware) ? (
-            container.get<any>(middleware)
-        ) : (new middleware());
-        await getRef.onCall(event, options);
+        const {executor, params, service, source} = element;
+        const getService = service ? container.get(service) : null;
+        let argsToPass : any[];
+        if(source === 'function'){
+            argsToPass = [provider, ...args];
+        }else{
+            const paramsWithProvider = {
+                ...params,
+                ...provider
+            };
+            argsToPass = getService ? [getService, paramsWithProvider, ...args] : [paramsWithProvider, ...args];
+        }
+        await executor.apply(null, argsToPass);
     }
 }
 
-function normalizeMiddleware(element : MiddlewareObject) : MiddlewareObjectWithOptions{
-    if(isClass(element)){
+function adapterMiddleware(element : MiddlewareParam) : MiddlewareDynamic{
+    if(typeof element === 'function'){
         return {
-            middleware: element as MiddlewareClass,
-            options: {}
+            service: null,
+            params: null,
+            executor: element,
+            source: 'function'
         }
     }
-    return element as MiddlewareObjectWithOptions;
+    return {
+        ...element,
+        source: 'module'
+    };
+}
+
+export function getMiddlewares(entryPoint : any){
+    const middlewares = (Reflect.getMetadata(metadataKeyMiddleware, entryPoint.prototype.entry) ?? []) as MiddlewareObject[];
+    return {
+        input: middlewares.filter(value => value.order === MiddlewareOrder.INPUT),
+        output: middlewares.filter(value => value.order === MiddlewareOrder.OUTPUT),
+    }
 }

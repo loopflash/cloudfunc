@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.18.11",
+    "toolVersion": "7.18.19",
     "schemaVersion": 1004,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -205,745 +205,12 @@
         },
         {
           "kind": "Class",
-          "canonicalReference": "cloudfunc!ApiGateway:class",
-          "docComment": "/**\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare class ApiGateway extends "
-            },
-            {
-              "kind": "Reference",
-              "text": "AwsProvider",
-              "canonicalReference": "cloudfunc!AwsProvider:class"
-            },
-            {
-              "kind": "Content",
-              "text": " "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "ApiGateway",
-          "members": [
-            {
-              "kind": "Constructor",
-              "canonicalReference": "cloudfunc!ApiGateway:constructor(1)",
-              "docComment": "/**\n * Constructs a new instance of the `ApiGateway` class\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "constructor(_options: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ApiGatewayOptions",
-                  "canonicalReference": "cloudfunc!ApiGatewayOptions:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ");"
-                }
-              ],
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "_options",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ApiGateway#afterEntry:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "afterEntry(payload: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 5
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "payload",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "afterEntry"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ApiGateway#beforeEntry:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "beforeEntry(): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any[]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "beforeEntry"
-            }
-          ],
-          "extendsTokenRange": {
-            "startIndex": 1,
-            "endIndex": 3
-          },
-          "implementsTokenRanges": []
-        },
-        {
-          "kind": "Class",
-          "canonicalReference": "cloudfunc!ApiGatewayContext:class",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare class ApiGatewayContext "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "ApiGatewayContext",
-          "members": [
-            {
-              "kind": "Constructor",
-              "canonicalReference": "cloudfunc!ApiGatewayContext:constructor(1)",
-              "docComment": "/**\n * Constructs a new instance of the `ApiGatewayContext` class\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "constructor(_options: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ApiGatewayContextOptions",
-                  "canonicalReference": "cloudfunc!ApiGatewayContextOptions:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ");"
-                }
-              ],
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "_options",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#code:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "get code(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "code",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#headers:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "get headers(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "headers",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#isBase64Encoded:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "get isBase64Encoded(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "isBase64Encoded",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ApiGatewayContext.makeInstance:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "static makeInstance(options: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ApiGatewayContextOptions",
-                  "canonicalReference": "cloudfunc!ApiGatewayContextOptions:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ApiGatewayContext",
-                  "canonicalReference": "cloudfunc!ApiGatewayContext:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": true,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "options",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "makeInstance"
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#multiHeaders:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "get multiHeaders(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "{\n        [key: string]: string[];\n    }"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "multiHeaders",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#setBase64:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setBase64(isBase64: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "isBase64",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setBase64"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#setCode:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setCode(code: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "code",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setCode"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#setCookie:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setCookie(key: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", value: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", options: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 7,
-                "endIndex": 8
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "key",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "value",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
-                },
-                {
-                  "parameterName": "options",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 5,
-                    "endIndex": 6
-                  }
-                }
-              ],
-              "name": "setCookie"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#setHeaders:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setHeaders(headers: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "headers",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setHeaders"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ApiGatewayContext#setMultiHeaders:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setMultiHeaders(headers: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "headers",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setMultiHeaders"
-            }
-          ],
-          "implementsTokenRanges": []
-        },
-        {
-          "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!ApiGatewayContextOptions:type",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare type ApiGatewayContextOptions = "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    code?: number;\n    headers?: any;\n    multiValueHeaders?: {\n        [key: string]: string[];\n    };\n    isBase64Encoded?: boolean;\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "ApiGatewayContextOptions",
-          "typeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 2
-          }
-        },
-        {
-          "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!ApiGatewayOptions:type",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare type ApiGatewayOptions = "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    default?: "
-            },
-            {
-              "kind": "Reference",
-              "text": "ApiGatewayContextOptions",
-              "canonicalReference": "cloudfunc!ApiGatewayContextOptions:type"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "ApiGatewayOptions",
-          "typeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 4
-          }
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "cloudfunc!awsFormatMiddleware:function(1)",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function awsFormatMiddleware(event: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", context: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", state: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    aws: {\n        event: any;\n        context: any;\n        state: any;\n    };\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 8
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "event",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "parameterName": "context",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "parameterName": "state",
-              "parameterTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              }
-            }
-          ],
-          "name": "awsFormatMiddleware"
-        },
-        {
-          "kind": "Class",
           "canonicalReference": "cloudfunc!AwsProvider:class",
           "docComment": "/**\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare abstract class AwsProvider extends "
+              "text": "export declare class AwsProvider extends "
             },
             {
               "kind": "Reference",
@@ -960,16 +227,17 @@
           "members": [
             {
               "kind": "Property",
-              "canonicalReference": "cloudfunc!AwsProvider#_context:member",
+              "canonicalReference": "cloudfunc!AwsProvider#_provider:member",
               "docComment": "",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "protected _context: "
+                  "text": "_provider: "
                 },
                 {
-                  "kind": "Content",
-                  "text": "any"
+                  "kind": "Reference",
+                  "text": "Providers",
+                  "canonicalReference": "cloudfunc!Providers:type"
                 },
                 {
                   "kind": "Content",
@@ -978,34 +246,7 @@
               ],
               "isOptional": false,
               "releaseTag": "Public",
-              "name": "_context",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!AwsProvider#_event:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "protected _event: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "_event",
+              "name": "_provider",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -1025,123 +266,6 @@
               "releaseTag": "Public",
               "overloadIndex": 1,
               "parameters": []
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!AwsProvider#providerName:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "get providerName(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "providerName",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!AwsProvider#setContext:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setContext(context: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "context",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setContext"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!AwsProvider#setEvent:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setEvent(event: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "event",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setEvent"
             }
           ],
           "extendsTokenRange": {
@@ -1149,206 +273,6 @@
             "endIndex": 3
           },
           "implementsTokenRanges": []
-        },
-        {
-          "kind": "Class",
-          "canonicalReference": "cloudfunc!AwsRawLambda:class",
-          "docComment": "/**\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare class AwsRawLambda extends "
-            },
-            {
-              "kind": "Reference",
-              "text": "AwsProvider",
-              "canonicalReference": "cloudfunc!AwsProvider:class"
-            },
-            {
-              "kind": "Content",
-              "text": " "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "AwsRawLambda",
-          "members": [
-            {
-              "kind": "Constructor",
-              "canonicalReference": "cloudfunc!AwsRawLambda:constructor(1)",
-              "docComment": "/**\n * Constructs a new instance of the `AwsRawLambda` class\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "constructor();"
-                }
-              ],
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": []
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!AwsRawLambda#afterEntry:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "afterEntry(payload: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 5
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "payload",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "afterEntry"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!AwsRawLambda#beforeEntry:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "beforeEntry(): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any[]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "beforeEntry"
-            }
-          ],
-          "extendsTokenRange": {
-            "startIndex": 1,
-            "endIndex": 3
-          },
-          "implementsTokenRanges": []
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "cloudfunc!azureFormatMiddleware:function(1)",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function azureFormatMiddleware(context: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", request: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", state: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    azure: {\n        context: any;\n        request: any;\n        state: any;\n    };\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 8
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "context",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "parameterName": "request",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "parameterName": "state",
-              "parameterTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              }
-            }
-          ],
-          "name": "azureFormatMiddleware"
         },
         {
           "kind": "Class",
@@ -1357,7 +281,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare abstract class AzureProvider extends "
+              "text": "export declare class AzureProvider extends "
             },
             {
               "kind": "Reference",
@@ -1374,16 +298,17 @@
           "members": [
             {
               "kind": "Property",
-              "canonicalReference": "cloudfunc!AzureProvider#_context:member",
+              "canonicalReference": "cloudfunc!AzureProvider#_provider:member",
               "docComment": "",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "protected _context: "
+                  "text": "_provider: "
                 },
                 {
-                  "kind": "Content",
-                  "text": "any"
+                  "kind": "Reference",
+                  "text": "Providers",
+                  "canonicalReference": "cloudfunc!Providers:type"
                 },
                 {
                   "kind": "Content",
@@ -1392,34 +317,7 @@
               ],
               "isOptional": false,
               "releaseTag": "Public",
-              "name": "_context",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!AzureProvider#_request:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "protected _request: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "_request",
+              "name": "_provider",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -1439,250 +337,6 @@
               "releaseTag": "Public",
               "overloadIndex": 1,
               "parameters": []
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!AzureProvider#providerName:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "get providerName(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "providerName",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!AzureProvider#setContext:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setContext(context: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "context",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setContext"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!AzureProvider#setRequest:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setRequest(request: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "request",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setRequest"
-            }
-          ],
-          "extendsTokenRange": {
-            "startIndex": 1,
-            "endIndex": 3
-          },
-          "implementsTokenRanges": []
-        },
-        {
-          "kind": "Class",
-          "canonicalReference": "cloudfunc!AzureRawFunction:class",
-          "docComment": "/**\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare class AzureRawFunction extends "
-            },
-            {
-              "kind": "Reference",
-              "text": "AzureProvider",
-              "canonicalReference": "cloudfunc!AzureProvider:class"
-            },
-            {
-              "kind": "Content",
-              "text": " "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "AzureRawFunction",
-          "members": [
-            {
-              "kind": "Constructor",
-              "canonicalReference": "cloudfunc!AzureRawFunction:constructor(1)",
-              "docComment": "/**\n * Constructs a new instance of the `AzureRawFunction` class\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "constructor();"
-                }
-              ],
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": []
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!AzureRawFunction#afterEntry:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "afterEntry(payload: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 5
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "payload",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "afterEntry"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!AzureRawFunction#beforeEntry:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "beforeEntry(): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any[]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "beforeEntry"
             }
           ],
           "extendsTokenRange": {
@@ -1702,7 +356,7 @@
             },
             {
               "kind": "Content",
-              "text": "string | symbol | {\n    new (...args: any[]): any;\n}"
+              "text": "string | symbol | (abstract new (...args: any[]) => any) | (new (...args: any[]) => any)"
             },
             {
               "kind": "Content",
@@ -2626,392 +1280,17 @@
           }
         },
         {
-          "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!EventAwsApiGateway:type",
-          "docComment": "/**\n * ***** General usage\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare type EventAwsApiGateway<BodyRequest = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", HeadersRequest = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", ParamsRequest = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", Event = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", Context = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": "> = "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    params: ParamsRequest;\n    headers: HeadersRequest;\n    method: string;\n    path: string;\n    body: BodyRequest;\n    event: Event;\n    context: Context;\n    state: any;\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "EventAwsApiGateway",
-          "typeParameters": [
-            {
-              "typeParameterName": "BodyRequest",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "typeParameterName": "HeadersRequest",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "typeParameterName": "ParamsRequest",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              }
-            },
-            {
-              "typeParameterName": "Event",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 7,
-                "endIndex": 8
-              }
-            },
-            {
-              "typeParameterName": "Context",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 9,
-                "endIndex": 10
-              }
-            }
-          ],
-          "typeTokenRange": {
-            "startIndex": 11,
-            "endIndex": 12
-          }
-        },
-        {
-          "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!EventAwsRawLambda:type",
-          "docComment": "/**\n * ***** General usage\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare type EventAwsRawLambda<Event = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", Context = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", State = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": "> = "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    event: Event;\n    context: Context;\n    state: State;\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "EventAwsRawLambda",
-          "typeParameters": [
-            {
-              "typeParameterName": "Event",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "typeParameterName": "Context",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "typeParameterName": "State",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              }
-            }
-          ],
-          "typeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 8
-          }
-        },
-        {
-          "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!EventAzureRawFunction:type",
-          "docComment": "/**\n * ***** General usage\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare type EventAzureRawFunction<Request = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", Context = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", State = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": "> = "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    request: Request;\n    context: Context;\n    state: State;\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "EventAzureRawFunction",
-          "typeParameters": [
-            {
-              "typeParameterName": "Request",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "typeParameterName": "Context",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "typeParameterName": "State",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              }
-            }
-          ],
-          "typeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 8
-          }
-        },
-        {
-          "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!EventGcpRawFunction:type",
-          "docComment": "/**\n * ***** General usage\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare type EventGcpRawFunction<Event = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", Context = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", State = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": "> = "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    event: Event;\n    context: Context;\n    state: State;\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "EventGcpRawFunction",
-          "typeParameters": [
-            {
-              "typeParameterName": "Event",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "typeParameterName": "Context",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "typeParameterName": "State",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              }
-            }
-          ],
-          "typeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 8
-          }
-        },
-        {
           "kind": "Function",
           "canonicalReference": "cloudfunc!executeMiddleware:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare function executeMiddleware(event: "
+              "text": "export declare function executeMiddleware(args: "
             },
             {
-              "kind": "Reference",
-              "text": "MiddlewareEvent",
-              "canonicalReference": "cloudfunc!MiddlewareEvent:type"
+              "kind": "Content",
+              "text": "any[]"
             },
             {
               "kind": "Content",
@@ -3019,8 +1298,8 @@
             },
             {
               "kind": "Reference",
-              "text": "MiddlewareObject",
-              "canonicalReference": "cloudfunc!MiddlewareObject:type"
+              "text": "MiddlewareDynamic",
+              "canonicalReference": "cloudfunc!MiddlewareDynamic:type"
             },
             {
               "kind": "Content",
@@ -3034,6 +1313,15 @@
               "kind": "Reference",
               "text": "Container",
               "canonicalReference": "inversify!~Container:class"
+            },
+            {
+              "kind": "Content",
+              "text": ", provider: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ProviderInfo",
+              "canonicalReference": "cloudfunc!ProviderInfo:type"
             },
             {
               "kind": "Content",
@@ -3054,14 +1342,14 @@
             }
           ],
           "returnTypeTokenRange": {
-            "startIndex": 8,
-            "endIndex": 10
+            "startIndex": 10,
+            "endIndex": 12
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
           "parameters": [
             {
-              "parameterName": "event",
+              "parameterName": "args",
               "parameterTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -3080,82 +1368,16 @@
                 "startIndex": 6,
                 "endIndex": 7
               }
+            },
+            {
+              "parameterName": "provider",
+              "parameterTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              }
             }
           ],
           "name": "executeMiddleware"
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "cloudfunc!gcpFormatMiddleware:function(1)",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function gcpFormatMiddleware(event: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", context: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", state: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    gcp: {\n        event: any;\n        context: any;\n        state: any;\n    };\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 8
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "event",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "parameterName": "context",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "parameterName": "state",
-              "parameterTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              }
-            }
-          ],
-          "name": "gcpFormatMiddleware"
         },
         {
           "kind": "Class",
@@ -3164,7 +1386,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare abstract class GcpProvider extends "
+              "text": "export declare class GcpProvider extends "
             },
             {
               "kind": "Reference",
@@ -3181,16 +1403,17 @@
           "members": [
             {
               "kind": "Property",
-              "canonicalReference": "cloudfunc!GcpProvider#_context:member",
+              "canonicalReference": "cloudfunc!GcpProvider#_provider:member",
               "docComment": "",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "protected _context: "
+                  "text": "_provider: "
                 },
                 {
-                  "kind": "Content",
-                  "text": "any"
+                  "kind": "Reference",
+                  "text": "Providers",
+                  "canonicalReference": "cloudfunc!Providers:type"
                 },
                 {
                   "kind": "Content",
@@ -3199,34 +1422,7 @@
               ],
               "isOptional": false,
               "releaseTag": "Public",
-              "name": "_context",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!GcpProvider#_event:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "protected _event: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "_event",
+              "name": "_provider",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -3246,123 +1442,6 @@
               "releaseTag": "Public",
               "overloadIndex": 1,
               "parameters": []
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "cloudfunc!GcpProvider#providerName:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "get providerName(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "providerName",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!GcpProvider#setContext:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setContext(context: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "context",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setContext"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!GcpProvider#setEvent:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "setEvent(event: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "event",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "setEvent"
             }
           ],
           "extendsTokenRange": {
@@ -3372,131 +1451,65 @@
           "implementsTokenRanges": []
         },
         {
-          "kind": "Class",
-          "canonicalReference": "cloudfunc!GcpRawFunction:class",
-          "docComment": "/**\n * @public\n */\n",
+          "kind": "Function",
+          "canonicalReference": "cloudfunc!getMiddlewares:function(1)",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare class GcpRawFunction extends "
-            },
-            {
-              "kind": "Reference",
-              "text": "GcpProvider",
-              "canonicalReference": "cloudfunc!GcpProvider:class"
+              "text": "export declare function getMiddlewares(entryPoint: "
             },
             {
               "kind": "Content",
-              "text": " "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "GcpRawFunction",
-          "members": [
-            {
-              "kind": "Constructor",
-              "canonicalReference": "cloudfunc!GcpRawFunction:constructor(1)",
-              "docComment": "/**\n * Constructs a new instance of the `GcpRawFunction` class\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "constructor();"
-                }
-              ],
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": []
+              "text": "any"
             },
             {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!GcpRawFunction#afterEntry:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "afterEntry(payload: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 5
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "payload",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "afterEntry"
+              "kind": "Content",
+              "text": "): "
             },
             {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!GcpRawFunction#beforeEntry:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "beforeEntry(): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any[]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "beforeEntry"
+              "kind": "Content",
+              "text": "{\n    input: "
+            },
+            {
+              "kind": "Reference",
+              "text": "MiddlewareObject",
+              "canonicalReference": "cloudfunc!MiddlewareObject:type"
+            },
+            {
+              "kind": "Content",
+              "text": "[];\n    output: "
+            },
+            {
+              "kind": "Reference",
+              "text": "MiddlewareObject",
+              "canonicalReference": "cloudfunc!MiddlewareObject:type"
+            },
+            {
+              "kind": "Content",
+              "text": "[];\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
-          "extendsTokenRange": {
-            "startIndex": 1,
-            "endIndex": 3
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 8
           },
-          "implementsTokenRanges": []
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "entryPoint",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "name": "getMiddlewares"
         },
         {
           "kind": "Interface",
@@ -3673,87 +1686,6 @@
                 }
               ],
               "name": "intercept"
-            }
-          ],
-          "extendsTokenRanges": []
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "cloudfunc!IMiddleware:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export interface IMiddleware "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "IMiddleware",
-          "members": [
-            {
-              "kind": "MethodSignature",
-              "canonicalReference": "cloudfunc!IMiddleware#onCall:member(1)",
-              "docComment": "/**\n * Hook for execution of middleware\n *\n * @param event - Event for middleware\n *\n * @param options - Options declared for middleware\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "onCall(event: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "MiddlewareEvent",
-                  "canonicalReference": "cloudfunc!MiddlewareEvent:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", options?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<void>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 7
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "event",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "options",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
-                }
-              ],
-              "name": "onCall"
             }
           ],
           "extendsTokenRanges": []
@@ -3978,26 +1910,112 @@
           "name": "Local"
         },
         {
-          "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!MiddlewareClass:type",
+          "kind": "Variable",
+          "canonicalReference": "cloudfunc!metadataKeyMiddleware:var",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare type MiddlewareClass = "
-            },
+              "text": "metadataKeyMiddleware = \"entry:middleware\""
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "metadataKeyMiddleware",
+          "variableTypeTokenRange": {
+            "startIndex": 0,
+            "endIndex": 0
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "cloudfunc!Middleware:function(1)",
+          "docComment": "/**\n * Add middleware to entry point\n *\n * @param fn - Middleware hook {@link MiddlewareParam}\n *\n * @public\n */\n",
+          "excerptTokens": [
             {
               "kind": "Content",
-              "text": "{\n    new (...args: any): "
+              "text": "export declare function Middleware(fn: "
             },
             {
               "kind": "Reference",
-              "text": "IMiddleware",
-              "canonicalReference": "cloudfunc!IMiddleware:interface"
+              "text": "MiddlewareParam",
+              "canonicalReference": "cloudfunc!MiddlewareParam:type"
             },
             {
               "kind": "Content",
-              "text": ";\n}"
+              "text": ", order?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "MiddlewareOrder",
+              "canonicalReference": "cloudfunc!MiddlewareOrder:enum"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "(target: any, targetKey: string, descriptor: any) => void"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "fn",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "order",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "Middleware"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "cloudfunc!MiddlewareDynamic:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type MiddlewareDynamic = "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    service: "
+            },
+            {
+              "kind": "Reference",
+              "text": "BindType",
+              "canonicalReference": "cloudfunc!BindType:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    executor: "
+            },
+            {
+              "kind": "Reference",
+              "text": "MiddlewareExecutor",
+              "canonicalReference": "cloudfunc!MiddlewareExecutor:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    params: any;\n    source?: 'module' | 'function';\n}"
             },
             {
               "kind": "Content",
@@ -4005,24 +2023,33 @@
             }
           ],
           "releaseTag": "Public",
-          "name": "MiddlewareClass",
+          "name": "MiddlewareDynamic",
           "typeTokenRange": {
             "startIndex": 1,
-            "endIndex": 4
+            "endIndex": 6
           }
         },
         {
           "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!MiddlewareEvent:type",
+          "canonicalReference": "cloudfunc!MiddlewareExecutor:type",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare type MiddlewareEvent = "
+              "text": "export declare type MiddlewareExecutor = "
             },
             {
               "kind": "Content",
-              "text": "{\n    aws?: {\n        event: any;\n        context: any;\n    };\n    gcp?: {\n        event: any;\n        context: any;\n    };\n    azure?: {\n        request: any;\n        context: any;\n    };\n}"
+              "text": "(...args: any[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<void>"
             },
             {
               "kind": "Content",
@@ -4030,10 +2057,10 @@
             }
           ],
           "releaseTag": "Public",
-          "name": "MiddlewareEvent",
+          "name": "MiddlewareExecutor",
           "typeTokenRange": {
             "startIndex": 1,
-            "endIndex": 2
+            "endIndex": 4
           }
         },
         {
@@ -4047,17 +2074,21 @@
             },
             {
               "kind": "Reference",
-              "text": "MiddlewareClass",
-              "canonicalReference": "cloudfunc!MiddlewareClass:type"
+              "text": "MiddlewareDynamic",
+              "canonicalReference": "cloudfunc!MiddlewareDynamic:type"
             },
             {
               "kind": "Content",
-              "text": " | "
+              "text": " & {\n    order: "
             },
             {
               "kind": "Reference",
-              "text": "MiddlewareObjectWithOptions",
-              "canonicalReference": "cloudfunc!MiddlewareObjectWithOptions:type"
+              "text": "MiddlewareOrder",
+              "canonicalReference": "cloudfunc!MiddlewareOrder:enum"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n}"
             },
             {
               "kind": "Content",
@@ -4068,30 +2099,88 @@
           "name": "MiddlewareObject",
           "typeTokenRange": {
             "startIndex": 1,
-            "endIndex": 4
+            "endIndex": 5
           }
         },
         {
-          "kind": "TypeAlias",
-          "canonicalReference": "cloudfunc!MiddlewareObjectWithOptions:type",
+          "kind": "Enum",
+          "canonicalReference": "cloudfunc!MiddlewareOrder:enum",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare type MiddlewareObjectWithOptions = "
+              "text": "export declare enum MiddlewareOrder "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "MiddlewareOrder",
+          "members": [
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "cloudfunc!MiddlewareOrder.INPUT:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "INPUT = "
+                },
+                {
+                  "kind": "Content",
+                  "text": "0"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "INPUT",
+              "initializerTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
             },
             {
+              "kind": "EnumMember",
+              "canonicalReference": "cloudfunc!MiddlewareOrder.OUTPUT:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "OUTPUT = "
+                },
+                {
+                  "kind": "Content",
+                  "text": "1"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "OUTPUT",
+              "initializerTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ]
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "cloudfunc!MiddlewareParam:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
               "kind": "Content",
-              "text": "{\n    middleware: "
+              "text": "export declare type MiddlewareParam = "
             },
             {
               "kind": "Reference",
-              "text": "MiddlewareClass",
-              "canonicalReference": "cloudfunc!MiddlewareClass:type"
+              "text": "MiddlewareExecutor",
+              "canonicalReference": "cloudfunc!MiddlewareExecutor:type"
             },
             {
               "kind": "Content",
-              "text": ";\n    options: any;\n}"
+              "text": " | "
+            },
+            {
+              "kind": "Reference",
+              "text": "MiddlewareDynamic",
+              "canonicalReference": "cloudfunc!MiddlewareDynamic:type"
             },
             {
               "kind": "Content",
@@ -4099,7 +2188,7 @@
             }
           ],
           "releaseTag": "Public",
-          "name": "MiddlewareObjectWithOptions",
+          "name": "MiddlewareParam",
           "typeTokenRange": {
             "startIndex": 1,
             "endIndex": 4
@@ -4300,7 +2389,15 @@
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "abstract afterEntry(...args: "
+                  "text": "afterEntry(payload: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", middlewares: "
                 },
                 {
                   "kind": "Content",
@@ -4327,17 +2424,24 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 5
+                "startIndex": 5,
+                "endIndex": 7
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
               "parameters": [
                 {
-                  "parameterName": "args",
+                  "parameterName": "payload",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
                     "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "middlewares",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
                   }
                 }
               ],
@@ -4346,11 +2450,19 @@
             {
               "kind": "Method",
               "canonicalReference": "cloudfunc!Provider#beforeEntry:member(1)",
-              "docComment": "/**\n * Execute before to enter on {@link entry() function} declare on\n */\n",
+              "docComment": "",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "abstract beforeEntry(): "
+                  "text": "beforeEntry(middlewares: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
                 },
                 {
                   "kind": "Reference",
@@ -4369,12 +2481,20 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
+                "startIndex": 3,
+                "endIndex": 5
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
-              "parameters": [],
+              "parameters": [
+                {
+                  "parameterName": "middlewares",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
               "name": "beforeEntry"
             }
           ],
@@ -4398,30 +2518,66 @@
           "name": "ProviderBase",
           "members": [
             {
-              "kind": "Method",
-              "canonicalReference": "cloudfunc!ProviderBase#addMiddleware:member(1)",
-              "docComment": "/**\n * Add middleware\n *\n * @param container - Instance of {@link DependencyContainer}\n */\n",
+              "kind": "Property",
+              "canonicalReference": "cloudfunc!ProviderBase#_provider:member",
+              "docComment": "",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "addMiddleware(middleware: "
+                  "text": "abstract _provider: "
                 },
                 {
                   "kind": "Reference",
-                  "text": "MiddlewareObject",
-                  "canonicalReference": "cloudfunc!MiddlewareObject:type"
+                  "text": "Providers",
+                  "canonicalReference": "cloudfunc!Providers:type"
                 },
                 {
                   "kind": "Content",
-                  "text": "[]"
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "_provider",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "cloudfunc!ProviderBase#afterEntry:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "abstract afterEntry(input: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", middlewares: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any[]"
                 },
                 {
                   "kind": "Content",
                   "text": "): "
                 },
                 {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
                   "kind": "Content",
-                  "text": "void"
+                  "text": "<any>"
                 },
                 {
                   "kind": "Content",
@@ -4431,21 +2587,105 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 4,
+                "startIndex": 5,
+                "endIndex": 7
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "input",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "middlewares",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                }
+              ],
+              "name": "afterEntry"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "cloudfunc!ProviderBase#args:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "get args(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "args",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "cloudfunc!ProviderBase#beforeEntry:member(1)",
+              "docComment": "/**\n * Execute before to enter on {@link entry() function} declare on\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "abstract beforeEntry(middlewares: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<any[]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
                 "endIndex": 5
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
               "parameters": [
                 {
-                  "parameterName": "middleware",
+                  "parameterName": "middlewares",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 3
+                    "endIndex": 2
                   }
                 }
               ],
-              "name": "addMiddleware"
+              "name": "beforeEntry"
             },
             {
               "kind": "Property",
@@ -4477,21 +2717,17 @@
             },
             {
               "kind": "Property",
-              "canonicalReference": "cloudfunc!ProviderBase#middlewares:member",
-              "docComment": "/**\n * Get all middlewares\n *\n * @returns Group of middlewares\n *\n * @readonly\n */\n",
+              "canonicalReference": "cloudfunc!ProviderBase#provider:member",
+              "docComment": "/**\n * Get provider\n *\n * @returns Provider\n *\n * @readonly\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "get middlewares(): "
+                  "text": "get provider(): "
                 },
                 {
                   "kind": "Reference",
-                  "text": "MiddlewareObject",
-                  "canonicalReference": "cloudfunc!MiddlewareObject:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[]"
+                  "text": "Providers",
+                  "canonicalReference": "cloudfunc!Providers:type"
                 },
                 {
                   "kind": "Content",
@@ -4500,12 +2736,57 @@
               ],
               "isOptional": false,
               "releaseTag": "Public",
-              "name": "middlewares",
+              "name": "provider",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 3
+                "endIndex": 2
               },
               "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "cloudfunc!ProviderBase#setArgs:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setArgs(args: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "args",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "setArgs"
             },
             {
               "kind": "Method",
@@ -4582,6 +2863,56 @@
             }
           ],
           "implementsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "cloudfunc!ProviderInfo:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type ProviderInfo = "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    provider: 'aws' | 'gcp' | 'azure';\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "ProviderInfo",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "cloudfunc!Providers:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type Providers = "
+            },
+            {
+              "kind": "Content",
+              "text": "'aws' | 'gcp' | 'azure'"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Providers",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
         },
         {
           "kind": "Class",

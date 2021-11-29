@@ -7,7 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type BindType = string | symbol | {
-    new (...args: any[]): any;
-};
+export declare type BindType = string | symbol | (abstract new (...args: any[]) => any) | (new (...args: any[]) => any);
 ```

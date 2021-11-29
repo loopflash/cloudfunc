@@ -8,7 +8,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare abstract class AwsProvider extends Provider 
+export declare class AwsProvider extends Provider 
 ```
 <b>Extends:</b> [Provider](./cloudfunc.provider.md)
 
@@ -22,14 +22,5 @@ export declare abstract class AwsProvider extends Provider
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [\_context](./cloudfunc.awsprovider._context.md) |  | any |  |
-|  [\_event](./cloudfunc.awsprovider._event.md) |  | any |  |
-|  [providerName](./cloudfunc.awsprovider.providername.md) |  | string |  |
-
-## Methods
-
-|  Method | Modifiers | Description |
-|  --- | --- | --- |
-|  [setContext(context)](./cloudfunc.awsprovider.setcontext.md) |  |  |
-|  [setEvent(event)](./cloudfunc.awsprovider.setevent.md) |  |  |
+|  [\_provider](./cloudfunc.awsprovider._provider.md) |  | [Providers](./cloudfunc.providers.md) |  |
 

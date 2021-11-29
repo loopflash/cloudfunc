@@ -7,16 +7,17 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function executeMiddleware(event: MiddlewareEvent, middlewares: MiddlewareObject[], container: Container): Promise<void>;
+export declare function executeMiddleware(args: any[], middlewares: MiddlewareDynamic[], container: Container, provider: ProviderInfo): Promise<void>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  event | [MiddlewareEvent](./cloudfunc.middlewareevent.md) |  |
-|  middlewares | [MiddlewareObject](./cloudfunc.middlewareobject.md)<!-- -->\[\] |  |
+|  args | any\[\] |  |
+|  middlewares | [MiddlewareDynamic](./cloudfunc.middlewaredynamic.md)<!-- -->\[\] |  |
 |  container | Container |  |
+|  provider | [ProviderInfo](./cloudfunc.providerinfo.md) |  |
 
 <b>Returns:</b>
 

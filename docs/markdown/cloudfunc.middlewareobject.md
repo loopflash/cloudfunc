@@ -7,7 +7,9 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type MiddlewareObject = MiddlewareClass | MiddlewareObjectWithOptions;
+export declare type MiddlewareObject = MiddlewareDynamic & {
+    order: MiddlewareOrder;
+};
 ```
-<b>References:</b> [MiddlewareClass](./cloudfunc.middlewareclass.md)<!-- -->, [MiddlewareObjectWithOptions](./cloudfunc.middlewareobjectwithoptions.md)
+<b>References:</b> [MiddlewareDynamic](./cloudfunc.middlewaredynamic.md)<!-- -->, [MiddlewareOrder](./cloudfunc.middlewareorder.md)
 

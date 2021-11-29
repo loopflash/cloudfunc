@@ -8,7 +8,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare abstract class GcpProvider extends Provider 
+export declare class GcpProvider extends Provider 
 ```
 <b>Extends:</b> [Provider](./cloudfunc.provider.md)
 
@@ -22,14 +22,5 @@ export declare abstract class GcpProvider extends Provider
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [\_context](./cloudfunc.gcpprovider._context.md) |  | any |  |
-|  [\_event](./cloudfunc.gcpprovider._event.md) |  | any |  |
-|  [providerName](./cloudfunc.gcpprovider.providername.md) |  | string |  |
-
-## Methods
-
-|  Method | Modifiers | Description |
-|  --- | --- | --- |
-|  [setContext(context)](./cloudfunc.gcpprovider.setcontext.md) |  |  |
-|  [setEvent(event)](./cloudfunc.gcpprovider.setevent.md) |  |  |
+|  [\_provider](./cloudfunc.gcpprovider._provider.md) |  | [Providers](./cloudfunc.providers.md) |  |
 

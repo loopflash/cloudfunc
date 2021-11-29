@@ -1,6 +1,6 @@
 {
   "name": "cloudfunc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "description": "A simple library for manage functions in cloud on simple way and with dependency injection.",
   "license": "MIT",
@@ -16,12 +16,15 @@
   "keywords": [
     "aws",
     "gcp",
+    "azure",
     "lambda",
     "google function",
     "dependency",
     "injection",
     "cloud",
-    "api gateway"
+    "api gateway",
+    "http",
+    "services"
   ],
   "engines": {
     "node": ">=12"
@@ -51,7 +54,6 @@
     "yesno": "^0.3.1"
   },
   "dependencies": {
-    "cookie": "^0.4.1",
     "dependency-graph": "^0.11.0",
     "dot-object": "^2.1.4",
     "inversify": "^5.1.1",

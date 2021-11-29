@@ -7,29 +7,29 @@ import {
     AwsProvider
 } from '../../../src';
 import { EntryPoint } from './entry';
+import { MyMiddlewareService } from './services/middleware';
 import { Service1 } from './services/service1';
 import { Service2 } from './services/service2';
-import { Service3 } from './services/service3';
 
-describe('Integration - Basic Services', () => {
+describe('Integration - Middleware', () => {
 
-    test('Should return status 700', async () => {
+    test('Should return status 200', async () => {
         const container = new Container();
+        const entry = {doc: 10} as any;
         container.addEntryPoint(EntryPoint);
         container.addServices([
             Service1,
-            {
-                bind: 'myService',
-                to: Service2
-            },
-            Service3
+            Service2,
+            MyMiddlewareService
         ]);
         await container.load();
         const provider = new AwsProvider();
-        provider.setArgs([{}, {}]);
+        provider.setArgs([entry, {}]);
         const result = await container.execute(provider);
         expect(result.status).toBeDefined();
-        expect(result.status).toBe(700);
-    })
+        expect(result.status).toBe(200);
+        expect(entry).toHaveProperty('doc');
+        expect(entry.doc).toBe(212);
+    });
 
 });

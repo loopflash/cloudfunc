@@ -8,33 +8,33 @@
 
 |  Class | Description |
 |  --- | --- |
-|  [ApiGateway](./cloudfunc.apigateway.md) |  |
-|  [ApiGatewayContext](./cloudfunc.apigatewaycontext.md) |  |
 |  [AwsProvider](./cloudfunc.awsprovider.md) |  |
-|  [AwsRawLambda](./cloudfunc.awsrawlambda.md) |  |
 |  [AzureProvider](./cloudfunc.azureprovider.md) |  |
-|  [AzureRawFunction](./cloudfunc.azurerawfunction.md) |  |
 |  [Container](./cloudfunc.container.md) |  |
 |  [ContainerProcess](./cloudfunc.containerprocess.md) |  |
 |  [DependencyContainer](./cloudfunc.dependencycontainer.md) |  |
 |  [GcpProvider](./cloudfunc.gcpprovider.md) |  |
-|  [GcpRawFunction](./cloudfunc.gcprawfunction.md) |  |
 |  [Provider](./cloudfunc.provider.md) |  |
 |  [ProviderBase](./cloudfunc.providerbase.md) |  |
 |  [ResolverDependency](./cloudfunc.resolverdependency.md) |  |
+
+## Enumerations
+
+|  Enumeration | Description |
+|  --- | --- |
+|  [MiddlewareOrder](./cloudfunc.middlewareorder.md) |  |
 
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
-|  [awsFormatMiddleware(event, context, state)](./cloudfunc.awsformatmiddleware.md) |  |
-|  [azureFormatMiddleware(context, request, state)](./cloudfunc.azureformatmiddleware.md) |  |
-|  [executeMiddleware(event, middlewares, container)](./cloudfunc.executemiddleware.md) |  |
-|  [gcpFormatMiddleware(event, context, state)](./cloudfunc.gcpformatmiddleware.md) |  |
+|  [executeMiddleware(args, middlewares, container, provider)](./cloudfunc.executemiddleware.md) |  |
+|  [getMiddlewares(entryPoint)](./cloudfunc.getmiddlewares.md) |  |
 |  [Inject(key)](./cloudfunc.inject.md) | Inject a service for his utilization |
 |  [Injectable()](./cloudfunc.injectable.md) | Make a service injectable for application |
 |  [isClass(func)](./cloudfunc.isclass.md) |  |
 |  [Local()](./cloudfunc.local.md) | Inject a service for his utilization but with a context inside his module |
+|  [Middleware(fn, order)](./cloudfunc.middleware.md) | Add middleware to entry point |
 |  [Optional()](./cloudfunc.optional.md) | Set an injection with optionable option |
 |  [Package()](./cloudfunc.package.md) | Make a module |
 
@@ -45,32 +45,33 @@
 |  [IActivation](./cloudfunc.iactivation.md) |  |
 |  [IEntryPoint](./cloudfunc.ientrypoint.md) |  |
 |  [IInterceptor](./cloudfunc.iinterceptor.md) |  |
-|  [IMiddleware](./cloudfunc.imiddleware.md) |  |
 |  [IPackage](./cloudfunc.ipackage.md) |  |
+
+## Variables
+
+|  Variable | Description |
+|  --- | --- |
+|  [metadataKeyMiddleware](./cloudfunc.metadatakeymiddleware.md) |  |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
 |  [ActivationClassHandler](./cloudfunc.activationclasshandler.md) |  |
-|  [ApiGatewayContextOptions](./cloudfunc.apigatewaycontextoptions.md) |  |
-|  [ApiGatewayOptions](./cloudfunc.apigatewayoptions.md) |  |
 |  [BindType](./cloudfunc.bindtype.md) |  |
 |  [DependencyElement](./cloudfunc.dependencyelement.md) |  |
 |  [DependencyElementObject](./cloudfunc.dependencyelementobject.md) |  |
 |  [DependencyModule](./cloudfunc.dependencymodule.md) |  |
 |  [EntryPointClass](./cloudfunc.entrypointclass.md) | Class definition implements [IEntryPoint](./cloudfunc.ientrypoint.md) |
-|  [EventAwsApiGateway](./cloudfunc.eventawsapigateway.md) | \*\*\*\*\* General usage |
-|  [EventAwsRawLambda](./cloudfunc.eventawsrawlambda.md) | \*\*\*\*\* General usage |
-|  [EventAzureRawFunction](./cloudfunc.eventazurerawfunction.md) | \*\*\*\*\* General usage |
-|  [EventGcpRawFunction](./cloudfunc.eventgcprawfunction.md) | \*\*\*\*\* General usage |
 |  [Interceptor](./cloudfunc.interceptor.md) | Class definition implements [IInterceptor](./cloudfunc.iinterceptor.md) |
-|  [MiddlewareClass](./cloudfunc.middlewareclass.md) |  |
-|  [MiddlewareEvent](./cloudfunc.middlewareevent.md) |  |
+|  [MiddlewareDynamic](./cloudfunc.middlewaredynamic.md) |  |
+|  [MiddlewareExecutor](./cloudfunc.middlewareexecutor.md) |  |
 |  [MiddlewareObject](./cloudfunc.middlewareobject.md) |  |
-|  [MiddlewareObjectWithOptions](./cloudfunc.middlewareobjectwithoptions.md) |  |
+|  [MiddlewareParam](./cloudfunc.middlewareparam.md) |  |
 |  [ModuleImport](./cloudfunc.moduleimport.md) |  |
 |  [PackageObject](./cloudfunc.packageobject.md) |  |
 |  [PackageStaticObject](./cloudfunc.packagestaticobject.md) |  |
+|  [ProviderInfo](./cloudfunc.providerinfo.md) |  |
+|  [Providers](./cloudfunc.providers.md) |  |
 |  [ResolverDependencyActivation](./cloudfunc.resolverdependencyactivation.md) |  |
 
