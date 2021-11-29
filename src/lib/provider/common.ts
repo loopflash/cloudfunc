@@ -68,7 +68,10 @@ export abstract class Provider extends ProviderBase{
         await executeMiddleware(
             args,
             middlewares,
-            this.container.container
+            this.container.container,
+            {
+                provider: this.provider
+            }
         );
         return args;
     }
@@ -81,7 +84,10 @@ export abstract class Provider extends ProviderBase{
         await executeMiddleware(
             args,
             middlewares,
-            this.container.container
+            this.container.container,
+            {
+                provider: this.provider
+            }
         );
         return payload;
     }

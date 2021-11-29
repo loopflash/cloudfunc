@@ -18,6 +18,9 @@ export enum MiddlewareOrder{
 export type MiddlewareObject = MiddlewareDynamic & {
     order: MiddlewareOrder
 };
+export type ProviderInfo = {
+    provider: 'aws' | 'gcp' | 'azure'
+}
 
 /**
  * Add middleware to entry point
@@ -42,16 +45,21 @@ export function Middleware(fn : MiddlewareParam, order : MiddlewareOrder = Middl
 export async function executeMiddleware(
     args : any[],
     middlewares : MiddlewareDynamic[],
-    container : Container
+    container : Container,
+    provider: ProviderInfo
 ) : Promise<void>{
     for(const element of middlewares){
         const {executor, params, service, source} = element;
         const getService = service ? container.get(service) : null;
         let argsToPass : any[];
         if(source === 'function'){
-            argsToPass = args;
+            argsToPass = [provider, ...args];
         }else{
-            argsToPass = getService ? [getService, params, ...args] : [params, ...args];
+            const paramsWithProvider = {
+                ...params,
+                ...provider
+            };
+            argsToPass = getService ? [getService, paramsWithProvider, ...args] : [paramsWithProvider, ...args];
         }
         await executor.apply(null, argsToPass);
     }
