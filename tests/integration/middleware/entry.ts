@@ -3,7 +3,7 @@ import {
     IEntryPoint,
     Middleware
 } from '../../../src';
-import { myMiddleware, myMiddlewareModule } from './services/middleware';
+import { myMiddleware, myMiddlewareModule, MyMiddlewareService } from './services/middleware';
 import { Service1 } from './services/service1';
 
 @Injectable()
@@ -15,6 +15,7 @@ export class EntryPoint implements IEntryPoint{
 
     @Middleware(myMiddleware())
     @Middleware(myMiddlewareModule())
+    @Middleware(MyMiddlewareService.myMiddleware())
     async entry(...args: any[]): Promise<any> {
         return {
             status: this._service.getData()

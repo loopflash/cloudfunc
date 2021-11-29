@@ -7,6 +7,7 @@ import {
     AwsProvider
 } from '../../../src';
 import { EntryPoint } from './entry';
+import { MyMiddlewareService } from './services/middleware';
 import { Service1 } from './services/service1';
 import { Service2 } from './services/service2';
 
@@ -18,7 +19,8 @@ describe('Integration - Middleware', () => {
         container.addEntryPoint(EntryPoint);
         container.addServices([
             Service1,
-            Service2
+            Service2,
+            MyMiddlewareService
         ]);
         await container.load();
         const provider = new AwsProvider();
@@ -27,7 +29,7 @@ describe('Integration - Middleware', () => {
         expect(result.status).toBeDefined();
         expect(result.status).toBe(200);
         expect(entry).toHaveProperty('doc');
-        expect(entry.doc).toBe(12);
+        expect(entry.doc).toBe(212);
     });
 
 });
