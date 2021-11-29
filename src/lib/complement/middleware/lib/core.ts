@@ -1,10 +1,11 @@
 import { Container } from 'inversify';
+import { BindType } from '../../../internal';
 
 export const metadataKeyMiddleware = 'entry:middleware';
 
 export type MiddlewareExecutor = (...args : any[]) => Promise<void>;
 export type MiddlewareDynamic = {
-    service: any,
+    service: BindType,
     executor: MiddlewareExecutor,
     params: any,
     source?: 'module' | 'function'
