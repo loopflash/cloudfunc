@@ -29,11 +29,11 @@ export function Middleware(fn : MiddlewareParam, order : MiddlewareOrder = Middl
     return (target : any, targetKey: string, descriptor : any) => {
         const middlewares = Reflect.getMetadata(metadataKeyMiddleware, descriptor.value) ?? [];
         Reflect.defineMetadata(metadataKeyMiddleware, [
-            ...middlewares,
             {
                 ...adapterMiddleware(fn),
                 order
-            }
+            },
+            ...middlewares,
         ], descriptor.value);
     }
 }
@@ -50,9 +50,9 @@ export async function executeMiddleware(
         if(source === 'function'){
             argsToPass = args;
         }else{
-            argsToPass = [params, ...args];
+            argsToPass = getService ? [getService, params, ...args] : [params, ...args];
         }
-        await executor.apply(getService, argsToPass);
+        await executor.apply(null, argsToPass);
     }
 }
 
