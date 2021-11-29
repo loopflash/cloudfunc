@@ -2,7 +2,7 @@ import { Injectable } from "../../../../src";
 import { Service1 } from "./service1";
 
 export function myMiddleware(){
-    return async (event : any, context : any) => {
+    return async (params, event : any, context : any) => {
         event.doc++;
     }
 }
