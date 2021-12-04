@@ -1,7 +1,8 @@
 /**
  * @group unit/raw-lambda
  */
- import {AwsProvider} from '../../../src/lib/provider/providers';
+import 'reflect-metadata';
+import {AwsProvider} from '../../../src/lib/provider/providers';
 
  describe('Provider AWS - Raw Lambda', () => {
  
@@ -16,7 +17,11 @@
          const event = {request: null};
          const context = {function: null};
          instance.setArgs([event, context]);
-         const out = await instance.beforeEntry([]);
+         const out = await instance.beforeEntry([], {
+            entryReference: {
+                prototype: {}
+            }
+         } as any);
          expect(out).toBeDefined();
          expect(out[0]).toBeDefined();
          expect(out[0]).toBe(event);
@@ -29,7 +34,11 @@
          const context = {function: null};
          const payload = {body: null};
          instance.setArgs([event, context]);
-         const out = await instance.afterEntry(payload, []);
+         const out = await instance.afterEntry(payload, [], {
+            entryReference: {
+                prototype: {}
+            }
+         } as any);
          expect(out).toBeDefined();
          expect(out).toBe(payload);
      });

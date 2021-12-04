@@ -102,5 +102,5 @@ export function createDecorator(key : string){
 }
 
 export function getDecorators(entryPoint : any){
-    return Reflect.getMetadata(metadataKeyArgsDecorator, entryPoint.prototype.entry) as any[] ?? [];
+    return Reflect.getMetadata(metadataKeyArgsDecorator, entryPoint.prototype, 'entry') as any[] ?? [];
 }

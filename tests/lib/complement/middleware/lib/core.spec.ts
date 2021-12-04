@@ -1,7 +1,8 @@
 /**
  * @group unit/middleware/core
  */
-import { executeMiddleware, MiddlewareObject, MiddlewareOrder, ProviderInfo } from "../../../../../src/lib/internal"
+import 'reflect-metadata';
+import { createDecorator, executeMiddleware, getDecorators, MiddlewareObject, MiddlewareOrder, ProviderInfo } from "../../../../../src/lib/internal"
 
 describe('Test Middleware', () => {
 
@@ -84,5 +85,26 @@ describe('Test Middleware', () => {
             ...provider
         }, event, context);
     });
+
+    describe('Decorator Middleware Scope', () => {
+
+        let fn = {
+            prototype: {
+                entry: function(){}
+            }
+        };
+
+        beforeEach(() => {
+            const Getting = createDecorator('getting');
+            Getting(fn.prototype, 'entry', 0);
+        });
+
+        test('Should get params decorators', () => {
+            const decorators = getDecorators(fn);
+            expect(decorators).toHaveLength(1);
+            expect(decorators[0]).toBe('getting');
+        });
+
+    })
 
 });
