@@ -2,6 +2,7 @@ import { Container } from 'inversify';
 import { BindType } from '../../../internal';
 
 export const metadataKeyMiddleware = 'entry:middleware';
+export const metadataKeyArgsDecorator = 'entry:argsDecorator';
 
 export type MiddlewareExecutor = (...args : any[]) => Promise<void>;
 export type MiddlewareDynamic = {
@@ -19,7 +20,9 @@ export type MiddlewareObject = MiddlewareDynamic & {
     order: MiddlewareOrder
 };
 export type ProviderInfo = {
-    provider: 'aws' | 'gcp' | 'azure'
+    provider: 'aws' | 'gcp' | 'azure',
+    finish: (obj : any) => void,
+    setDecoratorValue: (key : string, value : any) => void
 }
 
 /**
@@ -86,4 +89,18 @@ export function getMiddlewares(entryPoint : any){
         input: middlewares.filter(value => value.order === MiddlewareOrder.INPUT),
         output: middlewares.filter(value => value.order === MiddlewareOrder.OUTPUT),
     }
+}
+
+export function createDecorator(key : string){
+    return (target : any, targetKey: string, index: number) => {
+        const argsDecorator = Reflect.getMetadata(metadataKeyArgsDecorator, target, targetKey) ?? [];
+        Reflect.defineMetadata(metadataKeyArgsDecorator, [
+            key,
+            ...argsDecorator,
+        ], target, targetKey);
+    }
+}
+
+export function getDecorators(entryPoint : any){
+    return Reflect.getMetadata(metadataKeyArgsDecorator, entryPoint.prototype.entry) as any[] ?? [];
 }

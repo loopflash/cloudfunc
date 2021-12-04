@@ -1,4 +1,4 @@
-import { DependencyContainer, executeMiddleware } from '../internal';
+import { DependencyContainer, executeMiddleware, getDecorators, ProcessInfo } from '../internal';
 
 export type Providers = 'aws' | 'gcp' | 'azure';
 
@@ -12,8 +12,8 @@ export abstract class ProviderBase{
     /**
      * Execute before to enter on {@link entry() function} declare on 
      */
-    abstract beforeEntry(middlewares : any[]) : Promise<any[]>;
-    abstract afterEntry(input : any, middlewares : any[]) : Promise<any>;
+    abstract beforeEntry(middlewares : any[], processInfo : ProcessInfo) : Promise<any[]>;
+    abstract afterEntry(input : any, middlewares : any[], processInfo : ProcessInfo) : Promise<any>;
     setArgs(args : any[]){
         this._args = args;
     }
@@ -63,20 +63,30 @@ export abstract class ProviderBase{
 
 export abstract class Provider extends ProviderBase{
 
-    async beforeEntry(middlewares : any[]): Promise<any[]> {
+    async beforeEntry(middlewares : any[], processInfo : ProcessInfo): Promise<any[]> {
         const args = this.args;
         await executeMiddleware(
             args,
             middlewares,
             this.container.container,
             {
-                provider: this.provider
+                provider: processInfo.provider as any,
+                finish: (obj : any) => {
+                    processInfo.finish.flag = true;
+                    processInfo.finish.response = obj;
+                },
+                setDecoratorValue: (key : string, value : any) => {
+                    processInfo.decoratorValues[key] = value;
+                }
             }
         );
-        return args;
+        const decorators = getDecorators(processInfo.entryReference).map((element : string) => (
+            processInfo.decoratorValues[element]
+        ));
+        return [...args, ...decorators];
     }
     
-    async afterEntry(payload : any, middlewares : any[]): Promise<any> {
+    async afterEntry(payload : any, middlewares : any[], processInfo : ProcessInfo): Promise<any> {
         const args = [
             payload,
             ...this.args
@@ -86,7 +96,14 @@ export abstract class Provider extends ProviderBase{
             middlewares,
             this.container.container,
             {
-                provider: this.provider
+                provider: processInfo.provider as any,
+                finish: (obj : any) => {
+                    processInfo.finish.flag = true;
+                    processInfo.finish.response = obj;
+                },
+                setDecoratorValue: (key : string, value : any) => {
+                    processInfo.decoratorValues[key] = value;
+                }
             }
         );
         return payload;

@@ -35,6 +35,20 @@ export type EntryPointClass = {new (...args : any[]) : IEntryPoint};
  * Class definition implements {@link IInterceptor}
  */
 export type Interceptor = ({new (...args : any[]) : IInterceptor});
+/**
+ * Process Info definition
+ */
+export type ProcessInfo = {
+    provider: string,
+    finish: {
+        response: any,
+        flag: boolean
+    },
+    decoratorValues: {
+        [key : string]: any
+    },
+    entryReference: any
+}
 
 /** @public */
 export abstract class ContainerProcess{
@@ -53,15 +67,27 @@ export abstract class ContainerProcess{
      */
     private async process(provider : Provider) : Promise<any>{
         try{
+            const processInfo : ProcessInfo = {
+                provider: provider.provider,
+                finish: {
+                    response: {},
+                    flag: false
+                },
+                decoratorValues: {},
+                entryReference: this._entryPoint
+            };
             provider.setContainer(this._container);
             const instance = this._container.container.get<IEntryPoint>(this._entryPoint);
             const middlewares = getMiddlewares(this._entryPoint);
-            const beforeEventObject = await provider.beforeEntry(middlewares.input);
+            const args = await provider.beforeEntry(middlewares.input, processInfo);
+            if(processInfo.finish.flag){
+                return processInfo.finish.response;
+            }
             const eventObject = await instance.entry.apply(
                 instance, 
-                beforeEventObject
+                args
             );
-            return await provider.afterEntry(eventObject, middlewares.output);
+            return await provider.afterEntry(eventObject, middlewares.output, processInfo);
         }catch(e : any){
             if(isClass(this._interceptor)){
                 return this._container.container
