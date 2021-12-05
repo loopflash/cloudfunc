@@ -69,18 +69,9 @@ export abstract class Provider extends ProviderBase{
             args,
             middlewares,
             this.container.container,
-            {
-                provider: processInfo.provider as any,
-                finish: (obj : any) => {
-                    processInfo.finish.flag = true;
-                    processInfo.finish.response = obj;
-                },
-                setDecoratorValue: (key : string, value : any) => {
-                    processInfo.decoratorValues[key] = value;
-                }
-            }
+            processInfo
         );
-        const decorators = getDecorators(processInfo.entryReference).map((element : string) => (
+        const decorators = getDecorators(processInfo.entry).map((element : string) => (
             processInfo.decoratorValues[element]
         ));
         return [...args, ...decorators];
@@ -95,16 +86,7 @@ export abstract class Provider extends ProviderBase{
             args,
             middlewares,
             this.container.container,
-            {
-                provider: processInfo.provider as any,
-                finish: (obj : any) => {
-                    processInfo.finish.flag = true;
-                    processInfo.finish.response = obj;
-                },
-                setDecoratorValue: (key : string, value : any) => {
-                    processInfo.decoratorValues[key] = value;
-                }
-            }
+            processInfo
         );
         return payload;
     }

@@ -45,9 +45,9 @@ export type ProcessInfo = {
         flag: boolean
     },
     decoratorValues: {
-        [key : string]: any
+        [key : string | symbol]: any
     },
-    entryReference: any
+    entry: EntryPointClass
 }
 
 /** @public */
@@ -74,7 +74,7 @@ export abstract class ContainerProcess{
                     flag: false
                 },
                 decoratorValues: {},
-                entryReference: this._entryPoint
+                entry: this._entryPoint
             };
             provider.setContainer(this._container);
             const instance = this._container.container.get<IEntryPoint>(this._entryPoint);
