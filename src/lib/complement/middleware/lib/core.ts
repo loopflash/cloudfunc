@@ -20,8 +20,22 @@ export type MiddlewareObject = MiddlewareDynamic & {
     order: MiddlewareOrder
 };
 export type MiddlewareParams<T = {}> = {
+    /**
+     * Get provider
+     */
     provider: 'aws' | 'gcp' | 'azure',
-    finish: (obj : any) => void,
+    /**
+     * Stop middleware flow
+     * 
+     * @param obj - Return data directly from the function/lambda (optional)
+     */
+    finish: (obj? : any) => void,
+    /**
+     * Set decorator value
+     * 
+     * @param key - The decorator's key to read
+     * @param value - The value to be set in the key
+     */
     setDecoratorValue: (key : string | symbol, value : any) => void
 } & T;
 
@@ -53,7 +67,7 @@ export async function executeMiddleware(
 ) : Promise<void>{
     const paramsProvider = {
         provider: provider.provider as any,
-        finish: (obj : any) => {
+        finish: (obj? : any) => {
             provider.finish.flag = true;
             provider.finish.response = obj;
         },

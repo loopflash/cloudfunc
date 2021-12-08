@@ -70,7 +70,7 @@ export abstract class ContainerProcess{
             const processInfo : ProcessInfo = {
                 provider: provider.provider,
                 finish: {
-                    response: {},
+                    response: null,
                     flag: false
                 },
                 decoratorValues: {},
