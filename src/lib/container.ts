@@ -90,9 +90,12 @@ export abstract class ContainerProcess{
             return await provider.afterEntry(eventObject, middlewares.output, processInfo);
         }catch(e : any){
             if(isClass(this._interceptor)){
-                return this._container.container
-                    .get<IInterceptor>(this._interceptor)
-                    .intercept(e);
+                const instance = this._container.container
+                    .get<IInterceptor>(this._interceptor);
+                return await instance.intercept.apply(
+                    instance,
+                    [e, ...provider.args]
+                );
             }else{
                 throw e;
             }
