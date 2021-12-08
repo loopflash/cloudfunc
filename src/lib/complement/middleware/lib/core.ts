@@ -29,7 +29,7 @@ export type MiddlewareParams<T = {}> = {
      * 
      * @param obj - Return data directly from the function/lambda (optional)
      */
-    finish: (obj? : any) => void,
+    finish: (obj : any) => void,
     /**
      * Set decorator value
      * 
@@ -67,7 +67,7 @@ export async function executeMiddleware(
 ) : Promise<void>{
     const paramsProvider = {
         provider: provider.provider as any,
-        finish: (obj? : any) => {
+        finish: (obj : any = null) => {
             provider.finish.flag = true;
             provider.finish.response = obj;
         },
