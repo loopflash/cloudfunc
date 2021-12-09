@@ -14,5 +14,5 @@ export declare type MiddlewareDynamic = {
     source?: 'module' | 'function';
 };
 ```
-<b>References:</b> [BindType](./cloudfunc.bindtype.md)<!-- -->, [MiddlewareExecutor](./cloudfunc.middlewareexecutor.md)
+<b>References:</b> [BindType](./cloudfunc.bindtype.md), [MiddlewareExecutor](./cloudfunc.middlewareexecutor.md)
 

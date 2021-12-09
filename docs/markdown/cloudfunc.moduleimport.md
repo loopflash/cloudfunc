@@ -11,5 +11,5 @@ export declare type ModuleImport = {
     new (...args: any[]): IPackage;
 } | PackageStaticObject;
 ```
-<b>References:</b> [IPackage](./cloudfunc.ipackage.md)<!-- -->, [PackageStaticObject](./cloudfunc.packagestaticobject.md)
+<b>References:</b> [IPackage](./cloudfunc.ipackage.md), [PackageStaticObject](./cloudfunc.packagestaticobject.md)
 

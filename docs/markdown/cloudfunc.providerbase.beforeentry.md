@@ -9,7 +9,7 @@ Execute before to enter on  declare on
 <b>Signature:</b>
 
 ```typescript
-abstract beforeEntry(middlewares: any[]): Promise<any[]>;
+abstract beforeEntry(middlewares: any[], processInfo: ProcessInfo): Promise<any[]>;
 ```
 
 ## Parameters
@@ -17,6 +17,7 @@ abstract beforeEntry(middlewares: any[]): Promise<any[]>;
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  middlewares | any\[\] |  |
+|  processInfo | [ProcessInfo](./cloudfunc.processinfo.md) |  |
 
 <b>Returns:</b>
 

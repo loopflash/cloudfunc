@@ -4,7 +4,6 @@
 
 ## ContainerProcess class
 
-
 <b>Signature:</b>
 
 ```typescript
@@ -15,10 +14,10 @@ export declare abstract class ContainerProcess
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [\_dependencyList](./cloudfunc.containerprocess._dependencylist.md) |  | [DependencyElement](./cloudfunc.dependencyelement.md)<!-- -->\[\] |  |
+|  [\_dependencyList](./cloudfunc.containerprocess._dependencylist.md) |  | [DependencyElement](./cloudfunc.dependencyelement.md)\[\] |  |
 |  [\_entryPoint](./cloudfunc.containerprocess._entrypoint.md) |  | [EntryPointClass](./cloudfunc.entrypointclass.md) |  |
 |  [\_interceptor](./cloudfunc.containerprocess._interceptor.md) |  | [Interceptor](./cloudfunc.interceptor.md) |  |
-|  [\_modules](./cloudfunc.containerprocess._modules.md) |  | [ModuleImport](./cloudfunc.moduleimport.md)<!-- -->\[\] |  |
+|  [\_modules](./cloudfunc.containerprocess._modules.md) |  | [ModuleImport](./cloudfunc.moduleimport.md)\[\] |  |
 |  [container](./cloudfunc.containerprocess.container.md) |  | import("inversify/lib/container/container").Container | Get reference of container |
 
 ## Methods

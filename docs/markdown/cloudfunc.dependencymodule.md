@@ -12,5 +12,5 @@ export declare type DependencyModule = {
     dependencies: DependencyElement[];
 };
 ```
-<b>References:</b> [DependencyModule](./cloudfunc.dependencymodule.md)<!-- -->, [DependencyElement](./cloudfunc.dependencyelement.md)
+<b>References:</b> [DependencyModule](./cloudfunc.dependencymodule.md), [DependencyElement](./cloudfunc.dependencyelement.md)
 

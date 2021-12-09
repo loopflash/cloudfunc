@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-afterEntry(payload: any, middlewares: any[]): Promise<any>;
+afterEntry(payload: any, middlewares: any[], processInfo: ProcessInfo): Promise<any>;
 ```
 
 ## Parameters
@@ -16,6 +16,7 @@ afterEntry(payload: any, middlewares: any[]): Promise<any>;
 |  --- | --- | --- |
 |  payload | any |  |
 |  middlewares | any\[\] |  |
+|  processInfo | [ProcessInfo](./cloudfunc.processinfo.md) |  |
 
 <b>Returns:</b>
 

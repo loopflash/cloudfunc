@@ -16,8 +16,8 @@ static makeContainer(dependencyList: DependencyElement[], modulesList: ModuleImp
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  dependencyList | [DependencyElement](./cloudfunc.dependencyelement.md)<!-- -->\[\] |  |
-|  modulesList | [ModuleImport](./cloudfunc.moduleimport.md)<!-- -->\[\] |  |
+|  dependencyList | [DependencyElement](./cloudfunc.dependencyelement.md)\[\] |  |
+|  modulesList | [ModuleImport](./cloudfunc.moduleimport.md)\[\] |  |
 
 <b>Returns:</b>
 

@@ -16,7 +16,7 @@ addModules(modules: ModuleImport[]): void;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  modules | [ModuleImport](./cloudfunc.moduleimport.md)<!-- -->\[\] | Array of [ModuleImport](./cloudfunc.moduleimport.md) objects |
+|  modules | [ModuleImport](./cloudfunc.moduleimport.md)\[\] | Array of [ModuleImport](./cloudfunc.moduleimport.md) objects |
 
 <b>Returns:</b>
 

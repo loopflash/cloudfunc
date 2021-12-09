@@ -7,6 +7,7 @@ import {
     getMiddlewares
 } from "./internal";
 
+/** @public */
 export interface IEntryPoint{
     /**
      * Execute entry logic
@@ -17,6 +18,7 @@ export interface IEntryPoint{
     entry(...args : any[]) : Promise<any>;
 }
 
+/** @public */
 export interface IInterceptor{
     /**
      * Execute intercept logic
@@ -29,14 +31,31 @@ export interface IInterceptor{
 
 /**
  * Class definition implements {@link IEntryPoint}
+ * 
+ * @public
  */
 export type EntryPointClass = {new (...args : any[]) : IEntryPoint};
 /**
  * Class definition implements {@link IInterceptor}
+ * 
+ * @public
  */
 export type Interceptor = ({new (...args : any[]) : IInterceptor});
+/**
+ * Process Info definition
+ */
+export type ProcessInfo = {
+    provider: string,
+    finish: {
+        response: any,
+        flag: boolean
+    },
+    decoratorValues: {
+        [key : string | symbol]: any
+    },
+    entry: EntryPointClass
+}
 
-/** @public */
 export abstract class ContainerProcess{
 
     private _container : DependencyContainer;
@@ -53,20 +72,35 @@ export abstract class ContainerProcess{
      */
     private async process(provider : Provider) : Promise<any>{
         try{
+            const processInfo : ProcessInfo = {
+                provider: provider.provider,
+                finish: {
+                    response: null,
+                    flag: false
+                },
+                decoratorValues: {},
+                entry: this._entryPoint
+            };
             provider.setContainer(this._container);
             const instance = this._container.container.get<IEntryPoint>(this._entryPoint);
             const middlewares = getMiddlewares(this._entryPoint);
-            const beforeEventObject = await provider.beforeEntry(middlewares.input);
+            const args = await provider.beforeEntry(middlewares.input, processInfo);
+            if(processInfo.finish.flag){
+                return processInfo.finish.response;
+            }
             const eventObject = await instance.entry.apply(
                 instance, 
-                beforeEventObject
+                args
             );
-            return await provider.afterEntry(eventObject, middlewares.output);
+            return await provider.afterEntry(eventObject, middlewares.output, processInfo);
         }catch(e : any){
             if(isClass(this._interceptor)){
-                return this._container.container
-                    .get<IInterceptor>(this._interceptor)
-                    .intercept(e);
+                const instance = this._container.container
+                    .get<IInterceptor>(this._interceptor);
+                return await instance.intercept.apply(
+                    instance,
+                    [e, ...provider.args]
+                );
             }else{
                 throw e;
             }

@@ -16,6 +16,6 @@ constructor(_dependencyList: DependencyElement[], _modulesList: ModuleImport[]);
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  \_dependencyList | [DependencyElement](./cloudfunc.dependencyelement.md)<!-- -->\[\] |  |
-|  \_modulesList | [ModuleImport](./cloudfunc.moduleimport.md)<!-- -->\[\] |  |
+|  \_dependencyList | [DependencyElement](./cloudfunc.dependencyelement.md)\[\] |  |
+|  \_modulesList | [ModuleImport](./cloudfunc.moduleimport.md)\[\] |  |
 

@@ -4,6 +4,7 @@
 
 ## Provider class
 
+
 <b>Signature:</b>
 
 ```typescript
@@ -15,6 +16,6 @@ export declare abstract class Provider extends ProviderBase
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [afterEntry(payload, middlewares)](./cloudfunc.provider.afterentry.md) |  |  |
-|  [beforeEntry(middlewares)](./cloudfunc.provider.beforeentry.md) |  |  |
+|  [afterEntry(payload, middlewares, processInfo)](./cloudfunc.provider.afterentry.md) |  |  |
+|  [beforeEntry(middlewares, processInfo)](./cloudfunc.provider.beforeentry.md) |  |  |
 

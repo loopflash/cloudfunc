@@ -33,3 +33,16 @@ export class AzureProvider extends Provider{
 
 }
 
+/** @public */
+export class CustomProvider extends Provider{
+    
+    _provider: Providers;
+
+    constructor(identity : string){
+        super();
+        this._provider = identity as Providers;
+    }
+
+}
+
+

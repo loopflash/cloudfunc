@@ -11,5 +11,5 @@ export declare type MiddlewareObject = MiddlewareDynamic & {
     order: MiddlewareOrder;
 };
 ```
-<b>References:</b> [MiddlewareDynamic](./cloudfunc.middlewaredynamic.md)<!-- -->, [MiddlewareOrder](./cloudfunc.middlewareorder.md)
+<b>References:</b> [MiddlewareDynamic](./cloudfunc.middlewaredynamic.md), [MiddlewareOrder](./cloudfunc.middlewareorder.md)
 

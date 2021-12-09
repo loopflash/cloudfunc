@@ -17,7 +17,7 @@ export declare function Middleware(fn: MiddlewareParam, order?: MiddlewareOrder)
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  fn | [MiddlewareParam](./cloudfunc.middlewareparam.md) | Middleware hook [MiddlewareParam](./cloudfunc.middlewareparam.md) |
-|  order | [MiddlewareOrder](./cloudfunc.middlewareorder.md) |  |
+|  order | [MiddlewareOrder](./cloudfunc.middlewareorder.md) | Middleware order [MiddlewareOrder](./cloudfunc.middlewareorder.md) |
 
 <b>Returns:</b>
 

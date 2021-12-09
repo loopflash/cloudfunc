@@ -12,6 +12,7 @@
 |  [AzureProvider](./cloudfunc.azureprovider.md) |  |
 |  [Container](./cloudfunc.container.md) |  |
 |  [ContainerProcess](./cloudfunc.containerprocess.md) |  |
+|  [CustomProvider](./cloudfunc.customprovider.md) |  |
 |  [DependencyContainer](./cloudfunc.dependencycontainer.md) |  |
 |  [GcpProvider](./cloudfunc.gcpprovider.md) |  |
 |  [Provider](./cloudfunc.provider.md) |  |
@@ -28,7 +29,9 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [createDecorator(key)](./cloudfunc.createdecorator.md) | Create a decorator to be used at the entry point |
 |  [executeMiddleware(args, middlewares, container, provider)](./cloudfunc.executemiddleware.md) |  |
+|  [getDecorators(entryPoint)](./cloudfunc.getdecorators.md) |  |
 |  [getMiddlewares(entryPoint)](./cloudfunc.getmiddlewares.md) |  |
 |  [Inject(key)](./cloudfunc.inject.md) | Inject a service for his utilization |
 |  [Injectable()](./cloudfunc.injectable.md) | Make a service injectable for application |
@@ -51,6 +54,7 @@
 
 |  Variable | Description |
 |  --- | --- |
+|  [metadataKeyArgsDecorator](./cloudfunc.metadatakeyargsdecorator.md) |  |
 |  [metadataKeyMiddleware](./cloudfunc.metadatakeymiddleware.md) |  |
 
 ## Type Aliases
@@ -68,10 +72,11 @@
 |  [MiddlewareExecutor](./cloudfunc.middlewareexecutor.md) |  |
 |  [MiddlewareObject](./cloudfunc.middlewareobject.md) |  |
 |  [MiddlewareParam](./cloudfunc.middlewareparam.md) |  |
+|  [MiddlewareParams](./cloudfunc.middlewareparams.md) |  |
 |  [ModuleImport](./cloudfunc.moduleimport.md) |  |
 |  [PackageObject](./cloudfunc.packageobject.md) |  |
 |  [PackageStaticObject](./cloudfunc.packagestaticobject.md) |  |
-|  [ProviderInfo](./cloudfunc.providerinfo.md) |  |
+|  [ProcessInfo](./cloudfunc.processinfo.md) | Process Info definition |
 |  [Providers](./cloudfunc.providers.md) |  |
 |  [ResolverDependencyActivation](./cloudfunc.resolverdependencyactivation.md) |  |
 

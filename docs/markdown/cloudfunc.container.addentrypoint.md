@@ -18,7 +18,7 @@ addEntryPoint(entry: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  entry | { new (...args: any\[\]): [IEntryPoint](./cloudfunc.ientrypoint.md)<!-- -->; } | Class than implements [IEntryPoint](./cloudfunc.ientrypoint.md) interface |
+|  entry | { new (...args: any\[\]): [IEntryPoint](./cloudfunc.ientrypoint.md); } | Class than implements [IEntryPoint](./cloudfunc.ientrypoint.md) interface |
 
 <b>Returns:</b>
 

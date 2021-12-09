@@ -9,5 +9,5 @@
 ```typescript
 export declare type MiddlewareParam = MiddlewareExecutor | MiddlewareDynamic;
 ```
-<b>References:</b> [MiddlewareExecutor](./cloudfunc.middlewareexecutor.md)<!-- -->, [MiddlewareDynamic](./cloudfunc.middlewaredynamic.md)
+<b>References:</b> [MiddlewareExecutor](./cloudfunc.middlewareexecutor.md), [MiddlewareDynamic](./cloudfunc.middlewaredynamic.md)
 

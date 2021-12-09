@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-beforeEntry(middlewares: any[]): Promise<any[]>;
+beforeEntry(middlewares: any[], processInfo: ProcessInfo): Promise<any[]>;
 ```
 
 ## Parameters
@@ -15,6 +15,7 @@ beforeEntry(middlewares: any[]): Promise<any[]>;
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  middlewares | any\[\] |  |
+|  processInfo | [ProcessInfo](./cloudfunc.processinfo.md) |  |
 
 <b>Returns:</b>
 

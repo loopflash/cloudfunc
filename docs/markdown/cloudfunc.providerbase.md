@@ -25,8 +25,8 @@ export declare abstract class ProviderBase
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [afterEntry(input, middlewares)](./cloudfunc.providerbase.afterentry.md) |  |  |
-|  [beforeEntry(middlewares)](./cloudfunc.providerbase.beforeentry.md) |  | Execute before to enter on  declare on |
+|  [afterEntry(input, middlewares, processInfo)](./cloudfunc.providerbase.afterentry.md) |  |  |
+|  [beforeEntry(middlewares, processInfo)](./cloudfunc.providerbase.beforeentry.md) |  | Execute before to enter on  declare on |
 |  [setArgs(args)](./cloudfunc.providerbase.setargs.md) |  |  |
 |  [setContainer(container)](./cloudfunc.providerbase.setcontainer.md) |  | Set global container |
 

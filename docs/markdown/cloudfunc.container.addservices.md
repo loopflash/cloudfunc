@@ -16,7 +16,7 @@ addServices(dependencies: DependencyElement[]): void;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  dependencies | [DependencyElement](./cloudfunc.dependencyelement.md)<!-- -->\[\] | Array of [DependencyElement](./cloudfunc.dependencyelement.md) objects |
+|  dependencies | [DependencyElement](./cloudfunc.dependencyelement.md)\[\] | Array of [DependencyElement](./cloudfunc.dependencyelement.md) objects |
 
 <b>Returns:</b>
 

@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getMiddlewares(entryPoint: any): {
+export declare function getMiddlewares(entryPoint: EntryPointClass): {
     input: MiddlewareObject[];
     output: MiddlewareObject[];
 };
@@ -17,9 +17,9 @@ export declare function getMiddlewares(entryPoint: any): {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  entryPoint | any |  |
+|  entryPoint | [EntryPointClass](./cloudfunc.entrypointclass.md) |  |
 
 <b>Returns:</b>
 
-{ input: [MiddlewareObject](./cloudfunc.middlewareobject.md)<!-- -->\[\]; output: [MiddlewareObject](./cloudfunc.middlewareobject.md)<!-- -->\[\]; }
+{ input: [MiddlewareObject](./cloudfunc.middlewareobject.md)\[\]; output: [MiddlewareObject](./cloudfunc.middlewareobject.md)\[\]; }
 

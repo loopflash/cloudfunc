@@ -12,5 +12,5 @@ export declare type PackageObject = {
     services: DependencyElement[];
 };
 ```
-<b>References:</b> [ModuleImport](./cloudfunc.moduleimport.md)<!-- -->, [DependencyElement](./cloudfunc.dependencyelement.md)
+<b>References:</b> [ModuleImport](./cloudfunc.moduleimport.md), [DependencyElement](./cloudfunc.dependencyelement.md)
 

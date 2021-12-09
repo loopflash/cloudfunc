@@ -14,7 +14,7 @@ export declare class ResolverDependency
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [activations](./cloudfunc.resolverdependency.activations.md) |  | [ResolverDependencyActivation](./cloudfunc.resolverdependencyactivation.md)<!-- -->\[\] |  |
+|  [activations](./cloudfunc.resolverdependency.activations.md) |  | [ResolverDependencyActivation](./cloudfunc.resolverdependencyactivation.md)\[\] |  |
 
 ## Methods
 

@@ -4,6 +4,7 @@
 
 ## IEntryPoint interface
 
+
 <b>Signature:</b>
 
 ```typescript
