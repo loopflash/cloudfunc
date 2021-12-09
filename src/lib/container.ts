@@ -7,6 +7,7 @@ import {
     getMiddlewares
 } from "./internal";
 
+/** @public */
 export interface IEntryPoint{
     /**
      * Execute entry logic
@@ -17,6 +18,7 @@ export interface IEntryPoint{
     entry(...args : any[]) : Promise<any>;
 }
 
+/** @public */
 export interface IInterceptor{
     /**
      * Execute intercept logic
@@ -29,10 +31,14 @@ export interface IInterceptor{
 
 /**
  * Class definition implements {@link IEntryPoint}
+ * 
+ * @public
  */
 export type EntryPointClass = {new (...args : any[]) : IEntryPoint};
 /**
  * Class definition implements {@link IInterceptor}
+ * 
+ * @public
  */
 export type Interceptor = ({new (...args : any[]) : IInterceptor});
 /**
@@ -50,7 +56,6 @@ export type ProcessInfo = {
     entry: EntryPointClass
 }
 
-/** @public */
 export abstract class ContainerProcess{
 
     private _container : DependencyContainer;

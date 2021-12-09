@@ -61,6 +61,7 @@ export abstract class ProviderBase{
     }
 }
 
+/** @public */
 export abstract class Provider extends ProviderBase{
 
     async beforeEntry(middlewares : any[], processInfo : ProcessInfo): Promise<any[]> {

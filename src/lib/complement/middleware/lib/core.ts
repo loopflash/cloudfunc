@@ -43,6 +43,7 @@ export type MiddlewareParams<T = {}> = {
  * Add middleware to entry point
  * 
  * @param fn - Middleware hook {@link MiddlewareParam}
+ * @param order - Middleware order {@link MiddlewareOrder}
  * 
  * @public
  */
@@ -116,6 +117,13 @@ export function getMiddlewares(entryPoint : EntryPointClass){
     }
 }
 
+/**
+ * Create a decorator to be used at the entry point
+ * 
+ * @param key - Key of the decorator
+ * @returns The reference of value setted in middleware
+ * @public
+ */
 export function createDecorator(key : string | symbol){
     return (target : any, targetKey: string, index: number) => {
         const argsDecorator = Reflect.getMetadata(metadataKeyArgsDecorator, target, targetKey) ?? [];

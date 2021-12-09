@@ -242,6 +242,7 @@ export type ResolverDependencyActivation = {
 /**
  * Make a module
  * 
+ * @public
  */
 export function Package(){
     return (target : any) => {
@@ -252,6 +253,7 @@ export function Package(){
 /**
  * Make a service injectable for application
  * 
+ * @public
  */
 export function Injectable(){
     return (target : any) => {
@@ -263,6 +265,7 @@ export function Injectable(){
  * Inject a service for his utilization
  * 
  * @param key - Key value to reference service
+ * @public
  */
 export function Inject(key : string | symbol){
     return (target : any, targetKey: string, index : number) => {
@@ -273,6 +276,7 @@ export function Inject(key : string | symbol){
 /**
  * Inject a service for his utilization but with a context inside his module
  * 
+ * @public
  */
 export function Local(){
     return (target : any, targetKey: string, index : number) => {
