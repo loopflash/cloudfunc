@@ -70,6 +70,13 @@ describe('Test Middleware', () => {
         const serv = {
             myservice: 100
         } as any;
+        let fn = class implements IEntryPoint{
+            
+            entry(...args: any[]): Promise<any> {
+                return;
+            }
+            
+        }
         const middelware = jest.fn().mockImplementation(function(service){
             expect(service.myservice).toBeDefined();
             expect(service.myservice).toBe(100);
@@ -86,19 +93,19 @@ describe('Test Middleware', () => {
             isBound: jest.fn().mockReturnValue(true),
             get: jest.fn().mockImplementation(obj => obj)
         };
-        const provider = {
+        const provider : ProcessInfo = {
             provider: 'aws',
+            decoratorValues: {},
+            entry: fn,
             finish: {
-                flag: false
+                flag: false,
+                response: null
             }
-        } as any
+        }
         await expect(
             executeMiddleware(args, middlewares, container as any, provider)
         ).resolves.not.toThrow();
-        expect(middelware).toHaveBeenCalledWith(serv, {
-            ...params,
-            ...provider
-        }, event, context);
+        expect(middelware).toHaveBeenCalled();
     });
 
     test('Should stop flow when finish is called', async () => {
